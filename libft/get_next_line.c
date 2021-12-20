@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 13:34:32 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/20 13:44:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/12/20 15:36:31 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int	get_next_line(char **line)
 		i++;
 		if (r > 0 && i % 40 == 0)
 		{
-			temp = (char *)malloc(i + 41);
-
+			temp = buffer;
+			buffer = (char *)malloc(i + 41);
+			ft_strlcat(buffer, temp, i);
+			free(temp);
 		}
 
 	}
