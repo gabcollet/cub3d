@@ -6,7 +6,7 @@
 #    By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/11 12:58:26 by gcollet           #+#    #+#              #
-#    Updated: 2021/12/20 11:25:39 by sfournie         ###   ########.fr        #
+#    Updated: 2021/12/20 13:35:40 by sfournie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,8 @@ SRCS 	= ft_isalnum.c ft_isdigit.c ft_isint.c ft_isllong.c ft_isalpha.c\
 		dlst_clear.c dlst_new_node.c dlst_unlink_node.c dlst_iter.c\
 		\
 		ft_sort_tab.c ft_free_tab.c ft_array_clear.c ft_array_size.c\
+		\
+		get_next_line.c
 		
 		
 OBJFILES = $(SRCS:.c=.o)

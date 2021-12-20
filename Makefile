@@ -6,7 +6,7 @@
 #    By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/12/20 12:32:17 by sfournie         ###   ########.fr        #
+#    Updated: 2021/12/20 14:14:44 by sfournie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ C_FWRK	= -framework OpenGL -framework AppKit
 #
 
 # Program
-NAME	= cub3d
+NAME	= cub3D
 #
 
 # Directories
