@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/20 14:18:11 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/20 15:28:12 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,24 @@ typedef struct s_mlx
 # define S_KEY			1
 # define D_KEY			2
 # define SPEED			3.0
+# define TILESET		50
+
+# define WHITE			0xffffff
+# define BLACK			0
+# define YELLOW			0xf0de18
+
+int mapX = 8, mapY = 8, mapS = 64;
+int map[] = 
+{
+	1,1,1,1,1,1,1,1,
+	1,0,1,0,0,0,0,1,
+	1,0,1,0,0,0,0,1,
+	1,0,1,0,0,0,0,1,
+	1,0,0,0,0,0,0,1,
+	1,0,0,0,1,0,0,1,
+	1,0,0,0,0,0,0,1,
+	1,1,1,1,1,1,1,1,
+};
 
 float px, py; //player position
 float vx_a, vx_d, vy_w, vy_s; //velocity
@@ -81,13 +99,45 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+int	check_collision_x(int plyr_x, int plyr_y)
+{
+	if (plyr_x / TILESET > mapX || map[plyr_x / TILESET + plyr_y / TILESET * mapX] == 1)
+		return (1);
+	if ((plyr_x + 10) / TILESET > mapX || map[(plyr_x + 10) / TILESET + plyr_y / TILESET * mapX] == 1)
+		return (1);
+	if ((plyr_x) / TILESET > mapX || map[(plyr_x) / TILESET + (plyr_y + 10) / TILESET * mapX] == 1)
+		return (1);
+	if ((plyr_x + 10) / TILESET > mapX || map[(plyr_x + 10) / TILESET + (plyr_y + 10) / TILESET * mapX] == 1)
+		return (1);
+	return (0);
+}
+int	check_collision_y(int plyr_x, int plyr_y)
+{
+	if (plyr_y / TILESET > mapY || map[plyr_x / TILESET + plyr_y / TILESET * mapY] == 1)
+		return (1);
+	if ((plyr_y + 10) / TILESET > mapY || map[plyr_x / TILESET + (plyr_y + 10) / TILESET * mapY] == 1)
+		return (1);
+	if ((plyr_y) / TILESET > mapY || map[(plyr_x + 10) / TILESET + (plyr_y) / TILESET * mapY] == 1)
+		return (1);
+	if ((plyr_y + 10) / TILESET > mapY || map[(plyr_x + 10) / TILESET + (plyr_y + 10) / TILESET * mapY] == 1)
+		return (1);
+	return (0);
+}
+
+int	change_player_pos(void)
+{
+	if (!check_collision_x(px + vx_a + vx_d, py))
+		px += vx_a + vx_d;
+	if (!check_collision_y(px, py + vy_w + vy_s))
+	py += vy_w + vy_s;
+}
+
 void drawPlayer(t_mlx *mlx)
 {
 	int x;
 	int y;
 	
-	px += vx_a + vx_d;
-	py += vy_w + vy_s;
+	change_player_pos();
 	x = px;
 	y = py;
 	while (y++ < (py + 10))
@@ -95,7 +145,41 @@ void drawPlayer(t_mlx *mlx)
 		x = px;
 		while (x++ < (px + 10))
 		{
-			my_mlx_pixel_put(mlx, x, y, 0xf0de18);	
+			my_mlx_pixel_put(mlx, x, y, YELLOW);
+		}
+	}
+}
+
+void drawTile(t_mlx *mlx, int x, int y)
+{
+	int	index_x;
+	int index_y;
+
+	index_x = x;
+	index_y = y;
+	while (index_y < (y + TILESET))
+	{
+		index_x = x;
+		while (index_x < (x + TILESET))
+		{
+			my_mlx_pixel_put(mlx, index_x, index_y, WHITE);
+			index_x++;
+		}
+		index_y++;
+	}
+}
+
+void drawMap2D(t_mlx *mlx)
+{
+	int x, y, xo, yo;
+	for (y=0; y<mapY; y++)
+	{
+		for (x=0; x<mapX; x++)
+		{
+			if (map[y*mapX+x]==1)
+			{
+				drawTile(mlx, x * TILESET, y * TILESET);
+			}
 		}
 	}
 }
@@ -106,6 +190,7 @@ void display()
 
 	mlx = getmlx();
 	mlx_clear_img(&mlx);
+	drawMap2D(&mlx);
 	drawPlayer(&mlx);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img, 0, 0);
 }
@@ -133,14 +218,15 @@ int buttons_release(int key, t_mlx *mlx)
 		vy_w = 0;
 	if(key == S_KEY)
 		vy_s = 0;
+	if (key == ESC)
+		exit(0);
 	return (0);
 }
 
 void init()
 {
-	px = 0; py = 0;
+	px = 51; py = 51;
 }
-
 
 int main(int ac, char **av)
 {
