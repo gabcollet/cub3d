@@ -6,7 +6,7 @@
 #    By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/12/20 14:26:42 by sfournie         ###   ########.fr        #
+#    Updated: 2021/12/20 15:50:41 by sfournie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ MK_LFT		= make -C $(DIR_LFT)
 
 # Mains
 MAIN		= $(DIR_MAINS)/cub3d.c
+MAIN_PRAC	= $(DIR_MAINS)/main.c
 
 # Headers
 _HEADS	=	cub3d.h
@@ -87,9 +88,14 @@ fclean	: clean
 		@ $(MK_LFT) fclean
 		@ rm -rf $(NAME)
 		
+practice	: _practice $(NAME)
+_practice	: 
+			$(eval MAIN=$(MAIN_PRAC))
+
+
 
 re		: fclean all
 
 bonus	: $(NAME)
 
-.PHONY	: all re clean fclean bonus
+.PHONY	: all re clean fclean bonus practice

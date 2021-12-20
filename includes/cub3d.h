@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/20 15:36:46 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/12/20 15:47:55 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,21 @@ struct s_game
 
 struct s_lvl
 {
-	int		*map;
-	int		width;
-	int		height;
+	int	*map;
+	int	width;
+	int	height;
+};
+
+struct s_obj
+{
+
+};
+
+struct t_player
+{
+	int	x;
+	int	y;
+	int	z;
 };
 
 struct s_img
@@ -62,5 +74,6 @@ struct s_mlx
 	void	*mlx;
 	void	*win;
 	t_img	img;
+	int		init;
 };
 #endif
