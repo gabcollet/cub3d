@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 10:34:12 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/20 11:06:38 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/12/20 12:28:20 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_dlist	*dlst_new(int content)
 		exit(EXIT_FAILURE);
 	}
 	list->pos = 0;
-	list->content = content;
+	list->content = (void *)&content;
 	list->next = NULL;
 	list->prev = NULL;
 	return (list);
