@@ -3,20 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+         #
+#    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/12/20 15:50:41 by sfournie         ###   ########.fr        #
+#    Updated: 2021/12/21 16:23:25 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compilation
-CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
-C_OBJS	= $(CC) $(CFLAGS) $(INCS_FLAGS) -c $< -o $@
-C_MAIN	= $(CC) $(CFLAGS) $(INCS_FLAGS) -lmlx $(C_FWRK) $(L_ALL)
-C_FWRK	= -framework OpenGL -framework AppKit
-
+# INCS_FLAGS has all the -I that are needed. (-Imlx, -Ilibft, etc.)
+CC				= gcc
+CFLAGS			= -Wall -Wextra -Werror
+C_ALL			= $(CC) $(CFLAGS) $(INCS_FLAGS) $(INC_MLX)
+C_OBJS			= $(C_ALL)
+C_MAIN			= $(C_ALL) -g $(MAIN) $(OBJS) -lmlx $(C_FWRK) $(LIB_ALL) -o $(NAME)
+C_LINUX_OBJS	= $(C_ALL) -O3
+C_LINUX_MAIN	= $(C_ALL) -g $(MAIN) $(OBJS) -Lmlx_linux -lmlx_linux -lXext -lX11 -lm -lz $(LIB_LFT) -o $(NAME)
+C_FWRK			= -framework OpenGL -framework AppKit
 #
 
 # Program
@@ -32,10 +35,10 @@ DIR_LFT		= libft
 #
 
 # Libraries and Includes
-L_LFT		= $(DIR_LFT)/libft.a
+LIB_LFT		= $(DIR_LFT)/libft.a
+INC_MLX		= -Imlx
 
-L_ALL		= $(LIB_LFT)
-INCS_ALL	= $(DIR_LFT) $(DIR_INCS) mlx
+INCS_ALL	= $(DIR_LFT) $(DIR_INCS)
 INCS_FLAGS	= $(patsubst %,-I%,$(INCS_ALL))
 #
 
@@ -53,30 +56,28 @@ HEADS		= $(patsubst %,$(DIR_INCS)/%,$(_HEADS))
 #
 
 # Sources and Objects
-SRC	= 	
+SRCS	= 	position.c size.c vector3d.c
 
-_OBJ	= $(SRC:.c=.o)
-OBJ		= $(patsubst %,$(DIR_OBJS)/%,$(_OBJ))
+_OBJS	= $(SRCS:.c=.o)
+OBJS	= $(patsubst %,$(DIR_OBJS)/%,$(_OBJS))
 
 $(DIR_OBJS)/%.o :  %.c
-		@ $(C_OBJS)
+		$(C_OBJS) -c $< -o $@
 
 vpath %.c $(DIR_SRCS)
-
-SRCS	= $(SRC)
-OBJS	= $(OBJ)
 #
+
 all		: $(NAME)
 
-$(NAME)	: $(HEADS) $(DIR_INCS) $(L_LFT) $(SRCS) $(MAIN) $(DIR_OBJS) $(OBJS)
-		 $(C_MAIN) $(MAIN) $(OBJS) -o $(NAME)
+$(NAME)	: $(HEADS) $(DIR_INCS) $(LIB_LFT) $(SRCS) $(MAIN) $(DIR_OBJS) $(OBJS)
+		 $(C_MAIN)
 		# $(shell echo "Compiling cub3d done!")
 		# $(shell echo "Executable is : $(NAME)")
 
 $(DIR_OBJS)	: 
 		@ mkdir objs
 
-$(L_LFT)	:
+$(LIB_LFT)	:
 		@ $(MK_LFT) all
 
 clean	: 
@@ -87,15 +88,16 @@ clean	:
 fclean	: clean
 		@ $(MK_LFT) fclean
 		@ rm -rf $(NAME)
-		
-practice	: _practice $(NAME)
-_practice	: 
-			$(eval MAIN=$(MAIN_PRAC))
 
+linux	: _linux $(NAME)
 
+_linux	:
+		$(eval C_OBJS=$(C_LINUX_OBJS))
+		$(eval C_MAIN=$(C_LINUX_MAIN))
+		$(eval INC_MLX=$(INC_MLX)_linux)
 
 re		: fclean all
 
 bonus	: $(NAME)
 
-.PHONY	: all re clean fclean bonus practice
+.PHONY	: all re clean fclean bonus linux
