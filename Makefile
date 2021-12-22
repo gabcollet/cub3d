@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
+#    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/12/22 14:51:36 by fousse           ###   ########.fr        #
+#    Updated: 2021/12/22 17:03:55 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compilation
 # INCS_FLAGS has all the -I that are needed. (-Imlx, -Ilibft, etc.)
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra
 C_ALL			= $(CC) $(CFLAGS) $(INCS_FLAGS) $(INC_MLX)
 C_OBJS			= $(C_ALL)
 C_MAIN			= $(C_ALL) -g $(MAIN) $(OBJS) -lmlx $(C_FWRK) $(LIB_ALL) -o $(NAME)
@@ -47,8 +47,7 @@ MK_LFT		= make -C $(DIR_LFT)
 #
 
 # Mains
-MAIN		= $(DIR_MAINS)/cub3d.c
-MAIN_PRAC	= $(DIR_MAINS)/main.c
+MAIN		= $(DIR_MAINS)/main.c
 
 # Headers
 _HEADS	=	cub3d.h
@@ -56,7 +55,10 @@ HEADS		= $(patsubst %,$(DIR_INCS)/%,$(_HEADS))
 #
 
 # Sources and Objects
-SRCS	= 	position.c size.c vector3d.c
+SRCS	= 	position.c size.c \
+			vector3d.c \
+			image.c \
+			movement.c collision.c\
 
 _OBJS	= $(SRCS:.c=.o)
 OBJS	= $(patsubst %,$(DIR_OBJS)/%,$(_OBJS))
@@ -97,6 +99,8 @@ _linux	:
 		$(eval INC_MLX=$(INC_MLX))
 
 re		: fclean all
+
+re_linux : fclean linux
 
 bonus	: $(NAME)
 

@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector3d.c                                         :+:      :+:    :+:   */
+/*   raycast_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/21 09:35:03 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/22 16:11:53 by gcollet          ###   ########.fr       */
+/*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
+/*   Updated: 2021/12/22 17:26:55 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"cub3d.h"
+#include "cub3d.h"
 
-t_vect	new_vect(int x, int y, int z)
+int raycast_draw(t_pos pos, float rot, int dist)
 {
-	t_vect	vect;
-
-	vect.x = x;
-	vect.y = y;
-	vect.z = z;
-	return (vect);
+	int		*map;
+	t_pos	r_pos;
+	t_pos	dest;
+	
+	r_pos = new_pos(pos.x, pos.y, pos.z);
+	f_pos = move_pos(pos, rot, dist);
+	dest = g_game.map.map;
+	while (r_pos.x <= pos.x + f_pos.x && )
+	{
+		my_mlx_pixel_put(g_game.mlx, r_pos.x, r_pos.y, 0x00FF00));
+	}
 }
