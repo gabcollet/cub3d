@@ -6,7 +6,7 @@
 #    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/12/21 16:23:25 by fousse           ###   ########.fr        #
+#    Updated: 2021/12/22 14:51:36 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,7 +94,7 @@ linux	: _linux $(NAME)
 _linux	:
 		$(eval C_OBJS=$(C_LINUX_OBJS))
 		$(eval C_MAIN=$(C_LINUX_MAIN))
-		$(eval INC_MLX=$(INC_MLX)_linux)
+		$(eval INC_MLX=$(INC_MLX))
 
 re		: fclean all
 
