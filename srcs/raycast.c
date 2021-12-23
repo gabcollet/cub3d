@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/23 02:03:45 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/23 14:05:28 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,19 @@ int raycast_draw_all(t_pos pos, double rot, double dist, double view)
 	float		dista;
 	t_pos		coll;
 
-	i = rot - (view / 2);
-	while (i <= (rot + (view / 2)))
-	{
-		coll = check_collisions(pos.x, pos.y, i);
-		dista = sqrt(pow(coll.x, 2) + pow(coll.y, 2));
-		raycast_draw(pos, i, dist);
-		i += 0.2;
-	}
+	coll = new_pos(0, 0, 0);
+	//i = rot - (view / 2);
+	//while (i <= (rot + (view / 2)))
+	//{
+		coll = check_collisions(pos.x, pos.y, rot);
+		dista = sqrt(pow((coll.x - pos.x), 2) + pow((coll.y - pos.y), 2));
+		// printf("pos = (%f,%f) \n", pos.x, pos.y);
+		//printf("coll = (%f,%f) \n", coll.x, coll.y);
+		//printf("rot = %f \n", rot);
+		//printf("dista = %f\n", dista);
+		raycast_draw(pos, rot, dista);
+		//i += 0.2;
+	//}
 	return (1);
 }
 
@@ -37,9 +42,9 @@ int raycast_draw(t_pos pos, double rot, double dist)
 	int		i;
 
 	i = 0;
-	r_pos = new_pos(pos.x + 5, pos.y + 5, pos.z);
+	r_pos = new_pos(pos.x, pos.y, pos.z);
 	dest = move_pos(pos, rot, dist);
-	while (i++ < dist)
+	while (i++ < dist && i < 800)
 	{
 		// if (check_collision_x(r_pos.x, r_pos.y, 0) || check_collision_y(r_pos.x, r_pos.y, 0))
 		// 	return (0);

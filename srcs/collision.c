@@ -19,6 +19,8 @@ int	check_inter(t_pos inter)
 	map = g_game.map;
 	i_x = inter.x / TILE_SIZE;
 	i_y = inter.y / TILE_SIZE;
+	//printf("ix = %d \n", i_x);
+	//printf("iy = %d \n", i_y);
 	if (i_x >= map.width && i_y >= map.height)
 		return (1);
 	if (i_x < 0 || i_y < 0)
@@ -32,7 +34,7 @@ int	check_inter(t_pos inter)
 		if (map.map[i_x + ((i_y - 1) * map.width)] == 1)
 			return (1);
 	if (map.map[i_x + (i_y * map.width)] == 1)
-		return (1);		
+		return (1);
 	return (0);
 }
 
@@ -72,66 +74,33 @@ t_pos	check_collisions(int x, int y, int rot)
 
 	map = g_game.map.map;
 	map_x = g_game.map.width;
-	d_x = TILE_SIZE - x % TILE_SIZE;
+	d_x = x % TILE_SIZE;
 	d_y = y % TILE_SIZE;
 	coll = new_pos(0, 0, 0);
-	if (rot >= 0 && rot <= 90)
+	if (rot >= 270 && rot <= 360)
 	{
-		inter_y.x = x + (-d_y / tan(deg_to_rad((int)rot)));
-		inter_y.y = y - d_y;
-		inter_x.x = x + TILE_SIZE - d_x;
-		inter_x.y = y - -d_x * tan(deg_to_rad((int)rot));
-		x_step = TILE_SIZE;
-		y_step = -TILE_SIZE;
-		if (pow(inter_y.x, 2) + pow(inter_y.y, 2) < pow(inter_x.x, 2) + pow(inter_x.y, 2))
-			coll = check_all_inter(inter_y, inter_x, x_step, y_step);
-		else
-			coll = check_all_inter(inter_x, inter_y, x_step, y_step);
+		//inter_y.x = x + (-d_y / tan(deg_to_rad((int)rot)));
+		//inter_y.y = y - d_y;
+		
+		inter_x.x = x - d_x + TILE_SIZE;
+		inter_x.y = y + (-d_x * tan(deg_to_rad((int)rot)));
+		
+		// while (1)
+		// {	
+		// 	if (check_inter(inter_y) == 1)
+		// 		break ;
+		// 	else
+		// 	{
+		// 		inter_y.x += (-TILE_SIZE / tan(deg_to_rad((int)rot)));
+		// 		inter_y.y += -TILE_SIZE;
+		// 	}
+		while (check_inter(inter_x) != 1)
+		{	
+			inter_x.x += TILE_SIZE;
+			inter_x.y -= (TILE_SIZE / tan(deg_to_rad((int)rot)));
+		}
 	}
-	/*if (rot >= 91 && rot <= 180)
-	{
-		inter_y.x = y - d_y;
-		inter_y.y = -d_y / tan(deg_to_rad((int)rot));
-		inter_x.x = x + TILE_SIZE - d_x;
-		inter_x.y = -d_x * tan(deg_to_rad((int)rot));
-		x_step = TILE_SIZE;
-		y_step = TILE_SIZE;
-		if ((pow(inter_y.x, 2) + pow(inter_y.y, 2) < (pow(inter_x.x, 2) + pow(inter_x.y, 2))))
-			coll = check_all_inter(inter_y, inter_x, x_step, y_step);
-		else
-			coll = check_all_inter(inter_x, inter_y, x_step, y_step);
-	}*/
-	/*if (rot >= 0 && rot <= 90)
-	{
-		inter_y.x = y - d_y;
-		inter_y.y = -d_y / tan(deg_to_rad((int)rot));
-		inter_x.x = x + TILE_SIZE - d_x;
-		inter_x.y = -d_x * tan(deg_to_rad((int)rot));
-		x_step = TILE_SIZE;
-		y_step = TILE_SIZE;
-	}
-	if (rot >= 0 && rot <= 90)
-	{
-		inter_y.x = y - d_y;
-		inter_y.y = -d_y / tan(deg_to_rad((int)rot));
-		inter_x.x = x + TILE_SIZE - d_x;
-		inter_x.y = -d_x * tan(deg_to_rad((int)rot));
-		x_step = TILE_SIZE;
-		y_step = TILE_SIZE;
-	}*/
-	
-	
-	
-	
-	/*else if (rot >= 91 && rot <= 270)
-		y_inter = y + TILE_SIZE - (TILE_SIZE - d_y);
-	else
-		y_inter = y + d_y;
-	if (rot >= 181 && rot <= 360)
-		x_inter = x + TILE_SIZE + (TILE_SIZE - d_x);
-	else
-		x_inter = x + TILE_SIZE - d_x;*/
-	return (coll);
+	return (inter_x);
 }
 
 int	check_collision_x(int x, int y, int size)

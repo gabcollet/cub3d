@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/23 02:05:57 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/23 13:30:04 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int display(void *ptr)
 		mlx_clear_img(mlx);
 		drawMap2D(mlx, g_game.map);
 		drawPlayer(mlx);
-		//raycast_draw_all(g_game.player.pos, g_game.player.rot, 800, VIEW);
+		raycast_draw_all(g_game.player.pos, g_game.player.rot, 800, VIEW);
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	}
 	else
@@ -128,8 +128,8 @@ void init()
 		1,0,0,0,0,0,0,1,
 		1,1,1,1,1,1,1,1,
 	};
-	g_game.player.pos.x = 51;
-	g_game.player.pos.y = 51;
+	g_game.player.pos.x = 221;
+	g_game.player.pos.y = 221;
 	g_game.player.rot = 0;
 	g_game.player.hp = 100;
 	g_game.map.width = 8;
