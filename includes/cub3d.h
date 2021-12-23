@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/22 21:15:03 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/23 02:06:35 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@
 # define SPEED			0.4
 # define TURN_SPEED		5.0
 # define MOUSE_TURN		0.2
-# define VIEW			90
+# define VIEW			1
 # define TILE_SIZE		50
 
 # define WHITE			0xffffff
-# define BLACK			0
+# define BLACK			0x000000
+# define RED			0xFF0000
 # define FLOOR_C		0x888888
 # define CEILING_C		0x222222
 # define WALL_C_NO		0x00aa50
@@ -78,6 +79,14 @@ enum e_obj_type
 	PLAYER,
 	FLOOR,
 	CEILING
+};
+
+enum e_dir
+{
+	NORTH,
+	SOUTH,
+	WEST,
+	EAST
 };
 
 struct s_pos
@@ -203,6 +212,7 @@ int		change_player_pos(t_player *player);
 /* Collision */
 int		check_collision_y(int x, int y, int size);
 int		check_collision_x(int x, int y, int size);
+t_pos	check_collisions(int x, int y, int size);
 
 /* Math */
 double	deg_to_rad(double angle);

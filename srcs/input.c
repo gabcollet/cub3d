@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/22 21:40:04 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/23 01:52:39 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	mouse_handler(int x, int y)
 		mlx_mouse_move(get_mlx()->mlx, get_mlx()->win, x, mouse_y);
 		
 	}*/
-	printf("x = %d\n", x);
+	/* printf("x = %d\n", x); */
 	mouse_x = x;
 	mouse_y = y;
 	return (0);

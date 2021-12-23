@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/22 21:37:30 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/23 02:05:57 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void drawPlayer(t_mlx *mlx)
 	}
 }
 
-void drawTile(t_mlx *mlx, int x, int y)
+void drawTile(t_mlx *mlx, int x, int y, int type)
 {
 	int	index_x;
 	int index_y;
@@ -47,7 +47,12 @@ void drawTile(t_mlx *mlx, int x, int y)
 		index_x = x;
 		while (index_x < (x + TILE_SIZE))
 		{
-			my_mlx_pixel_put(mlx, index_x, index_y, WHITE);
+			if (index_y % 50 == 0 || index_x % 50 == 0)
+				my_mlx_pixel_put(mlx, index_x, index_y, RED);
+			else if (type == WALL)
+				my_mlx_pixel_put(mlx, index_x, index_y, WHITE);
+			else if (type == PLAYER)
+				my_mlx_pixel_put(mlx, index_x, index_y, 0x000040);
 			index_x++;
 		}
 		index_y++;
@@ -56,15 +61,20 @@ void drawTile(t_mlx *mlx, int x, int y)
 
 void drawMap2D(t_mlx *mlx, t_map map)
 {
-	int x, y;
+	int 	x, y;
+	t_pos	p_pos;
+
+	p_pos = g_game.player.pos;
 	for (y=0; y<map.height; y++)
 	{
 		for (x=0; x<map.width; x++)
 		{
 			if (map.map[y*map.width+x]==1)
-			{
-				drawTile(mlx, x * TILE_SIZE, y * TILE_SIZE);
-			}
+				drawTile(mlx, x * TILE_SIZE, y * TILE_SIZE, WALL);
+			else if (x==(int)p_pos.x / TILE_SIZE && y==(int)p_pos.y / TILE_SIZE)
+				drawTile(mlx, x * TILE_SIZE, y * TILE_SIZE, PLAYER);
+			else
+				drawTile(mlx, x * TILE_SIZE, y * TILE_SIZE, FLOOR);
 		}
 	}
 }
@@ -75,18 +85,19 @@ int display(void *ptr)
 	t_mlx *mlx;
 
 	if (frame_timer <= 0)
-		frame_timer = MLX_CD / FPS;
-	else
 	{
-		mouse_handler(0, 0);
+		//frame_timer = MLX_CD / FPS;
+		//mouse_handler(0, 0);
 		ptr = NULL;
 		mlx = get_mlx();
 		mlx_clear_img(mlx);
 		drawMap2D(mlx, g_game.map);
 		drawPlayer(mlx);
-		raycast_draw_all(g_game.player.pos, g_game.player.rot, 800, VIEW);
+		//raycast_draw_all(g_game.player.pos, g_game.player.rot, 800, VIEW);
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	}
+	else
+		frame_timer--;
 	return (0);
 }
 
@@ -119,13 +130,14 @@ void init()
 	};
 	g_game.player.pos.x = 51;
 	g_game.player.pos.y = 51;
-	g_game.player.rot = 90;
+	g_game.player.rot = 0;
 	g_game.player.hp = 100;
 	g_game.map.width = 8;
 	g_game.map.height = 8;
 	g_game.map.map = copy_map(map, 64);
 	g_game.mlx = get_mlx();
 	mlx_get_screen_size(g_game.mlx->mlx, &g_game.screen_x, &g_game.screen_y);
+	mlx_mouse_hide(g_game.mlx->mlx, g_game.mlx->win);
 }
 
 int main(void)
