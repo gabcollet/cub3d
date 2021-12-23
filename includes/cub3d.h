@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/23 02:06:35 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/23 02:10:26 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define D_KEY			100
 # define SPEED			0.4
 # define TURN_SPEED		5.0
-# define MOUSE_TURN		0.2
+# define MOUSE_TURN		0.5
 # define VIEW			1
 # define TILE_SIZE		50
 
