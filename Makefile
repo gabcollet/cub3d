@@ -6,7 +6,7 @@
 #    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/12/22 19:42:53 by fousse           ###   ########.fr        #
+#    Updated: 2021/12/22 20:09:26 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,11 +55,11 @@ HEADS		= $(patsubst %,$(DIR_INCS)/%,$(_HEADS))
 #
 
 # Sources and Objects
-SRCS	= 	position.c size.c \
+SRCS	= 	position.c size.c\
 			vector3d.c math_utils.c\
-			image.c mlx.c \
+			image.c mlx.c color.c color_trgb.c\
 			movement.c collision.c\
-			raycast.c \
+			raycast.c\
 			input.c
 
 _OBJS	= $(SRCS:.c=.o)

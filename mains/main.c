@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/22 19:43:11 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/22 21:37:30 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,19 +72,20 @@ void drawMap2D(t_mlx *mlx, t_map map)
 int display(void *ptr)
 {
 	static int	frame_timer;
-	t_mlx mlx;
+	t_mlx *mlx;
 
 	if (frame_timer <= 0)
 		frame_timer = MLX_CD / FPS;
 	else
 	{
+		mouse_handler(0, 0);
 		ptr = NULL;
 		mlx = get_mlx();
-		mlx_clear_img(&mlx);
-		drawMap2D(&mlx, g_game.map);
-		drawPlayer(&mlx);
-		raycast_draw(g_game.player.pos, g_game.player.rot, 800, &mlx);
-		mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img.img, 0, 0);
+		mlx_clear_img(mlx);
+		drawMap2D(mlx, g_game.map);
+		drawPlayer(mlx);
+		raycast_draw_all(g_game.player.pos, g_game.player.rot, 800, VIEW);
+		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	}
 	return (0);
 }
@@ -123,18 +124,22 @@ void init()
 	g_game.map.width = 8;
 	g_game.map.height = 8;
 	g_game.map.map = copy_map(map, 64);
+	g_game.mlx = get_mlx();
+	mlx_get_screen_size(g_game.mlx->mlx, &g_game.screen_x, &g_game.screen_y);
 }
 
 int main(void)
 {
-	t_mlx mlx;
+	t_mlx *mlx;
 
 	mlx = get_mlx();
 	init();
-	mlx_hook(mlx.win, 2, 1L<<0, key_press, &mlx);
-	mlx_hook(mlx.win, 3, 1L<<1, key_release, &mlx);
-	mlx_loop_hook(mlx.mlx, display, &mlx);
-	//mlx_key_hook(mlx.win, buttons, &mlx);
-	mlx_loop(mlx.mlx);
+	mlx_hook(mlx->win, 2, 1L<<0, key_press, mlx);
+	mlx_hook(mlx->win, 3, 1L<<1, key_release, mlx);
+	//mlx_hook(mlx->win, 6, 1L<<6, mouse_move, mlx);
+	//mlx_mouse_hook(mlx->win, mouse_handler, NULL);
+	mlx_loop_hook(mlx->mlx, display, mlx);
+	//mlx_key_hook(mlx.win, buttons, mlx);
+	mlx_loop(mlx->mlx);
 	return (0);
 }

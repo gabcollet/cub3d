@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/22 19:43:26 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/22 21:15:03 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,20 @@
 # define A_KEY			97
 # define S_KEY			115
 # define D_KEY			100
-# define SPEED			0.1
+# define SPEED			0.4
 # define TURN_SPEED		5.0
+# define MOUSE_TURN		0.2
+# define VIEW			90
 # define TILE_SIZE		50
 
 # define WHITE			0xffffff
 # define BLACK			0
+# define FLOOR_C		0x888888
+# define CEILING_C		0x222222
+# define WALL_C_NO		0x00aa50
+# define WALL_C_SO		0x005090
+# define WALL_C_WE		0x0020bb
+# define WALL_C_EA		0x0000ff
 # define YELLOW			0xf0de18
 
 
@@ -148,6 +156,8 @@ struct s_game
 	t_map		map;
 	t_player	player;
 	t_mlx		*mlx;
+	int			screen_x;
+	int			screen_y;
 };
 
 t_game	g_game;
@@ -159,16 +169,31 @@ t_vect	new_vect(double x, double y, double z);
 t_coll	new_collider(t_pos pos, int type);
 
 /* MLX */
-t_mlx	get_mlx(void);
+t_mlx	*get_mlx(void);
 
 /* Image and draw */
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 void	mlx_clear_img(t_mlx *mlx);
-int 	raycast_draw(t_pos pos, double rot, double dist, t_mlx *mlx);
+int 	raycast_draw(t_pos pos, double rot, double dist);
+int 	raycast_draw_all(t_pos pos, double rot, double dist, double view);
+
+/* Color */
+int	get_t(int trgb);
+int	get_r(int trgb);
+int	get_g(int trgb);
+int	get_b(int trgb);
+
+t_rgb	color_int_to_rgb(int color);
+int		color_rgb_to_int(t_rgb rgb);
+t_rgb	color_shift_rgb(t_rgb base, t_rgb shift, double force);
+int		color_shift_int(int base, int shift, double force);
 
 /* Inputs */
-int		 key_press(int key, t_mlx *mlx);
-int		 key_release(int key, t_mlx *mlx);
+int		key_press(int key, t_mlx *mlx);
+int		key_release(int key, t_mlx *mlx);
+int		mouse_handler(int x, int y);
+int		mouse_move(int x, int y, t_mlx *mlx);
+
 
 /* Position and movement */
 t_pos	move_pos(t_pos pos, double rot, double dist);
@@ -176,8 +201,8 @@ int		rotate_player(t_player *player, double rot);
 int		change_player_pos(t_player *player);
 
 /* Collision */
-int		check_collision_y(int plyr_x, int plyr_y);
-int		check_collision_x(int plyr_x, int plyr_y);
+int		check_collision_y(int x, int y, int size);
+int		check_collision_x(int x, int y, int size);
 
 /* Math */
 double	deg_to_rad(double angle);
