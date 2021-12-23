@@ -1,28 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raycast_utils.c                                    :+:      :+:    :+:   */
+/*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/22 17:26:55 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/22 19:11:05 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int raycast_draw(t_pos pos, float rot, int dist)
+int raycast_draw(t_pos pos, double rot, double dist, t_mlx *mlx)
 {
 	int		*map;
 	t_pos	r_pos;
 	t_pos	dest;
+	int		i;
+
+	i = 0;
 	
-	r_pos = new_pos(pos.x, pos.y, pos.z);
-	f_pos = move_pos(pos, rot, dist);
-	dest = g_game.map.map;
-	while (r_pos.x <= pos.x + f_pos.x && )
+	r_pos = new_pos(pos.x + 5, pos.y + 5, pos.z);
+	dest = move_pos(pos, rot, dist);
+	//while (r_pos.x <= pos.x + dest.x && r_pos.y <= pos.y + dest.y)
+	while (i++ < 1000)
 	{
-		my_mlx_pixel_put(g_game.mlx, r_pos.x, r_pos.y, 0x00FF00));
+		if (check_collision_x(r_pos.x, r_pos.y))
+			return (0)
+;		if (check_collision_y(r_pos.x, r_pos.y))
+			return (0);
+		my_mlx_pixel_put(mlx, r_pos.x, r_pos.y, 0x00FF00);
+		r_pos = move_pos(r_pos, rot, 1);
 	}
+	return (1);
 }

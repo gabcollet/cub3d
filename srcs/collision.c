@@ -1,6 +1,15 @@
 
 #include	"cub3d.h"
 
+t_coll	new_collider(t_pos pos, int type)
+{
+	t_coll	collider;
+
+	collider.pos = pos;
+	collider.type = type;
+	return (collider);
+}
+
 int	check_collision_x(int plyr_x, int plyr_y)
 {
 	int		map_x;

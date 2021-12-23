@@ -5,7 +5,7 @@ void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x > WIN_W || y > WIN_H)
+	if (x > WIN_W || y > WIN_H || x <= 0 || y <= 0)
 		return ;
 	dst = mlx->img.addr + (y * mlx->img.line_length + x * (mlx->img.bpp / 8));
 	*(unsigned int*)dst = color;

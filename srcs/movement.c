@@ -1,13 +1,18 @@
 
 #include	"cub3d.h"
 
-int	rotate_player(t_player player, int rot)
+int	rotate_player(t_player *player, double rot)
 {
-	player.rot += rot;
-	return (player.rot);
+	if (player->rot + rot >= 360)
+		player->rot = fmod((player->rot + rot), (double)360);
+	else if (player->rot + rot < 0)
+		player->rot = 360 - fmod(fabs((player->rot + rot)), (double)360);
+	else
+		player->rot += rot;
+	return (player->rot);
 }
 
-/*t_vect	get_direction(float rot)
+/*t_vect	get_direction(double rot)
 {
 	t_vect	dir;
 	
@@ -16,17 +21,6 @@ int	rotate_player(t_player player, int rot)
 
 	vect
 }*/
-
-t_pos	move_pos(t_pos pos, float rot, float dist)
-{
-	t_pos	new_pos;
-	
-	new_pos.x = dist * cos(rot);
-	new_pos.y = dist * sin(rot);
-	new_pos.z = 0;
-
-	return (new_pos);
-}
 
 // X=distance*cos(angle) +x0
 

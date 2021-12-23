@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
+#    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/12/22 17:03:55 by gcollet          ###   ########.fr        #
+#    Updated: 2021/12/22 19:42:53 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,9 +56,11 @@ HEADS		= $(patsubst %,$(DIR_INCS)/%,$(_HEADS))
 
 # Sources and Objects
 SRCS	= 	position.c size.c \
-			vector3d.c \
-			image.c \
+			vector3d.c math_utils.c\
+			image.c mlx.c \
 			movement.c collision.c\
+			raycast.c \
+			input.c
 
 _OBJS	= $(SRCS:.c=.o)
 OBJS	= $(patsubst %,$(DIR_OBJS)/%,$(_OBJS))

@@ -6,13 +6,13 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 09:35:03 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/21 15:01:44 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/22 18:13:38 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
 
-t_size	new_size(int x, int y, int z)
+t_size	new_size(double x, double y, double z)
 {
 	t_size	size;
 

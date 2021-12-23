@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/22 17:45:37 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/22 19:43:11 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,45 +16,13 @@
 #include "cub3d.h"
 #include "mlx.h"
 
-t_mlx	getmlx()
-{
-	static t_mlx mlx;
-	
-	if (mlx.init != 1)
-	{
-		mlx.mlx = mlx_init();
-		mlx.win = mlx_new_window(mlx.mlx, WIDTH, HEIGHT, "Cub3D");
-		mlx.img.img = mlx_new_image(mlx.mlx, WIDTH, HEIGHT);
-		mlx.img.addr = mlx_get_data_addr(mlx.img.img, &mlx.img.bpp,
-					&mlx.img.line_length, &mlx.img.endian);
-		mlx.init = 1;
-	}
-	return(mlx);
-}
-
-int	change_player_pos(void)
-{
-	t_pos pos;
-	t_pos new_pos;
-
-	pos.x = g_game.player.pos.x;
-	pos.y = g_game.player.pos.y;
-	new_pos = move_pos(pos, g_game.player.rot, g_game.player.vel);
-	printf("old : %d  new : %d", pos.x, new_pos.x);
-	//if (!check_collision_x(new_pos.x, new_pos.y))
-		g_game.player.pos.x = new_pos.x;
-	//if (!check_collision_y(new_pos.x, new_pos.y))
-		g_game.player.pos.y = new_pos.y;
-	return (0);
-}
-
 void drawPlayer(t_mlx *mlx)
 {
 	int x;
 	int y;
 	
 	if (g_game.player.vel)
-		change_player_pos();
+		change_player_pos(&g_game.player);
 	x = g_game.player.pos.x;
 	y = g_game.player.pos.y;
 	while (y++ < (g_game.player.pos.y + 10))
@@ -107,40 +75,17 @@ int display(void *ptr)
 	t_mlx mlx;
 
 	if (frame_timer <= 0)
-		frame_timer = 10000 / FPS;
-	ptr = NULL;
-	mlx = getmlx();
-	mlx_clear_img(&mlx);
-	drawMap2D(&mlx, g_game.map);
-	drawPlayer(&mlx);
-	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img.img, 0, 0);
-	return (0);
-}
-
-int buttons_press(int key, t_mlx *mlx)
-{
-	mlx = NULL;
-	printf("%d\n", key);
-	if(key == A_KEY)
-		g_game.player.rot -= TURN_SPEED;
-	if(key == D_KEY)
-		g_game.player.rot += TURN_SPEED;
-	if(key == W_KEY)
-		g_game.player.vel = SPEED;
-	if(key == S_KEY)
-		g_game.player.vel = -SPEED;
-	return (0);
-}
-
-int buttons_release(int key, t_mlx *mlx)
-{
-	mlx = NULL;
-	if(key == W_KEY)
-		g_game.player.vel = 0;
-	if(key == S_KEY)
-		g_game.player.vel = 0;
-	if (key == ESC)
-		exit(0);
+		frame_timer = MLX_CD / FPS;
+	else
+	{
+		ptr = NULL;
+		mlx = get_mlx();
+		mlx_clear_img(&mlx);
+		drawMap2D(&mlx, g_game.map);
+		drawPlayer(&mlx);
+		raycast_draw(g_game.player.pos, g_game.player.rot, 800, &mlx);
+		mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img.img, 0, 0);
+	}
 	return (0);
 }
 
@@ -184,10 +129,10 @@ int main(void)
 {
 	t_mlx mlx;
 
-	mlx = getmlx();
+	mlx = get_mlx();
 	init();
-	mlx_hook(mlx.win, 2, 1L<<0, buttons_press, &mlx);
-	mlx_hook(mlx.win, 3, 1L<<1, buttons_release, &mlx);
+	mlx_hook(mlx.win, 2, 1L<<0, key_press, &mlx);
+	mlx_hook(mlx.win, 3, 1L<<1, key_release, &mlx);
 	mlx_loop_hook(mlx.mlx, display, &mlx);
 	//mlx_key_hook(mlx.win, buttons, &mlx);
 	mlx_loop(mlx.mlx);

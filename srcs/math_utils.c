@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector3d.c                                         :+:      :+:    :+:   */
+/*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/21 09:35:03 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/22 18:13:39 by fousse           ###   ########.fr       */
+/*   Created: 2021/12/22 18:44:54 by fousse            #+#    #+#             */
+/*   Updated: 2021/12/22 18:47:45 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
 
-t_vect	new_vect(double x, double y, double z)
+double	deg_to_rad(double angle)
 {
-	t_vect	vect;
-
-	vect.x = x;
-	vect.y = y;
-	vect.z = z;
-	return (vect);
+	return (angle * M_PI / 180.0);
 }
