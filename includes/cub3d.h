@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/24 11:55:28 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/24 12:38:58 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@
 # define WALL_C_WE		0x0020bb
 # define WALL_C_EA		0x0000ff
 # define YELLOW			0xf0de18
-
-
 
 typedef struct s_mlx	t_mlx;
 typedef struct s_img	t_img;
@@ -115,6 +113,7 @@ struct s_coll
 {
 	t_pos	pos;
 	int		type;
+	int		dir;
 };
 
 struct s_img
@@ -146,6 +145,7 @@ struct s_map
 	int	width;
 	int	height;
 	int *map;
+	int *map_coll;
 };
 
 struct s_obj
@@ -177,7 +177,7 @@ t_game	g_game;
 t_pos	new_pos(double x, double y, double z);
 t_size	new_size(double x, double y, double z);
 t_vect	new_vect(double x, double y, double z);
-t_coll	new_collider(t_pos pos, int type);
+t_coll	new_collider(t_pos pos, int type, int dir);
 
 /* MLX */
 t_mlx	*get_mlx(void);
@@ -213,10 +213,10 @@ int		change_player_pos(t_player *player);
 /* Collision and intersection */
 int		check_collision_y(int x, int y, int size);
 int		check_collision_x(int x, int y, int size);
-t_pos	check_intersections(int x, int y, int size);
-
+t_coll	check_intersections(int x, int y, int size);
 
 /* Math */
 double	deg_to_rad(double angle);
+double	get_draw_distance(t_player p, t_pos pixel);
 
 #endif

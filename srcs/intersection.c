@@ -37,7 +37,7 @@ int	check_inter_y(t_pos inter)
 	return (0);
 }
 
-t_pos	check_intersections(int x, int y, int rot)
+t_coll	check_intersections(int x, int y, int rot)
 {
 	int		d_x;
 	int		d_y;
@@ -58,7 +58,7 @@ t_pos	check_intersections(int x, int y, int rot)
 			if((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2)) < (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))
 			{
 				if (check_inter_y(inter_y) == 1)
-					return (inter_y) ;
+					return (new_collider(inter_y, WALL, NORTH)) ;
 				else
 				{
 					inter_y.x += (TILE_SIZE / tan(deg_to_rad((int)rot)));
@@ -68,7 +68,7 @@ t_pos	check_intersections(int x, int y, int rot)
 			else
 			{
 				if (check_inter_x(inter_x) == 1)
-					return (inter_x) ;
+					return (new_collider(inter_x, WALL, EAST)) ;
 				else
 				{
 					inter_x.x += TILE_SIZE;
@@ -89,7 +89,7 @@ t_pos	check_intersections(int x, int y, int rot)
 			if((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2)) < (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))
 			{
 				if (check_inter_y(inter_y) == 1)
-					return (inter_y) ;
+					return (new_collider(inter_y, WALL, NORTH)) ;
 				else
 				{
 					inter_y.x += (TILE_SIZE / tan(deg_to_rad((int)rot)));
@@ -99,7 +99,7 @@ t_pos	check_intersections(int x, int y, int rot)
 			else
 			{
 				if (check_inter_x(inter_x) == 1)
-					return (inter_x) ;
+					return (new_collider(inter_x, WALL, WEST)) ;
 				else
 				{
 					inter_x.x += -TILE_SIZE;
@@ -120,7 +120,7 @@ t_pos	check_intersections(int x, int y, int rot)
 			if((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2)) < (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))
 			{
 				if (check_inter_y(inter_y) == 1)
-					return (inter_y) ;
+					return (new_collider(inter_y, WALL, SOUTH)) ;
 				else
 				{
 					inter_y.x -= (TILE_SIZE / tan(deg_to_rad((int)rot)));
@@ -130,7 +130,7 @@ t_pos	check_intersections(int x, int y, int rot)
 			else
 			{
 				if (check_inter_x(inter_x) == 1)
-					return (inter_x) ;
+					return (new_collider(inter_x, WALL, WEST)) ;
 				else
 				{
 					inter_x.x += -TILE_SIZE;
@@ -151,7 +151,7 @@ t_pos	check_intersections(int x, int y, int rot)
 			if((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2)) < (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))
 			{
 				if (check_inter_y(inter_y) == 1)
-					return (inter_y) ;
+					return (new_collider(inter_y, WALL, SOUTH)) ;
 				else
 				{
 					inter_y.x += (-TILE_SIZE / tan(deg_to_rad((int)rot)));
@@ -161,7 +161,7 @@ t_pos	check_intersections(int x, int y, int rot)
 			else
 			{
 				if (check_inter_x(inter_x) == 1)
-					return (inter_x) ;
+					return (new_collider(inter_x, WALL, EAST)) ;
 				else
 				{
 					inter_x.x += TILE_SIZE;
@@ -170,5 +170,5 @@ t_pos	check_intersections(int x, int y, int rot)
 			}
 		}
 	}
-	return (new_pos(0, 0, 0));
+	return (new_collider(new_pos(0, 0, 0), 0, 0));
 }

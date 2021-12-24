@@ -1,12 +1,13 @@
 
 #include	"cub3d.h"
 
-t_coll	new_collider(t_pos pos, int type)
+t_coll	new_collider(t_pos pos, int type, int dir)
 {
 	t_coll	collider;
 
 	collider.pos = pos;
 	collider.type = type;
+	collider.dir = dir;
 	return (collider);
 }
 

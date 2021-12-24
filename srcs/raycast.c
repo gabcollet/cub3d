@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/24 11:33:04 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/24 12:39:43 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ int raycast_draw_all(t_pos pos, double rot, double view)
 {
 	int		i;
 	float	dist;
-	t_pos	coll;
+	t_coll	coll;
 
-	coll = new_pos(0, 0, 0);
+	coll = new_collider(new_pos(0, 0, 0), 0, 0);
 	i = 0;
 	rot -= view / 2;
 	while (i < VIEW)
@@ -29,9 +29,9 @@ int raycast_draw_all(t_pos pos, double rot, double view)
 			rot = 360 + rot;
 		coll = check_intersections(pos.x, pos.y, rot);
 		printf("pos : (%f, %f)\n", pos.x, pos.y);
-		printf("coll : (%f, %f)\n", coll.x, coll.y);
+		printf("coll : (%f, %f)\n", coll.pos.x, coll.pos.y);
 		printf("rot : %f \n", rot);
-		dist = sqrt(pow((coll.x - pos.x), 2) + pow((coll.y - pos.y), 2));
+		dist = sqrt(pow((coll.pos.x - pos.x), 2) + pow((coll.pos.y - pos.y), 2));
 		raycast_draw(pos, rot, dist);
 		i++;
 		rot++;
