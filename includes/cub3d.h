@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/24 11:33:11 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/24 11:55:28 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@
 # define SPEED			0.4
 # define TURN_SPEED		5.0
 # define MOUSE_TURN		0.5
-# define VIEW			1
+# define VIEW			90
 # define TILE_SIZE		50
+# define MINI_TILE_S	10
 
 # define WHITE			0xffffff
 # define BLACK			0x000000
@@ -165,6 +166,7 @@ struct s_game
 	t_map		map;
 	t_player	player;
 	t_mlx		*mlx;
+	t_img		minimap;
 	int			screen_x;
 	int			screen_y;
 };
@@ -187,11 +189,10 @@ int 	raycast_draw(t_pos pos, double rot, double dist);
 int 	raycast_draw_all(t_pos pos, double rot, double view);
 
 /* Color */
-int	get_t(int trgb);
-int	get_r(int trgb);
-int	get_g(int trgb);
-int	get_b(int trgb);
-
+int		get_t(int trgb);
+int		get_r(int trgb);
+int		get_g(int trgb);
+int		get_b(int trgb);
 t_rgb	color_int_to_rgb(int color);
 int		color_rgb_to_int(t_rgb rgb);
 t_rgb	color_shift_rgb(t_rgb base, t_rgb shift, double force);
