@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/23 13:30:04 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/23 15:32:44 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void init()
 	};
 	g_game.player.pos.x = 221;
 	g_game.player.pos.y = 221;
-	g_game.player.rot = 0;
+	g_game.player.rot = 90;
 	g_game.player.hp = 100;
 	g_game.map.width = 8;
 	g_game.map.height = 8;

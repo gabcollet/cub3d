@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/23 01:52:39 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/23 15:42:29 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int key_press(int key, t_mlx *mlx)
 {
 	mlx = NULL;
 	if(key == A_KEY)
-		rotate_player(&g_game.player, -TURN_SPEED);
-	if(key == D_KEY)
 		rotate_player(&g_game.player, TURN_SPEED);
+	if(key == D_KEY)
+		rotate_player(&g_game.player, -TURN_SPEED);
 	if(key == W_KEY)
 		g_game.player.vel = SPEED;
 	if(key == S_KEY)

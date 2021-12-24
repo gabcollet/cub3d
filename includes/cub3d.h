@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/23 14:07:23 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/23 18:54:36 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define SPEED			0.4
 # define TURN_SPEED		5.0
 # define MOUSE_TURN		0.5
-# define VIEW			1
+# define VIEW			90
 # define TILE_SIZE		50
 
 # define WHITE			0xffffff

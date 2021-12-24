@@ -11,17 +11,3 @@ int	rotate_player(t_player *player, double rot)
 		player->rot += rot;
 	return (player->rot);
 }
-
-/*t_vect	get_direction(double rot)
-{
-	t_vect	dir;
-	
-	
-	dir.x = 
-
-	vect
-}*/
-
-// X=distance*cos(angle) +x0
-
-// Y=distance*sin(angle) +y0
