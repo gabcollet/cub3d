@@ -6,16 +6,16 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/24 11:23:08 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/24 11:33:04 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int raycast_draw_all(t_pos pos, double rot, double dist, double view)
+int raycast_draw_all(t_pos pos, double rot, double view)
 {
 	int		i;
-	float	dista;
+	float	dist;
 	t_pos	coll;
 
 	coll = new_pos(0, 0, 0);
@@ -28,11 +28,11 @@ int raycast_draw_all(t_pos pos, double rot, double dist, double view)
 		if (rot < 0)
 			rot = 360 + rot;
 		coll = check_intersections(pos.x, pos.y, rot);
-		/* printf("pos : (%f, %f)\n", pos.x, pos.y);
+		printf("pos : (%f, %f)\n", pos.x, pos.y);
 		printf("coll : (%f, %f)\n", coll.x, coll.y);
-		printf("rot : %f \n", rot); */
-		dista = sqrt(pow((coll.x - pos.x), 2) + pow((coll.y - pos.y), 2));
-		raycast_draw(pos, rot, dista);
+		printf("rot : %f \n", rot);
+		dist = sqrt(pow((coll.x - pos.x), 2) + pow((coll.y - pos.y), 2));
+		raycast_draw(pos, rot, dist);
 		i++;
 		rot++;
 	}
@@ -42,7 +42,6 @@ int raycast_draw_all(t_pos pos, double rot, double dist, double view)
 int raycast_draw(t_pos pos, double rot, double dist)
 {
 	t_pos	r_pos;
-	t_pos	coll;
 	int		i;
 
 	i = 0;

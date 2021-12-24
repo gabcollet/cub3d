@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/23 15:32:44 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/24 11:31:51 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,15 @@ int display(void *ptr)
 	static int	frame_timer;
 	t_mlx *mlx;
 
+	mlx = (t_mlx *)ptr;
 	if (frame_timer <= 0)
 	{
 		//frame_timer = MLX_CD / FPS;
 		//mouse_handler(0, 0);
-		ptr = NULL;
-		mlx = get_mlx();
 		mlx_clear_img(mlx);
 		drawMap2D(mlx, g_game.map);
 		drawPlayer(mlx);
-		raycast_draw_all(g_game.player.pos, g_game.player.rot, 800, VIEW);
+		raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW);
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	}
 	else

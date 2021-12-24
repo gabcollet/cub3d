@@ -114,7 +114,7 @@ t_pos	check_intersections(int x, int y, int rot)
 		inter_y.y = y + (TILE_SIZE - d_y);
 		
 		inter_x.x = x - d_x;
-		inter_x.y = y + (TILE_SIZE - d_x) * tan(deg_to_rad((int)rot));
+		inter_x.y = y + (TILE_SIZE - (TILE_SIZE - d_x)) * tan(deg_to_rad((int)rot));
 		while (1)
 		{	
 			if((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2)) < (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))

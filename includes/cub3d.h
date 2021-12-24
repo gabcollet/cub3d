@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/24 11:23:08 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/24 11:33:11 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define SPEED			0.4
 # define TURN_SPEED		5.0
 # define MOUSE_TURN		0.5
-# define VIEW			90
+# define VIEW			1
 # define TILE_SIZE		50
 
 # define WHITE			0xffffff
@@ -184,7 +184,7 @@ t_mlx	*get_mlx(void);
 void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
 void	mlx_clear_img(t_mlx *mlx);
 int 	raycast_draw(t_pos pos, double rot, double dist);
-int 	raycast_draw_all(t_pos pos, double rot, double dist, double view);
+int 	raycast_draw_all(t_pos pos, double rot, double view);
 
 /* Color */
 int	get_t(int trgb);
