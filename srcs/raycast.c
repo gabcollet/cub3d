@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/23 19:01:56 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/24 11:23:08 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int raycast_draw_all(t_pos pos, double rot, double dist, double view)
 			rot = (int)rot % 360;
 		if (rot < 0)
 			rot = 360 + rot;
-		coll = check_collisions(pos.x, pos.y, rot);
+		coll = check_intersections(pos.x, pos.y, rot);
 		/* printf("pos : (%f, %f)\n", pos.x, pos.y);
 		printf("coll : (%f, %f)\n", coll.x, coll.y);
 		printf("rot : %f \n", rot); */

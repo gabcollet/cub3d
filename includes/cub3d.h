@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/23 18:54:36 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/24 11:23:08 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,10 +209,11 @@ t_pos	move_pos(t_pos pos, double rot, double dist);
 int		rotate_player(t_player *player, double rot);
 int		change_player_pos(t_player *player);
 
-/* Collision */
+/* Collision and intersection */
 int		check_collision_y(int x, int y, int size);
 int		check_collision_x(int x, int y, int size);
-t_pos	check_collisions(int x, int y, int size);
+t_pos	check_intersections(int x, int y, int size);
+
 
 /* Math */
 double	deg_to_rad(double angle);
