@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/24 12:38:58 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/24 16:14:07 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,20 @@
 # define SPEED			0.4
 # define TURN_SPEED		5.0
 # define MOUSE_TURN		0.5
-# define VIEW			90
+# define VIEW_ANGLE		90
+# define VIEW_DIST		1000
 # define TILE_SIZE		50
 # define MINI_TILE_S	10
 
 # define WHITE			0xffffff
 # define BLACK			0x000000
 # define RED			0xFF0000
-# define FLOOR_C		0x888888
-# define CEILING_C		0x222222
-# define WALL_C_NO		0x00aa50
-# define WALL_C_SO		0x005090
-# define WALL_C_WE		0x0020bb
-# define WALL_C_EA		0x0000ff
+# define FLOOR_C		0x303030
+# define CEILING_C		0x909090
+# define NORTH_C		0x00aa50
+# define SOUTH_C		0x005090
+# define WEST_C			0x0020bb
+# define EAST_C			0x0000ff
 # define YELLOW			0xf0de18
 
 typedef struct s_mlx	t_mlx;
@@ -82,10 +83,10 @@ enum e_obj_type
 
 enum e_dir
 {
-	NORTH,
-	SOUTH,
-	WEST,
-	EAST
+	NORTH = 1,
+	SOUTH = 2,
+	WEST = 4,
+	EAST = 8
 };
 
 struct s_pos
@@ -121,8 +122,9 @@ struct s_img
 	void	*img;
 	char	*addr;
 	int		bpp;
-	int		line_length;
+	int		width;
 	int		endian;
+	int		height;
 };
 
 struct s_vect
@@ -144,8 +146,8 @@ struct s_map
 {
 	int	width;
 	int	height;
-	int *map;
-	int *map_coll;
+	int *tiles;
+	int *tiles_coll;
 };
 
 struct s_obj
@@ -183,10 +185,12 @@ t_coll	new_collider(t_pos pos, int type, int dir);
 t_mlx	*get_mlx(void);
 
 /* Image and draw */
-void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
-void	mlx_clear_img(t_mlx *mlx);
+void	my_mlx_pixel_put(t_img img, int x, int y, int color);
+void	mlx_clear_img(t_img img);
 int 	raycast_draw(t_pos pos, double rot, double dist);
 int 	raycast_draw_all(t_pos pos, double rot, double view);
+void	drawMap3D(t_mlx *mlx, t_map map);
+void	draw_background(t_img img);
 
 /* Color */
 int		get_t(int trgb);
@@ -217,6 +221,6 @@ t_coll	check_intersections(int x, int y, int size);
 
 /* Math */
 double	deg_to_rad(double angle);
-double	get_draw_distance(t_player p, t_pos pixel);
+double	get_draw_distance(t_pos pos, double rot, t_pos pixel);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/24 11:31:51 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/24 15:51:26 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void drawPlayer(t_mlx *mlx)
 		x = g_game.player.pos.x;
 		while (x++ < (g_game.player.pos.x + 10))
 		{
-			my_mlx_pixel_put(mlx, x, y, YELLOW);
+			my_mlx_pixel_put(mlx->img, x, y, YELLOW);
 		}
 	}
 }
@@ -48,11 +48,11 @@ void drawTile(t_mlx *mlx, int x, int y, int type)
 		while (index_x < (x + TILE_SIZE))
 		{
 			if (index_y % 50 == 0 || index_x % 50 == 0)
-				my_mlx_pixel_put(mlx, index_x, index_y, RED);
+				my_mlx_pixel_put(mlx->img, index_x, index_y, RED);
 			else if (type == WALL)
-				my_mlx_pixel_put(mlx, index_x, index_y, WHITE);
+				my_mlx_pixel_put(mlx->img, index_x, index_y, WHITE);
 			else if (type == PLAYER)
-				my_mlx_pixel_put(mlx, index_x, index_y, 0x000040);
+				my_mlx_pixel_put(mlx->img, index_x, index_y, 0x000040);
 			index_x++;
 		}
 		index_y++;
@@ -69,7 +69,7 @@ void drawMap2D(t_mlx *mlx, t_map map)
 	{
 		for (x=0; x<map.width; x++)
 		{
-			if (map.map[y*map.width+x]==1)
+			if (map.tiles[y*map.width+x]==1)
 				drawTile(mlx, x * TILE_SIZE, y * TILE_SIZE, WALL);
 			else if (x==(int)p_pos.x / TILE_SIZE && y==(int)p_pos.y / TILE_SIZE)
 				drawTile(mlx, x * TILE_SIZE, y * TILE_SIZE, PLAYER);
@@ -89,10 +89,15 @@ int display(void *ptr)
 	{
 		//frame_timer = MLX_CD / FPS;
 		//mouse_handler(0, 0);
-		mlx_clear_img(mlx);
+		mlx_clear_img(mlx->img);
+		draw_background(mlx->img);
 		drawMap2D(mlx, g_game.map);
 		drawPlayer(mlx);
-		raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW);
+		
+		/*
+		* si tu veux revenir à notre 2d, va dans raycast.c et enlève draw_column()
+		*/
+		raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW_ANGLE);
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	}
 	else
@@ -102,38 +107,49 @@ int display(void *ptr)
 
 int	*copy_map(int *src, int size)
 {
-	int	*map;
+	int	*tiles;
 	int	i;
 
-	map = malloc(sizeof(int) * size);
+	tiles = malloc(sizeof(int) * size);
 	i = 0;
 	while (i < size)
 	{
-		map[i] = src[i];
+		tiles[i] = src[i];
 		i++;
 	}
-	return (map);
+	return (tiles);
 }
 
 void init()
 {
-	int map[64] = {
+	int tiles[64] = {
 		1,1,1,1,1,1,1,1,
 		1,0,1,0,0,0,0,1,
-		1,0,1,0,0,0,0,1,
-		1,0,1,0,0,0,0,1,
-		1,0,0,0,0,0,0,1,
+		1,0,1,0,0,1,0,1,
+		1,0,1,0,0,1,0,1,
 		1,0,0,0,1,0,0,1,
+		1,0,1,0,1,0,1,1,
 		1,0,0,0,0,0,0,1,
 		1,1,1,1,1,1,1,1,
 	};
+	int tiles_coll[64] = {
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+	};
 	g_game.player.pos.x = 221;
-	g_game.player.pos.y = 221;
+	g_game.player.pos.y = 121;
 	g_game.player.rot = 90;
 	g_game.player.hp = 100;
 	g_game.map.width = 8;
 	g_game.map.height = 8;
-	g_game.map.map = copy_map(map, 64);
+	g_game.map.tiles = copy_map(tiles, 64);
+	g_game.map.tiles_coll = copy_map(tiles_coll, 64);
 	g_game.mlx = get_mlx();
 	mlx_get_screen_size(g_game.mlx->mlx, &g_game.screen_x, &g_game.screen_y);
 	mlx_mouse_hide(g_game.mlx->mlx, g_game.mlx->win);

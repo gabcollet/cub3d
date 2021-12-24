@@ -1,7 +1,16 @@
 
 #include	"cub3d.h"
 
-int	check_inter_x(t_pos inter)
+int	apply_tile_coll(int i_x, int i_y, int dir)
+{
+	int	*tiles_coll;
+
+	tiles_coll = g_game.map.tiles_coll;
+	tiles_coll[i_x + i_y] = tiles_coll[i_x + i_y] | dir;
+	return (1);
+}
+
+int	check_inter_x(t_pos inter, int dir)
 {
 	t_map	map;
 	int 	i_x;
@@ -12,14 +21,14 @@ int	check_inter_x(t_pos inter)
 	i_y = (int)inter.y / TILE_SIZE;
 	if (i_x < 0 || i_y < 0 || i_x >= map.width || i_y >= map.height)
 		return (1);
-	if (map.map[i_x + (i_y * map.width)] == 1)
-		return (1);
-	if (i_x > 0 && map.map[i_x - 1 + (i_y * map.width)] == 1)
-		return (1);
+	if (map.tiles[i_x + (i_y * map.width)] == 1)
+		return (apply_tile_coll(i_x, i_y * map.width, dir));
+	if (i_x > 0 && map.tiles[i_x - 1 + (i_y * map.width)] == 1)
+		return (apply_tile_coll(i_x, i_x - 1 + i_y * map.width, dir));
 	return (0);
 }
 
-int	check_inter_y(t_pos inter)
+int	check_inter_y(t_pos inter, int dir)
 {
 	t_map	map;
 	int 	i_x;
@@ -30,10 +39,10 @@ int	check_inter_y(t_pos inter)
 	i_y = (int)inter.y / TILE_SIZE;
 	if (i_x < 0 || i_y < 0 || i_x >= map.width || i_y >= map.height)
 		return (1);
-	if (map.map[i_x + (i_y * map.width)] == 1)
-		return (1);
-	if (i_y > 0 && map.map[i_x + ((i_y - 1) * map.width)] == 1)
-		return (1);
+	if (map.tiles[i_x + (i_y * map.width)] == 1)
+		return (apply_tile_coll(i_x, i_y * map.width, dir));
+	if (i_y > 0 && map.tiles[i_x + ((i_y - 1) * map.width)] == 1)
+		return (apply_tile_coll(i_x, i_x + (i_y - 1) * map.width, dir));
 	return (0);
 }
 
@@ -57,7 +66,7 @@ t_coll	check_intersections(int x, int y, int rot)
 		{	
 			if((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2)) < (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))
 			{
-				if (check_inter_y(inter_y) == 1)
+				if (check_inter_y(inter_y, NORTH) == 1)
 					return (new_collider(inter_y, WALL, NORTH)) ;
 				else
 				{
@@ -67,7 +76,7 @@ t_coll	check_intersections(int x, int y, int rot)
 			}
 			else
 			{
-				if (check_inter_x(inter_x) == 1)
+				if (check_inter_x(inter_x, EAST) == 1)
 					return (new_collider(inter_x, WALL, EAST)) ;
 				else
 				{
@@ -88,7 +97,7 @@ t_coll	check_intersections(int x, int y, int rot)
 		{	
 			if((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2)) < (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))
 			{
-				if (check_inter_y(inter_y) == 1)
+				if (check_inter_y(inter_y, NORTH) == 1)
 					return (new_collider(inter_y, WALL, NORTH)) ;
 				else
 				{
@@ -98,7 +107,7 @@ t_coll	check_intersections(int x, int y, int rot)
 			}
 			else
 			{
-				if (check_inter_x(inter_x) == 1)
+				if (check_inter_x(inter_x, WEST) == 1)
 					return (new_collider(inter_x, WALL, WEST)) ;
 				else
 				{
@@ -119,7 +128,7 @@ t_coll	check_intersections(int x, int y, int rot)
 		{	
 			if((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2)) < (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))
 			{
-				if (check_inter_y(inter_y) == 1)
+				if (check_inter_y(inter_y, SOUTH) == 1)
 					return (new_collider(inter_y, WALL, SOUTH)) ;
 				else
 				{
@@ -129,7 +138,7 @@ t_coll	check_intersections(int x, int y, int rot)
 			}
 			else
 			{
-				if (check_inter_x(inter_x) == 1)
+				if (check_inter_x(inter_x, WEST) == 1)
 					return (new_collider(inter_x, WALL, WEST)) ;
 				else
 				{
@@ -150,7 +159,7 @@ t_coll	check_intersections(int x, int y, int rot)
 		{	
 			if((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2)) < (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))
 			{
-				if (check_inter_y(inter_y) == 1)
+				if (check_inter_y(inter_y, SOUTH) == 1)
 					return (new_collider(inter_y, WALL, SOUTH)) ;
 				else
 				{
@@ -160,7 +169,7 @@ t_coll	check_intersections(int x, int y, int rot)
 			}
 			else
 			{
-				if (check_inter_x(inter_x) == 1)
+				if (check_inter_x(inter_x, EAST) == 1)
 					return (new_collider(inter_x, WALL, EAST)) ;
 				else
 				{

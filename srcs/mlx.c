@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:17:29 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/22 19:50:42 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/24 13:33:54 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ t_mlx	*get_mlx(void)
 		mlx.win = mlx_new_window(mlx.mlx, WIN_W, WIN_H, "Cub3D");
 		mlx.img.img = mlx_new_image(mlx.mlx, WIN_W, WIN_H);
 		mlx.img.addr = mlx_get_data_addr(mlx.img.img, &mlx.img.bpp,
-					&mlx.img.line_length, &mlx.img.endian);
+					&mlx.img.width, &mlx.img.endian);
+		mlx.img.height = WIN_H;
 		mlx.init = 1;
 	}
 	return(&mlx);
