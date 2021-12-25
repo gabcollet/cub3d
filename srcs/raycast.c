@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/24 15:54:56 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/25 10:27:59 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int raycast_draw_all(t_pos pos, double rot, double view)
 		//printf("rotation : %d %d\n", rot);
 		raycast_draw(pos, rot, dist);
 
-		draw_column(pos, coll, base_rot, WIN_W - i); // remove me for 2D !!!!!!!!!!!!!
+		//draw_column(pos, coll, base_rot, WIN_W - i); // remove me for 2D !!!!!!!!!!!!!
 		
 		i++;
 		rot += view / WIN_W;

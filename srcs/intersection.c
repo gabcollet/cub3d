@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   intersection.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/12/25 11:00:43 by gcollet           #+#    #+#             */
+/*   Updated: 2021/12/25 12:24:38 by gcollet          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include	"cub3d.h"
 
@@ -13,8 +24,8 @@ int	apply_tile_coll(int i_x, int i_y, int dir)
 int	check_inter_x(t_pos inter, int dir)
 {
 	t_map	map;
-	int 	i_x;
-	int 	i_y;
+	int		i_x;
+	int		i_y;
 
 	map = g_game.map;
 	i_x = (int)inter.x / TILE_SIZE;
@@ -31,8 +42,8 @@ int	check_inter_x(t_pos inter, int dir)
 int	check_inter_y(t_pos inter, int dir)
 {
 	t_map	map;
-	int 	i_x;
-	int 	i_y;
+	int		i_x;
+	int		i_y;
 
 	map = g_game.map;
 	i_x = (int)inter.x / TILE_SIZE;
@@ -46,138 +57,98 @@ int	check_inter_y(t_pos inter, int dir)
 	return (0);
 }
 
+t_pos	increment_pos(t_pos inter, int xy, int side, double rot)
+{
+	int	sign;
+
+	if (side == NORTH || side == EAST)
+		sign = 1;
+	else if (side == SOUTH || side == WEST)
+		sign = -1;
+	if (xy == 'y')
+	{
+		inter.x += (TILE_SIZE / tan(deg_to_rad((int)rot))) * sign;
+		inter.y += -TILE_SIZE * sign;
+	}
+	else
+	{
+		inter.x += TILE_SIZE * sign;
+		inter.y += (-TILE_SIZE * tan(deg_to_rad((int)rot))) * sign;
+	}
+	return (inter);
+}
+
+int	parse_s(int side, int xy)
+{
+	if (xy == 'y')
+	{
+		if (side == 'NE' || side == 'NW')
+			return (NORTH);
+		else
+			return (SOUTH);
+	}
+	else if (xy == 'x')
+	{
+		if (side == 'NE' || side == 'SE')
+			return (EAST);
+		else
+			return (WEST);
+	}
+	return (0);
+}
+
+t_coll	check_dir(t_pos inter_y, t_pos inter_x, int side, double rot)
+{
+	int	x;
+	int	y;
+
+	x = g_game.player.pos.x;
+	y = g_game.player.pos.y;
+	while (1)
+	{	
+		if ((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2))
+			< (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))
+		{
+			if (check_inter_y(inter_y, parse_s(side, 'y')) == 1)
+				return (new_collider(inter_y, WALL, parse_s(side, 'y')));
+			else
+				inter_y = increment_pos(inter_y, 'y', parse_s(side, 'y'), rot);
+		}
+		else
+		{
+			if (check_inter_x(inter_x, parse_s(side, 'x')) == 1)
+				return (new_collider(inter_x, WALL, parse_s(side, 'x')));
+			else
+				inter_x = increment_pos(inter_x, 'x', parse_s(side, 'x'), rot);
+		}
+	}
+	return (new_collider(new_pos(0, 0, 0), 0, 0));
+}
+
 t_coll	check_intersections(int x, int y, int rot)
 {
-	int		d_x;
-	int		d_y;
-	t_pos	inter_y;
-	t_pos	inter_x;
+	t_pos	inter_y_n;
+	t_pos	inter_y_s;
+	t_pos	inter_x_e;
+	t_pos	inter_x_w;
 
-	d_x = x % TILE_SIZE;
-	d_y = y % TILE_SIZE;
+	inter_y_n.x = x + ((y % TILE_SIZE) / tan(deg_to_rad((int)rot)));
+	inter_y_n.y = y - (y % TILE_SIZE);
+	inter_y_s.x = x - (TILE_SIZE - (y % TILE_SIZE)) / tan(deg_to_rad((int)rot));
+	inter_y_s.y = y + (TILE_SIZE - (y % TILE_SIZE));
+	inter_x_e.x = x - (x % TILE_SIZE) + TILE_SIZE;
+	inter_x_e.y = y - ((TILE_SIZE - (x % TILE_SIZE))
+			* tan(deg_to_rad((int)rot)));
+	inter_x_w.x = x - (x % TILE_SIZE);
+	inter_x_w.y = y + ((TILE_SIZE - (TILE_SIZE - (x % TILE_SIZE)))
+			* tan(deg_to_rad((int)rot)));
 	if (rot >= 0 && rot <= 90)
-	{
-		inter_y.x = x + (d_y / tan(deg_to_rad((int)rot)));
-		inter_y.y = y - d_y;
-		
-		inter_x.x = x - d_x + TILE_SIZE;
-		inter_x.y = y - ((TILE_SIZE - d_x) * tan(deg_to_rad((int)rot)));
-		while (1)
-		{	
-			if((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2)) < (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))
-			{
-				if (check_inter_y(inter_y, NORTH) == 1)
-					return (new_collider(inter_y, WALL, NORTH)) ;
-				else
-				{
-					inter_y.x += (TILE_SIZE / tan(deg_to_rad((int)rot)));
-					inter_y.y += -TILE_SIZE;
-				}
-			}
-			else
-			{
-				if (check_inter_x(inter_x, EAST) == 1)
-					return (new_collider(inter_x, WALL, EAST)) ;
-				else
-				{
-					inter_x.x += TILE_SIZE;
-					inter_x.y += (-TILE_SIZE * tan(deg_to_rad((int)rot)));
-				}
-			}
-		}
-	}
+		return (check_dir(inter_y_n, inter_x_e, 'NE', rot));
 	else if (rot >= 91 && rot <= 180)
-	{
-		inter_y.x = x + (d_y / tan(deg_to_rad((int)rot)));
-		inter_y.y = y - d_y;
-		
-		inter_x.x = x - d_x;
-		inter_x.y = y + ((TILE_SIZE - (TILE_SIZE - d_x)) * tan(deg_to_rad((int)rot)));
-		while (1)
-		{	
-			if((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2)) < (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))
-			{
-				if (check_inter_y(inter_y, NORTH) == 1)
-					return (new_collider(inter_y, WALL, NORTH)) ;
-				else
-				{
-					inter_y.x += (TILE_SIZE / tan(deg_to_rad((int)rot)));
-					inter_y.y += -TILE_SIZE;
-				}
-			}
-			else
-			{
-				if (check_inter_x(inter_x, WEST) == 1)
-					return (new_collider(inter_x, WALL, WEST)) ;
-				else
-				{
-					inter_x.x += -TILE_SIZE;
-					inter_x.y += (TILE_SIZE * tan(deg_to_rad((int)rot)));
-				}
-			}
-		}
-	}
+		return (check_dir(inter_y_n, inter_x_w, 'NW', rot));
 	else if (rot >= 181 && rot <= 270)
-	{
-		inter_y.x = x - (TILE_SIZE - d_y) / tan(deg_to_rad((int)rot));
-		inter_y.y = y + (TILE_SIZE - d_y);
-		
-		inter_x.x = x - d_x;
-		inter_x.y = y + (TILE_SIZE - (TILE_SIZE - d_x)) * tan(deg_to_rad((int)rot));
-		while (1)
-		{	
-			if((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2)) < (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))
-			{
-				if (check_inter_y(inter_y, SOUTH) == 1)
-					return (new_collider(inter_y, WALL, SOUTH)) ;
-				else
-				{
-					inter_y.x -= (TILE_SIZE / tan(deg_to_rad((int)rot)));
-					inter_y.y += TILE_SIZE;
-				}
-			}
-			else
-			{
-				if (check_inter_x(inter_x, WEST) == 1)
-					return (new_collider(inter_x, WALL, WEST)) ;
-				else
-				{
-					inter_x.x += -TILE_SIZE;
-					inter_x.y += (TILE_SIZE * tan(deg_to_rad((int)rot)));
-				}
-			}
-		}
-	}
+		return (check_dir(inter_y_s, inter_x_w, 'SW', rot));
 	else if (rot >= 271 && rot <= 360)
-	{
-		inter_y.x = x + (-(TILE_SIZE - d_y) / tan(deg_to_rad((int)rot)));
-		inter_y.y = y + (TILE_SIZE - d_y);
-		
-		inter_x.x = x + (TILE_SIZE - d_x);
-		inter_x.y = y - (TILE_SIZE - d_x) * tan(deg_to_rad((int)rot));
-		while (1)
-		{	
-			if((pow(inter_y.x - x, 2) + pow(inter_y.y - y, 2)) < (pow(inter_x.x - x, 2) + pow(inter_x.y - y, 2)))
-			{
-				if (check_inter_y(inter_y, SOUTH) == 1)
-					return (new_collider(inter_y, WALL, SOUTH)) ;
-				else
-				{
-					inter_y.x += (-TILE_SIZE / tan(deg_to_rad((int)rot)));
-					inter_y.y += TILE_SIZE;
-				}
-			}
-			else
-			{
-				if (check_inter_x(inter_x, EAST) == 1)
-					return (new_collider(inter_x, WALL, EAST)) ;
-				else
-				{
-					inter_x.x += TILE_SIZE;
-					inter_x.y += (-TILE_SIZE * tan(deg_to_rad((int)rot)));
-				}
-			}
-		}
-	}
+		return (check_dir(inter_y_s, inter_x_e, 'SE', rot));
 	return (new_collider(new_pos(0, 0, 0), 0, 0));
 }

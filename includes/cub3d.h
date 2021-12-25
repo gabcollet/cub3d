@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/24 16:14:07 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/25 10:47:58 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define A_KEY			97
 # define S_KEY			115
 # define D_KEY			100
-# define SPEED			0.4
+# define SPEED			1
 # define TURN_SPEED		5.0
 # define MOUSE_TURN		0.5
 # define VIEW_ANGLE		90
@@ -207,7 +207,6 @@ int		key_press(int key, t_mlx *mlx);
 int		key_release(int key, t_mlx *mlx);
 int		mouse_handler(int x, int y);
 int		mouse_move(int x, int y, t_mlx *mlx);
-
 
 /* Position and movement */
 t_pos	move_pos(t_pos pos, double rot, double dist);
