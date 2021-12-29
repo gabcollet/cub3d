@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/25 10:47:58 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/29 15:53:38 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@
 # define A_KEY			97
 # define S_KEY			115
 # define D_KEY			100
-# define SPEED			1
+# define SPEED			2
 # define TURN_SPEED		5.0
 # define MOUSE_TURN		0.5
-# define VIEW_ANGLE		90
+# define VIEW_ANGLE		60
 # define VIEW_DIST		1000
 # define TILE_SIZE		50
 # define MINI_TILE_S	10
@@ -148,6 +148,7 @@ struct s_map
 	int	height;
 	int *tiles;
 	int *tiles_coll;
+	int size;
 };
 
 struct s_obj

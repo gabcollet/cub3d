@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/29 09:50:11 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/29 15:55:27 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int display(void *ptr)
 {
 	static int	frame_timer;
 	t_mlx *mlx;
+	float	dist;
 
 	mlx = (t_mlx *)ptr;
 	if (frame_timer <= 0)
@@ -147,6 +148,7 @@ void init()
 	g_game.player.rot = 90;
 	g_game.player.hp = 100;
 	g_game.map.width = 8;
+	g_game.map.size = 64;
 	g_game.map.height = 8;
 	g_game.map.tiles = copy_map(tiles, 64);
 	g_game.map.tiles_coll = copy_map(tiles_coll, 64);

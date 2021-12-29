@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/29 09:49:46 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/29 16:35:10 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 *	Draw a column of pixel based on a tile/wall.
 */
-int draw_column(t_pos player_pos, t_coll coll, double rot, int i_x)
+/* int draw_column(t_pos player_pos, t_coll coll, double rot, int i_x, float dist)
 {
 	int		color;
 	int		y;
@@ -26,9 +26,10 @@ int draw_column(t_pos player_pos, t_coll coll, double rot, int i_x)
 	pos = coll.pos;
 	// Fisheye adjustment (not working???)
 	draw_dist = get_draw_distance(player_pos, rot, pos);
+	//draw_dist = dist * cos(deg_to_rad(rot));
 	if (draw_dist < 1)
 		draw_dist = 1;
-	height = WIN_H - draw_dist * 2;
+	height = WIN_H - dist * 2;
 	y = (WIN_H - height) / 2;
 	if (coll.dir & NORTH)
 		color = NORTH_C;
@@ -45,6 +46,36 @@ int draw_column(t_pos player_pos, t_coll coll, double rot, int i_x)
 		y++;
 	}
 	return (1);
+} */
+
+int	draw3D(float dist, double base_rot, double rot, t_coll coll, int x)
+{
+	float	cast_angle;
+	float	height;
+	int		color;
+	int		y;
+	
+	cast_angle = base_rot - rot;
+	dist = dist * cos((deg_to_rad((int)cast_angle)));
+	height = (g_game.map.size * WIN_H)/dist;
+	if (height > WIN_H)
+		height = WIN_H;
+	y = (WIN_H - height) / 2;
+	if (coll.dir & NORTH)
+		color = NORTH_C;
+	if (coll.dir & SOUTH)
+		color = SOUTH_C;
+	if (coll.dir & WEST)
+		color = WEST_C;
+	if (coll.dir & EAST)
+		color = EAST_C;
+	color = color_shift_int(color, BLACK, (WIN_H - height) / WIN_H);
+	while (y < height + (WIN_H - height) / 2)
+	{
+		my_mlx_pixel_put(get_mlx()->img, x, y, color);
+		y++;
+	}
+	return (0);
 }
 
 /*
@@ -69,20 +100,20 @@ int raycast_draw_all(t_pos pos, double rot, double view)
 		if (rot < 0)
 			rot = 360 + rot;
 		coll = check_intersections(pos.x, pos.y, rot);
-		dist = sqrt(pow((coll.pos.x - pos.x), 2) + pow((coll.pos.y - pos.y), 2)); // has to be changed
+		dist = sqrt(pow((coll.pos.x - pos.x), 2) + pow((coll.pos.y - pos.y), 2));
 		//printf("player x and y : %d %d\n", pos.x, pos.y );
 		//printf("coll x and y : %d %d\n", coll.pos.x, coll.pos.y );
-		//printf("rotation : %d %d\n", rot);
+		//printf("rotation : %f\n", rot);
 		//raycast_draw(pos, rot, dist);
-
-		draw_column(pos, coll, base_rot, WIN_W - i); // remove me for 2D !!!!!!!!!!!!!
+		
+		draw3D(dist, base_rot, rot, coll, WIN_W - i);
+		//draw_column(pos, coll, base_rot, WIN_W - i, dist); // remove me for 2D !!!!!!!!!!!!!
 		
 		i++;
 		rot += view / WIN_W;
 	}
 	return (1);
 }
-
 
 // Literally draw a raycast on the mlx image
 int raycast_draw(t_pos pos, double rot, double dist)
