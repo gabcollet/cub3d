@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/24 15:51:26 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/29 09:50:11 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int display(void *ptr)
 		//mouse_handler(0, 0);
 		mlx_clear_img(mlx->img);
 		draw_background(mlx->img);
-		drawMap2D(mlx, g_game.map);
+		//drawMap2D(mlx, g_game.map);
 		drawPlayer(mlx);
 		
 		/*

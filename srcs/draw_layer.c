@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 11:49:36 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/24 16:13:17 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/29 10:12:39 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,23 @@ void	drawMap3D(t_mlx *mlx, t_map map)
 
 void	draw_background(t_img img)
 {
-	int	x;
-	int y;
-	int	color;
+	int		x;
+	int 	y;
+	int		color;
+	double	shift_force;
 
 	x = 0;
 	y = 0;
 	while (x + y * img.width < img.width * img.height)
 	{
-		if (y < img.height / 2)
-			color = CEILING_C;
-		else
+		color = CEILING_C;
+		shift_force = (double)(y % (img.height / 2)) / (double)(img.height / 2);
+		if (y >= img.height / 2)
+		{
 			color = FLOOR_C;
-		//color = color_shift_int(color, BLACK, (double)y / (double)img.height);
+			shift_force = (double)1 - shift_force;
+		}
+		color = color_shift_int(color, BLACK, shift_force);
 		my_mlx_pixel_put(img, x, y, color);	
 		x++;
 		if (x == img.width)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/25 10:27:59 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/29 09:49:46 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int draw_column(t_pos player_pos, t_coll coll, double rot, int i_x)
 		color = WEST_C;
 	if (coll.dir & EAST)
 		color = EAST_C;
-	//color = color_shift_int(color, BLACK, (WIN_H - height) / WIN_H);
+	color = color_shift_int(color, BLACK, (WIN_H - height) / WIN_H);
 	while (y < height + (WIN_H - height) / 2)
 	{
 		my_mlx_pixel_put(get_mlx()->img, i_x, y, color);
@@ -73,9 +73,9 @@ int raycast_draw_all(t_pos pos, double rot, double view)
 		//printf("player x and y : %d %d\n", pos.x, pos.y );
 		//printf("coll x and y : %d %d\n", coll.pos.x, coll.pos.y );
 		//printf("rotation : %d %d\n", rot);
-		raycast_draw(pos, rot, dist);
+		//raycast_draw(pos, rot, dist);
 
-		//draw_column(pos, coll, base_rot, WIN_W - i); // remove me for 2D !!!!!!!!!!!!!
+		draw_column(pos, coll, base_rot, WIN_W - i); // remove me for 2D !!!!!!!!!!!!!
 		
 		i++;
 		rot += view / WIN_W;

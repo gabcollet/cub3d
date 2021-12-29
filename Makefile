@@ -6,7 +6,7 @@
 #    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/12/24 13:21:40 by fousse           ###   ########.fr        #
+#    Updated: 2021/12/29 09:30:44 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ MK_LFT		= make -C $(DIR_LFT)
 
 # Mains
 MAIN		= $(DIR_MAINS)/main.c
+MAIN_COLOR	= $(DIR_MAINS)/main_color.c
 
 # Headers
 _HEADS	=	cub3d.h
@@ -101,10 +102,15 @@ _linux	:
 		$(eval C_MAIN=$(C_LINUX_MAIN))
 		$(eval INC_MLX=$(INC_MLX))
 
+color	: _color _linux $(NAME)
+
+_color	:
+		$(eval MAIN=$(MAIN_COLOR))
+
 re		: fclean all
 
 re_linux : fclean linux
 
 bonus	: $(NAME)
 
-.PHONY	: all re clean fclean bonus linux
+.PHONY	: all re clean fclean bonus linux color
