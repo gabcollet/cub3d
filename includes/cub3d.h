@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/31 17:39:10 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/31 18:49:01 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,6 +237,7 @@ int		change_player_pos(t_player *player, double vel, int dir);
 int		check_collision_y(int x, int y, int size);
 int		check_collision_x(int x, int y, int size);
 t_coll	check_intersections(int x, int y, double rot);
+t_coll	check_dir(t_pos inter_y, t_pos inter_x, int side, double rot);
 
 /* Math */
 double	deg_to_rad(double angle);

@@ -6,13 +6,13 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:57:26 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/29 09:34:22 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/31 18:57:29 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
 
-int		color_rgb_to_int(t_rgb rgb)
+int	color_rgb_to_int(t_rgb rgb)
 {
 	int	color_int;
 
@@ -46,10 +46,8 @@ t_rgb	color_shift_rgb(t_rgb base, t_rgb shift, double force)
 {
 	t_rgb	new;
 
-	//printf("%f | ", force);
 	new.r = base.r + ((shift.r - base.r) * force);
 	new.g = base.g + ((shift.g - base.g) * force);
 	new.b = base.b + ((shift.b - base.b) * force);
-	//printf("r = %d  g = %d  b = %d\n", new.r, new.g, new.b);
 	return (new);
 }

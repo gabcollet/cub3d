@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:44:54 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/24 15:46:23 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/31 18:46:19 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,14 @@ double	deg_to_rad(double angle)
 */
 double	get_draw_distance(t_pos pos, double rot, t_pos pixel)
 {
-	int		d_x;
-	int 	d_y;
+	double	d_x;
+	double	d_y;
+	double	sin_result;
+	double	cos_result;
 
 	d_x = (int)fabs(pos.x - pixel.x);
 	d_y = (int)fabs(pos.y - pixel.y);
-	return (d_x * fabs(cos(deg_to_rad((int)rot))) + d_y * fabs(sin(deg_to_rad((int)rot))));
+	cos_result = fabs(cos(deg_to_rad((int)rot)));
+	sin_result = fabs(sin(deg_to_rad((int)rot)));
+	return (d_x * cos_result + d_y * sin_result);
 }

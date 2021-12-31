@@ -6,7 +6,7 @@
 #    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/12/31 16:03:30 by fousse           ###   ########.fr        #
+#    Updated: 2021/12/31 18:48:11 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ SRCS	= 	game.c map.c\
 			vector3d.c math_utils.c\
 			image.c mlx.c color.c color_trgb.c\
 			draw_layer.c\
-			collision.c intersection.c\
+			collision.c intersection.c intersection_utils.c\
 			raycast.c\
 			input.c
 

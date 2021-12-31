@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 09:35:03 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/31 16:08:56 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/31 18:41:28 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_pos	new_pos(double x, double y, double z)
 t_pos	move_pos(t_pos pos, double rot, double dist)
 {
 	t_pos	new_pos;
-	
+
 	new_pos.x = pos.x + dist * cos(deg_to_rad(rot));
 	new_pos.y = pos.y + dist * -sin(deg_to_rad(rot));
 	new_pos.z = pos.z + 0;
@@ -35,7 +35,7 @@ t_pos	move_pos(t_pos pos, double rot, double dist)
 t_pos	move_pos_player(t_pos pos, double rot, double dist, int dir)
 {
 	t_pos	new_pos;
-	
+
 	if (dir)
 		rot += 90;
 	new_pos.x = pos.x + dist * cos(deg_to_rad(rot));
@@ -46,18 +46,18 @@ t_pos	move_pos_player(t_pos pos, double rot, double dist, int dir)
 
 int	change_player_pos(t_player *player, double vel, int dir)
 {
-	t_pos pos;
-	t_pos new_pos;
+	t_pos	pos;
+	t_pos	new_pos;
 
 	pos.x = player->pos.x;
 	pos.y = player->pos.y;
 	new_pos = move_pos_player(pos, player->rot, vel, dir);
-	if (check_collision_x(new_pos.x, new_pos.y, 10))
+	if (check_collision_x(new_pos.x, new_pos.y, 5))
 	{
-		if (check_collision_x(new_pos.x, pos.y, 10))
+		if (check_collision_x(new_pos.x, pos.y, 5))
 			new_pos.x = player->pos.x;
 	}
-	if (check_collision_y(new_pos.x, new_pos.y, 10))
+	if (check_collision_y(new_pos.x, new_pos.y, 5))
 		new_pos.y = player->pos.y;
 	player->pos.x = new_pos.x;
 	player->pos.y = new_pos.y;

@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/20 15:45:16 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/12/31 18:41:41 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
 
-int	parse_cub();
+int	parse_cub(void);

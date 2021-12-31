@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 11:49:36 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/29 10:12:39 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/31 18:57:17 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 	}
 }*/
 
-void	drawMap3D(t_mlx *mlx, t_map map)
+void	draw_map3d(t_mlx *mlx, t_map map)
 {
 	draw_background(mlx->img);
 	/*int 	x, y;
@@ -60,7 +60,7 @@ void	drawMap3D(t_mlx *mlx, t_map map)
 void	draw_background(t_img img)
 {
 	int		x;
-	int 	y;
+	int		y;
 	int		color;
 	double	shift_force;
 
@@ -76,15 +76,14 @@ void	draw_background(t_img img)
 			shift_force = (double)1 - shift_force;
 		}
 		color = color_shift_int(color, BLACK, shift_force);
-		my_mlx_pixel_put(img, x, y, color);	
-		x++;
-		if (x == img.width)
+		my_mlx_pixel_put(img, x, y, color);
+		if (++x == img.width)
 		{
 			x = 0;
 			y++;
 		}
 	}
-	return (0);	
+	return (0);
 }
 
 /*int	draw_tiles(t_mlx *mlx)
@@ -92,18 +91,12 @@ void	draw_background(t_img img)
 	t_pos	start;
 	t_pos	pixel;
 	int		rot;
-
-	
-
-
 }*/
 
 int	draw_sprites(t_mlx *mlx)
 {
-
 }
 
-int	draw_UI(t_mlx *mlx)
+int	draw_ui(t_mlx *mlx)
 {
-
 }
