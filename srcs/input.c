@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/31 13:24:47 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/31 13:37:35 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ int key_press(int key, t_mlx *mlx)
 {
 	mlx = NULL;
 	if(key == LEFT_KEY)
-		rotate_player(&g_game.player, TURN_SPEED);
+		g_game.player.turn_speed = TURN_SPEED;
 	if(key == RIGHT_KEY)
-		rotate_player(&g_game.player, -TURN_SPEED);
+		g_game.player.turn_speed = -TURN_SPEED;
 	if(key == W_KEY)
 		g_game.player.vel_u_d = SPEED;
 	if(key == S_KEY)
@@ -76,6 +76,10 @@ int key_release(int key, t_mlx *mlx)
 		g_game.player.vel_u_d = 0;
 	if(key == A_KEY || key == D_KEY)
 		g_game.player.vel_r_l = 0;
+	if(key == LEFT_KEY)
+		g_game.player.turn_speed = 0;
+	if(key == RIGHT_KEY)
+		g_game.player.turn_speed = 0;
 	if (key == ESC)
 		exit(0);
 	return (key);

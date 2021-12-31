@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/31 13:25:32 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/31 13:40:03 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 
 /* Game parameter */
 # define SPEED			2
-# define TURN_SPEED		5.0
+# define TURN_SPEED		2.5
 # define MOUSE_TURN		0.5
 # define VIEW_ANGLE		60
 # define VIEW_DIST		1000
@@ -169,6 +169,7 @@ struct s_player
 	double	rot;
 	double	vel_r_l;
 	double	vel_u_d;
+	double	turn_speed;
 };
 
 struct s_game

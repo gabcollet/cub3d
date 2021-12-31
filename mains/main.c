@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/31 13:28:55 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/31 13:38:52 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void drawPlayer(t_mlx *mlx)
 		change_player_pos(&g_game.player, g_game.player.vel_u_d, 0);
 	if (g_game.player.vel_r_l)
 		change_player_pos(&g_game.player, g_game.player.vel_r_l, 1);
+	if (g_game.player.turn_speed)
+		rotate_player(&g_game.player, g_game.player.turn_speed);
 	x = g_game.player.pos.x;
 	y = g_game.player.pos.y;
 	while (y++ < (g_game.player.pos.y + 10))
