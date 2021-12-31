@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/31 12:06:26 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/31 13:28:51 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int raycast_draw_all(t_pos pos, double rot, double view)
 		//printf("coll x: %f and y: %f  ", coll.pos.x, coll.pos.y );
 		//printf("distance : %f\n", dist);
 		//raycast_draw(pos, rot, dist);
-		
+
 		draw3D(dist, base_rot, rot, coll, WIN_W - win_x);
 		//draw_column(pos, coll, base_rot, WIN_W - i, dist); // remove me for 2D !!!!!!!!!!!!!
 		

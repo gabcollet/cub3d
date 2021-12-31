@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/31 12:06:41 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/31 13:28:55 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void drawPlayer(t_mlx *mlx)
 	int x;
 	int y;
 	
-	if (g_game.player.vel)
-		change_player_pos(&g_game.player);
+	if (g_game.player.vel_u_d)
+		change_player_pos(&g_game.player, g_game.player.vel_u_d, 0);
+	if (g_game.player.vel_r_l)
+		change_player_pos(&g_game.player, g_game.player.vel_r_l, 1);
 	x = g_game.player.pos.x;
 	y = g_game.player.pos.y;
 	while (y++ < (g_game.player.pos.y + 10))
@@ -93,7 +95,7 @@ int display(void *ptr)
 		mlx_clear_img(mlx->img);
 		draw_background(mlx->img);
 		//drawMap2D(mlx, g_game.map);
-		drawPlayer(mlx);
+		drawPlayer(mlx); //on pogne dans les coins parce que la colision du player est trop large
 		
 		raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW_ANGLE);
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
@@ -140,7 +142,7 @@ void init()
 		0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,
 	};
-	g_game.player.pos.x = 221;
+	g_game.player.pos.x = 190;
 	g_game.player.pos.y = 121;
 	g_game.player.rot = 90;
 	g_game.player.hp = 100;

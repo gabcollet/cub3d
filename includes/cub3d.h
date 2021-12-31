@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/31 11:57:38 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/31 13:25:32 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,17 @@
 # define FPS		30
 # define MLX_CD		10000
 
+/* Key for linux */
 # define ESC 			65307
 # define SPACE_KEY 		49
 # define W_KEY			119
 # define A_KEY			97
 # define S_KEY			115
 # define D_KEY			100
+# define RIGHT_KEY		65363
+# define LEFT_KEY		65361
+
+/* Game parameter */
 # define SPEED			2
 # define TURN_SPEED		5.0
 # define MOUSE_TURN		0.5
@@ -42,6 +47,7 @@
 # define TILE_SIZE		50
 # define MINI_TILE_S	10
 
+/* Colors */
 # define WHITE			0xffffff
 # define BLACK			0x000000
 # define RED			0xFF0000
@@ -161,7 +167,8 @@ struct s_player
 	t_pos	pos;
 	int		hp;
 	double	rot;
-	double	vel;
+	double	vel_r_l;
+	double	vel_u_d;
 };
 
 struct s_game
@@ -212,7 +219,7 @@ int		mouse_move(int x, int y, t_mlx *mlx);
 /* Position and movement */
 t_pos	move_pos(t_pos pos, double rot, double dist);
 int		rotate_player(t_player *player, double rot);
-int		change_player_pos(t_player *player);
+int		change_player_pos(t_player *player, double vel, int dir);
 
 /* Collision and intersection */
 int		check_collision_y(int x, int y, int size);

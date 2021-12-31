@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/24 15:55:24 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/31 13:24:47 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,24 +54,28 @@ int	mouse_handler(int x, int y)
 int key_press(int key, t_mlx *mlx)
 {
 	mlx = NULL;
-	if(key == A_KEY)
+	if(key == LEFT_KEY)
 		rotate_player(&g_game.player, TURN_SPEED);
-	if(key == D_KEY)
+	if(key == RIGHT_KEY)
 		rotate_player(&g_game.player, -TURN_SPEED);
 	if(key == W_KEY)
-		g_game.player.vel = SPEED;
+		g_game.player.vel_u_d = SPEED;
 	if(key == S_KEY)
-		g_game.player.vel = -SPEED;
+		g_game.player.vel_u_d = -SPEED;
+	if(key == A_KEY)
+		g_game.player.vel_r_l = SPEED;
+	if(key == D_KEY)
+		g_game.player.vel_r_l = -SPEED;
 	return (key);
 }
 
 int key_release(int key, t_mlx *mlx)
 {
 	mlx = NULL;
-	if(key == W_KEY)
-		g_game.player.vel = 0;
-	if(key == S_KEY)
-		g_game.player.vel = 0;
+	if(key == W_KEY || key == S_KEY)
+		g_game.player.vel_u_d = 0;
+	if(key == A_KEY || key == D_KEY)
+		g_game.player.vel_r_l = 0;
 	if (key == ESC)
 		exit(0);
 	return (key);
