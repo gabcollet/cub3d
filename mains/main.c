@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/29 15:55:27 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/31 12:06:41 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,6 @@ int display(void *ptr)
 		//drawMap2D(mlx, g_game.map);
 		drawPlayer(mlx);
 		
-		/*
-		* si tu veux revenir à notre 2d, va dans raycast.c et enlève draw_column()
-		*/
 		raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW_ANGLE);
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	}

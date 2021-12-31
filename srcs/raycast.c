@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/29 16:35:10 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/31 12:06:26 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,16 @@ int	draw3D(float dist, double base_rot, double rot, t_coll coll, int x)
 */
 int raycast_draw_all(t_pos pos, double rot, double view)
 {
-	int		i;
+	int	win_x;
 	float	dist;
-	double		base_rot;
+	double	base_rot;
 	t_coll	coll;
 
 	coll = new_collider(new_pos(0, 0, 0), 0, 0);
-	i = 0;
+	win_x = 0;
 	base_rot = rot;
 	rot -= view / 2;
-	while (i < WIN_W)
+	while (win_x < WIN_W)
 	{
 		if (rot >= 360)
 			rot = (int)rot % 360;
@@ -102,15 +102,16 @@ int raycast_draw_all(t_pos pos, double rot, double view)
 		coll = check_intersections(pos.x, pos.y, rot);
 		dist = sqrt(pow((coll.pos.x - pos.x), 2) + pow((coll.pos.y - pos.y), 2));
 		//printf("player x and y : %d %d\n", pos.x, pos.y );
-		//printf("coll x and y : %d %d\n", coll.pos.x, coll.pos.y );
-		//printf("rotation : %f\n", rot);
+		//printf("rotation : %f  ", rot);
+		//printf("coll x: %f and y: %f  ", coll.pos.x, coll.pos.y );
+		//printf("distance : %f\n", dist);
 		//raycast_draw(pos, rot, dist);
 		
-		draw3D(dist, base_rot, rot, coll, WIN_W - i);
+		draw3D(dist, base_rot, rot, coll, WIN_W - win_x);
 		//draw_column(pos, coll, base_rot, WIN_W - i, dist); // remove me for 2D !!!!!!!!!!!!!
 		
-		i++;
-		rot += view / WIN_W;
+		win_x++;
+		rot += (view / WIN_W) ;
 	}
 	return (1);
 }

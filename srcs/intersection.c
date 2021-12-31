@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 11:00:43 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/25 12:24:38 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/31 12:04:19 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ t_pos	increment_pos(t_pos inter, int xy, int side, double rot)
 		sign = -1;
 	if (xy == 'y')
 	{
-		inter.x += (TILE_SIZE / tan(deg_to_rad((int)rot))) * sign;
+		inter.x += (TILE_SIZE / tan(deg_to_rad(rot))) * sign;
 		inter.y += -TILE_SIZE * sign;
 	}
 	else
 	{
 		inter.x += TILE_SIZE * sign;
-		inter.y += (-TILE_SIZE * tan(deg_to_rad((int)rot))) * sign;
+		inter.y += (-TILE_SIZE * tan(deg_to_rad(rot))) * sign;
 	}
 	return (inter);
 }
@@ -125,30 +125,30 @@ t_coll	check_dir(t_pos inter_y, t_pos inter_x, int side, double rot)
 	return (new_collider(new_pos(0, 0, 0), 0, 0));
 }
 
-t_coll	check_intersections(int x, int y, int rot)
+t_coll	check_intersections(int x, int y, double rot)
 {
 	t_pos	inter_y_n;
 	t_pos	inter_y_s;
 	t_pos	inter_x_e;
 	t_pos	inter_x_w;
 
-	inter_y_n.x = x + ((y % TILE_SIZE) / tan(deg_to_rad((int)rot)));
+	inter_y_n.x = x + ((y % TILE_SIZE) / tan(deg_to_rad(rot)));
 	inter_y_n.y = y - (y % TILE_SIZE);
-	inter_y_s.x = x - (TILE_SIZE - (y % TILE_SIZE)) / tan(deg_to_rad((int)rot));
+	inter_y_s.x = x - (TILE_SIZE - (y % TILE_SIZE)) / tan(deg_to_rad(rot));
 	inter_y_s.y = y + (TILE_SIZE - (y % TILE_SIZE));
 	inter_x_e.x = x - (x % TILE_SIZE) + TILE_SIZE;
 	inter_x_e.y = y - ((TILE_SIZE - (x % TILE_SIZE))
-			* tan(deg_to_rad((int)rot)));
+			* tan(deg_to_rad(rot)));
 	inter_x_w.x = x - (x % TILE_SIZE);
 	inter_x_w.y = y + ((TILE_SIZE - (TILE_SIZE - (x % TILE_SIZE)))
-			* tan(deg_to_rad((int)rot)));
+			* tan(deg_to_rad(rot)));
 	if (rot >= 0 && rot <= 90)
 		return (check_dir(inter_y_n, inter_x_e, 'NE', rot));
-	else if (rot >= 91 && rot <= 180)
+	else if (rot >= 90 && rot <= 180)
 		return (check_dir(inter_y_n, inter_x_w, 'NW', rot));
-	else if (rot >= 181 && rot <= 270)
+	else if (rot >= 180 && rot <= 270)
 		return (check_dir(inter_y_s, inter_x_w, 'SW', rot));
-	else if (rot >= 271 && rot <= 360)
+	else if (rot >= 270 && rot <= 360)
 		return (check_dir(inter_y_s, inter_x_e, 'SE', rot));
 	return (new_collider(new_pos(0, 0, 0), 0, 0));
 }
