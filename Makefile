@@ -6,7 +6,7 @@
 #    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/12/29 09:30:44 by fousse           ###   ########.fr        #
+#    Updated: 2021/12/31 16:03:30 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,8 @@ HEADS		= $(patsubst %,$(DIR_INCS)/%,$(_HEADS))
 #
 
 # Sources and Objects
-SRCS	= 	position.c rotation.c size.c\
+SRCS	= 	game.c map.c\
+			position.c rotation.c size.c\
 			vector3d.c math_utils.c\
 			image.c mlx.c color.c color_trgb.c\
 			draw_layer.c\

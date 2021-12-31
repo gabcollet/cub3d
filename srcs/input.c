@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/31 13:37:35 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/31 17:21:27 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	mouse_handler(int x, int y)
 
 	mlx_mouse_get_pos(get_mlx()->mlx, get_mlx()->win, &x, &y);
 	if (mouse_x != x)
-		rotate_player(&g_game.player, -(mouse_x - x) * MOUSE_TURN);
+		rotate_player(&g_game.player, (mouse_x - x) * MOUSE_TURN);
 	/*if (x >= WIN_W)
 	{
 		x = (x % WIN_W);
@@ -81,6 +81,13 @@ int key_release(int key, t_mlx *mlx)
 	if(key == RIGHT_KEY)
 		g_game.player.turn_speed = 0;
 	if (key == ESC)
-		exit(0);
+		exit_game(&g_game, 0);
 	return (key);
+}
+
+int quit_handler(void)
+{
+	//mlx = NULL;
+	exit_game(&g_game, 0);
+	return (0);
 }

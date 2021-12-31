@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/31 13:28:51 by gcollet          ###   ########.fr       */
+/*   Updated: 2021/12/31 16:09:04 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,11 +101,6 @@ int raycast_draw_all(t_pos pos, double rot, double view)
 			rot = 360 + rot;
 		coll = check_intersections(pos.x, pos.y, rot);
 		dist = sqrt(pow((coll.pos.x - pos.x), 2) + pow((coll.pos.y - pos.y), 2));
-		//printf("player x and y : %d %d\n", pos.x, pos.y );
-		//printf("rotation : %f  ", rot);
-		//printf("coll x: %f and y: %f  ", coll.pos.x, coll.pos.y );
-		//printf("distance : %f\n", dist);
-		//raycast_draw(pos, rot, dist);
 
 		draw3D(dist, base_rot, rot, coll, WIN_W - win_x);
 		//draw_column(pos, coll, base_rot, WIN_W - i, dist); // remove me for 2D !!!!!!!!!!!!!

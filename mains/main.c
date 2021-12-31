@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/31 13:38:52 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/31 17:23:48 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,65 +107,15 @@ int display(void *ptr)
 	return (0);
 }
 
-int	*copy_map(int *src, int size)
-{
-	int	*tiles;
-	int	i;
-
-	tiles = malloc(sizeof(int) * size);
-	i = 0;
-	while (i < size)
-	{
-		tiles[i] = src[i];
-		i++;
-	}
-	return (tiles);
-}
-
-void init()
-{
-	int tiles[64] = {
-		1,1,1,1,1,1,1,1,
-		1,0,1,0,0,0,0,1,
-		1,0,1,0,0,1,0,1,
-		1,0,1,0,0,1,0,1,
-		1,0,0,0,1,0,0,1,
-		1,0,1,0,1,0,1,1,
-		1,0,0,0,0,0,0,1,
-		1,1,1,1,1,1,1,1,
-	};
-	int tiles_coll[64] = {
-		0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,
-	};
-	g_game.player.pos.x = 190;
-	g_game.player.pos.y = 121;
-	g_game.player.rot = 90;
-	g_game.player.hp = 100;
-	g_game.map.width = 8;
-	g_game.map.size = 64;
-	g_game.map.height = 8;
-	g_game.map.tiles = copy_map(tiles, 64);
-	g_game.map.tiles_coll = copy_map(tiles_coll, 64);
-	g_game.mlx = get_mlx();
-	mlx_get_screen_size(g_game.mlx->mlx, &g_game.screen_x, &g_game.screen_y);
-	mlx_mouse_hide(g_game.mlx->mlx, g_game.mlx->win);
-}
-
 int main(void)
 {
 	t_mlx *mlx;
 
 	mlx = get_mlx();
-	init();
+	init_game(&g_game);
 	mlx_hook(mlx->win, 2, 1L<<0, key_press, mlx);
 	mlx_hook(mlx->win, 3, 1L<<1, key_release, mlx);
+	mlx_hook(mlx->win, 17, 0, quit_handler, NULL);
 	//mlx_hook(mlx->win, 6, 1L<<6, mouse_move, mlx);
 	//mlx_mouse_hook(mlx->win, mouse_handler, NULL);
 	mlx_loop_hook(mlx->mlx, display, mlx);

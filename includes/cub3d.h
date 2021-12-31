@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/31 13:40:03 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/31 17:20:03 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 /* Game parameter */
 # define SPEED			2
 # define TURN_SPEED		2.5
-# define MOUSE_TURN		0.5
+# define MOUSE_TURN		0.1
 # define VIEW_ANGLE		60
 # define VIEW_DIST		1000
 # define TILE_SIZE		50
@@ -193,6 +193,13 @@ t_coll	new_collider(t_pos pos, int type, int dir);
 /* MLX */
 t_mlx	*get_mlx(void);
 
+/* Game management */
+void	init_game(t_game *game);
+void	exit_game(t_game *game, int exit_code);
+
+/* Map management */
+int		*copy_map(int *src, int size);
+
 /* Image and draw */
 void	my_mlx_pixel_put(t_img img, int x, int y, int color);
 void	mlx_clear_img(t_img img);
@@ -216,6 +223,7 @@ int		key_press(int key, t_mlx *mlx);
 int		key_release(int key, t_mlx *mlx);
 int		mouse_handler(int x, int y);
 int		mouse_move(int x, int y, t_mlx *mlx);
+int 	quit_handler(void);
 
 /* Position and movement */
 t_pos	move_pos(t_pos pos, double rot, double dist);
