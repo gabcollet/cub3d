@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/31 17:20:03 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/31 17:39:10 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,9 +167,12 @@ struct s_player
 	t_pos	pos;
 	int		hp;
 	double	rot;
-	double	vel_r_l;
-	double	vel_u_d;
-	double	turn_speed;
+	double	vel_r;
+	double	vel_l;
+	double	vel_u;
+	double	vel_d;
+	double	turn_l;
+	double	turn_r;
 };
 
 struct s_game

@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/31 17:23:48 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/31 17:39:57 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ void drawPlayer(t_mlx *mlx)
 	int x;
 	int y;
 	
-	if (g_game.player.vel_u_d)
-		change_player_pos(&g_game.player, g_game.player.vel_u_d, 0);
-	if (g_game.player.vel_r_l)
-		change_player_pos(&g_game.player, g_game.player.vel_r_l, 1);
-	if (g_game.player.turn_speed)
-		rotate_player(&g_game.player, g_game.player.turn_speed);
+	if (g_game.player.vel_u + g_game.player.vel_d)
+		change_player_pos(&g_game.player, g_game.player.vel_u + g_game.player.vel_d, 0);
+	if (g_game.player.vel_r + g_game.player.vel_l)
+		change_player_pos(&g_game.player, g_game.player.vel_r + g_game.player.vel_l, 1);
+	if (g_game.player.turn_l + g_game.player.turn_r)
+		rotate_player(&g_game.player, g_game.player.turn_l + g_game.player.turn_r);
 	x = g_game.player.pos.x;
 	y = g_game.player.pos.y;
 	while (y++ < (g_game.player.pos.y + 10))
@@ -116,10 +116,7 @@ int main(void)
 	mlx_hook(mlx->win, 2, 1L<<0, key_press, mlx);
 	mlx_hook(mlx->win, 3, 1L<<1, key_release, mlx);
 	mlx_hook(mlx->win, 17, 0, quit_handler, NULL);
-	//mlx_hook(mlx->win, 6, 1L<<6, mouse_move, mlx);
-	//mlx_mouse_hook(mlx->win, mouse_handler, NULL);
 	mlx_loop_hook(mlx->mlx, display, mlx);
-	//mlx_key_hook(mlx.win, buttons, mlx);
 	mlx_loop(mlx->mlx);
 	return (0);
 }

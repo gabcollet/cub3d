@@ -20,12 +20,12 @@ int	check_collision_x(int x, int y, int size)
 	map_x = g_game.map.width;
 	if (tiles[x / TILE_SIZE + (y / TILE_SIZE * map_x)] == 1)
 		return (1);
-	if (tiles[(x + size) / TILE_SIZE + (y / TILE_SIZE * map_x)] == 1)
-		return (1);
-	if (tiles[(x) / TILE_SIZE + ((y + size) / TILE_SIZE * map_x)] == 1)
-		return (1);
-	if (tiles[(x + size) / TILE_SIZE + ((y + size) / TILE_SIZE * map_x)] == 1)
-		return (1);
+	/*if (tiles[(x + ize) / TILE_SIZE + (y / TILE_SIZE * map_x)] == 1)
+		return (1);*/
+	/*if (tiles[(x) / TILE_SIZE + ((y + size) / TILE_SIZE * map_x)] == 1)
+		return (1);*/
+	/*if (tiles[(x + size) / TILE_SIZE + ((y + size) / TILE_SIZE * map_x)] == 1)
+		return (1);*/
 	return (0);
 }
 
@@ -38,11 +38,11 @@ int	check_collision_y(int x, int y, int size)
 	map_y = g_game.map.height;
 	if (tiles[x / TILE_SIZE + y / TILE_SIZE * map_y] == 1)
 		return (1);
-	if (tiles[x / TILE_SIZE + (y + size) / TILE_SIZE * map_y] == 1)
-		return (1);
-	if (tiles[(x) / TILE_SIZE + (y) / TILE_SIZE * map_y] == 1)
-		return (1);
-	if (tiles[(x + size) / TILE_SIZE + (y + size) / TILE_SIZE * map_y] == 1)
-		return (1);
+	/*if (tiles[x / TILE_SIZE + (y + size) / TILE_SIZE * map_y] == 1)
+		return (1);*/
+	/*if (tiles[(x) / TILE_SIZE + (y) / TILE_SIZE * map_y] == 1)
+		return (1);*/
+	/*if (tiles[(x + size) / TILE_SIZE + (y + size) / TILE_SIZE * map_y] == 1)
+		return (1);*/
 	return (0);
 }

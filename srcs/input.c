@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/31 17:21:27 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/31 17:40:20 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,31 +55,35 @@ int key_press(int key, t_mlx *mlx)
 {
 	mlx = NULL;
 	if(key == LEFT_KEY)
-		g_game.player.turn_speed = TURN_SPEED;
+		g_game.player.turn_l = TURN_SPEED;
 	if(key == RIGHT_KEY)
-		g_game.player.turn_speed = -TURN_SPEED;
+		g_game.player.turn_r = -TURN_SPEED;
 	if(key == W_KEY)
-		g_game.player.vel_u_d = SPEED;
+		g_game.player.vel_u = SPEED;
 	if(key == S_KEY)
-		g_game.player.vel_u_d = -SPEED;
+		g_game.player.vel_d = -SPEED;
 	if(key == A_KEY)
-		g_game.player.vel_r_l = SPEED;
+		g_game.player.vel_l = SPEED;
 	if(key == D_KEY)
-		g_game.player.vel_r_l = -SPEED;
+		g_game.player.vel_r = -SPEED;
 	return (key);
 }
 
 int key_release(int key, t_mlx *mlx)
 {
 	mlx = NULL;
-	if(key == W_KEY || key == S_KEY)
-		g_game.player.vel_u_d = 0;
-	if(key == A_KEY || key == D_KEY)
-		g_game.player.vel_r_l = 0;
+	if(key == W_KEY)
+		g_game.player.vel_u = 0;
+	if(key == A_KEY)
+		g_game.player.vel_l = 0;
+	if(key == S_KEY)
+		g_game.player.vel_d = 0;
+	if(key == D_KEY)
+		g_game.player.vel_r = 0;
 	if(key == LEFT_KEY)
-		g_game.player.turn_speed = 0;
+		g_game.player.turn_l = 0;
 	if(key == RIGHT_KEY)
-		g_game.player.turn_speed = 0;
+		g_game.player.turn_r = 0;
 	if (key == ESC)
 		exit_game(&g_game, 0);
 	return (key);
