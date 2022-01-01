@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/24 11:33:11 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/01 15:03:21 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,30 +28,36 @@
 # define FPS		30
 # define MLX_CD		10000
 
+/* Key for linux */
 # define ESC 			65307
 # define SPACE_KEY 		49
 # define W_KEY			119
 # define A_KEY			97
 # define S_KEY			115
 # define D_KEY			100
-# define SPEED			0.4
-# define TURN_SPEED		5.0
-# define MOUSE_TURN		0.5
-# define VIEW			1
-# define TILE_SIZE		50
+# define RIGHT_KEY		65363
+# define LEFT_KEY		65361
 
+/* Game parameter */
+# define SPEED			2
+# define TURN_SPEED		2.5
+# define MOUSE_TURN		0.1
+# define VIEW_ANGLE		60
+# define VIEW_DIST		1000
+# define TILE_SIZE		50
+# define MINI_TILE_S	10
+
+/* Colors */
 # define WHITE			0xffffff
 # define BLACK			0x000000
 # define RED			0xFF0000
-# define FLOOR_C		0x888888
-# define CEILING_C		0x222222
-# define WALL_C_NO		0x00aa50
-# define WALL_C_SO		0x005090
-# define WALL_C_WE		0x0020bb
-# define WALL_C_EA		0x0000ff
+# define FLOOR_C		0x303030
+# define CEILING_C		0x909090
+# define NORTH_C		0x00aa50
+# define SOUTH_C		0x005090
+# define WEST_C			0x0020bb
+# define EAST_C			0x0000ff
 # define YELLOW			0xf0de18
-
-
 
 typedef struct s_mlx	t_mlx;
 typedef struct s_img	t_img;
@@ -83,10 +89,10 @@ enum e_obj_type
 
 enum e_dir
 {
-	NORTH,
-	SOUTH,
-	WEST,
-	EAST
+	NORTH = 1,
+	SOUTH = 2,
+	WEST = 4,
+	EAST = 8
 };
 
 struct s_pos
@@ -114,6 +120,7 @@ struct s_coll
 {
 	t_pos	pos;
 	int		type;
+	int		dir;
 };
 
 struct s_img
@@ -121,8 +128,9 @@ struct s_img
 	void	*img;
 	char	*addr;
 	int		bpp;
-	int		line_length;
+	int		width;
 	int		endian;
+	int		height;
 };
 
 struct s_vect
@@ -144,7 +152,9 @@ struct s_map
 {
 	int	width;
 	int	height;
-	int *map;
+	int *tiles;
+	int *tiles_coll;
+	int size;
 };
 
 struct s_obj
@@ -157,7 +167,12 @@ struct s_player
 	t_pos	pos;
 	int		hp;
 	double	rot;
-	double	vel;
+	double	vel_r;
+	double	vel_l;
+	double	vel_u;
+	double	vel_d;
+	double	turn_l;
+	double	turn_r;
 };
 
 struct s_game
@@ -165,6 +180,7 @@ struct s_game
 	t_map		map;
 	t_player	player;
 	t_mlx		*mlx;
+	t_img		minimap;
 	int			screen_x;
 	int			screen_y;
 };
@@ -175,23 +191,31 @@ t_game	g_game;
 t_pos	new_pos(double x, double y, double z);
 t_size	new_size(double x, double y, double z);
 t_vect	new_vect(double x, double y, double z);
-t_coll	new_collider(t_pos pos, int type);
+t_coll	new_collider(t_pos pos, int type, int dir);
 
 /* MLX */
 t_mlx	*get_mlx(void);
 
+/* Game management */
+void	init_game(t_game *game);
+void	exit_game(t_game *game, int exit_code);
+
+/* Map management */
+int		*copy_map(int *src, int size);
+
 /* Image and draw */
-void	my_mlx_pixel_put(t_mlx *mlx, int x, int y, int color);
-void	mlx_clear_img(t_mlx *mlx);
+void	my_mlx_pixel_put(t_img img, int x, int y, int color);
+void	mlx_clear_img(t_img img);
 int 	raycast_draw(t_pos pos, double rot, double dist);
 int 	raycast_draw_all(t_pos pos, double rot, double view);
+void	drawMap3D(t_mlx *mlx, t_map map);
+void	draw_background(t_img img);
 
 /* Color */
-int	get_t(int trgb);
-int	get_r(int trgb);
-int	get_g(int trgb);
-int	get_b(int trgb);
-
+int		get_t(int trgb);
+int		get_r(int trgb);
+int		get_g(int trgb);
+int		get_b(int trgb);
 t_rgb	color_int_to_rgb(int color);
 int		color_rgb_to_int(t_rgb rgb);
 t_rgb	color_shift_rgb(t_rgb base, t_rgb shift, double force);
@@ -202,20 +226,20 @@ int		key_press(int key, t_mlx *mlx);
 int		key_release(int key, t_mlx *mlx);
 int		mouse_handler(int x, int y);
 int		mouse_move(int x, int y, t_mlx *mlx);
-
+int 	quit_handler(void);
 
 /* Position and movement */
-t_pos	move_pos(t_pos pos, double rot, double dist);
+t_pos	move_pos(t_pos pos, double rot, double dist, int dir);
 int		rotate_player(t_player *player, double rot);
-int		change_player_pos(t_player *player);
+int		change_player_pos(t_player *player, double vel, int dir);
 
 /* Collision and intersection */
-int		check_collision_y(int x, int y, int size);
-int		check_collision_x(int x, int y, int size);
-t_pos	check_intersections(int x, int y, int size);
-
+int		check_collision(int x, int y, int size, int map);
+t_coll	check_intersections(int x, int y, double rot);
+t_coll	check_dir(t_pos inter_y, t_pos inter_x, int side, double rot);
 
 /* Math */
 double	deg_to_rad(double angle);
+double	get_draw_distance(t_pos pos, double rot, t_pos pixel);
 
 #endif

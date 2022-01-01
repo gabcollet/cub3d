@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   image.c                                            :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/31 18:51:46 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/31 18:52:26 by fousse           ###   ########.fr       */
+/*   Created: 2021/12/31 15:53:43 by fousse            #+#    #+#             */
+/*   Updated: 2021/12/31 18:46:24 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
 
-void	my_mlx_pixel_put(t_img img, int x, int y, int color)
+/*
+* Function to be removed; used for initial testing when we didn't have parsing
+*/
+int	*copy_map(int *src, int size)
 {
-	char	*dst;
+	int	*tiles;
+	int	i;
 
-	if (x > WIN_W || y > WIN_H || x <= 0 || y <= 0)
-		return ;
-	dst = img.addr + (y * img.width + x * (img.bpp / 8));
-	*(unsigned int *)dst = color;
-}
-
-/* Set all pixel to black in a given image */
-void	mlx_clear_img(t_img img)
-{
-	char	*dst;
-	int		i;
-
+	tiles = malloc(sizeof(int) * size);
 	i = 0;
-	while (i < WIN_W * WIN_H)
+	while (i < size)
 	{
-		dst = img.addr + (i * (img.bpp / 8));
-		*(unsigned int *)dst = 0;
+		tiles[i] = src[i];
 		i++;
 	}
+	return (tiles);
 }

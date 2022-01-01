@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   game_update.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:13:18 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/20 14:26:03 by sfournie         ###   ########.fr       */
+/*   Updated: 2021/12/31 18:53:02 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	game_update()
+void	game_update(void)
 {
-
 }

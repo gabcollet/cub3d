@@ -6,13 +6,13 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:57:26 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/22 20:49:36 by fousse           ###   ########.fr       */
+/*   Updated: 2021/12/31 18:57:29 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
 
-int		color_rgb_to_int(t_rgb rgb)
+int	color_rgb_to_int(t_rgb rgb)
 {
 	int	color_int;
 
@@ -24,7 +24,7 @@ t_rgb	color_int_to_rgb(int color)
 {
 	t_rgb	rgb;
 
-	rgb.b = get_r(color);
+	rgb.r = get_r(color);
 	rgb.g = get_g(color);
 	rgb.b = get_b(color);
 	return (rgb);
@@ -40,7 +40,6 @@ int	color_shift_int(int base, int shift, double force)
 	shift_rgb = color_int_to_rgb(shift);
 	rgb = color_shift_rgb(base_rgb, shift_rgb, force);
 	return (color_rgb_to_int(rgb));
-
 }
 
 t_rgb	color_shift_rgb(t_rgb base, t_rgb shift, double force)
@@ -48,7 +47,7 @@ t_rgb	color_shift_rgb(t_rgb base, t_rgb shift, double force)
 	t_rgb	new;
 
 	new.r = base.r + ((shift.r - base.r) * force);
-	new.g = base.g + ((shift.g - base.r) * force);
-	new.b = base.b + ((shift.b - base.r) * force);
+	new.g = base.g + ((shift.g - base.g) * force);
+	new.b = base.b + ((shift.b - base.b) * force);
 	return (new);
 }
