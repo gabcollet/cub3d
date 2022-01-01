@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   position.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 09:35:03 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/31 18:41:28 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/01 15:04:24 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,7 @@ t_pos	new_pos(double x, double y, double z)
 	return (pos);
 }
 
-t_pos	move_pos(t_pos pos, double rot, double dist)
-{
-	t_pos	new_pos;
-
-	new_pos.x = pos.x + dist * cos(deg_to_rad(rot));
-	new_pos.y = pos.y + dist * -sin(deg_to_rad(rot));
-	new_pos.z = pos.z + 0;
-	return (new_pos);
-}
-
-t_pos	move_pos_player(t_pos pos, double rot, double dist, int dir)
+t_pos	move_pos(t_pos pos, double rot, double dist, int dir)
 {
 	t_pos	new_pos;
 
@@ -51,13 +41,13 @@ int	change_player_pos(t_player *player, double vel, int dir)
 
 	pos.x = player->pos.x;
 	pos.y = player->pos.y;
-	new_pos = move_pos_player(pos, player->rot, vel, dir);
-	if (check_collision_x(new_pos.x, new_pos.y, 5))
+	new_pos = move_pos(pos, player->rot, vel, dir);
+	if (check_collision(new_pos.x, new_pos.y, 5, g_game.map.width))
 	{
-		if (check_collision_x(new_pos.x, pos.y, 5))
+		if (check_collision(new_pos.x, pos.y, 5, g_game.map.width))
 			new_pos.x = player->pos.x;
 	}
-	if (check_collision_y(new_pos.x, new_pos.y, 5))
+	if (check_collision(new_pos.x, new_pos.y, 5, g_game.map.height))
 		new_pos.y = player->pos.y;
 	player->pos.x = new_pos.x;
 	player->pos.y = new_pos.y;

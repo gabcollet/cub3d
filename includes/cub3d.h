@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2021/12/31 18:49:01 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/01 15:03:21 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,13 +229,12 @@ int		mouse_move(int x, int y, t_mlx *mlx);
 int 	quit_handler(void);
 
 /* Position and movement */
-t_pos	move_pos(t_pos pos, double rot, double dist);
+t_pos	move_pos(t_pos pos, double rot, double dist, int dir);
 int		rotate_player(t_player *player, double rot);
 int		change_player_pos(t_player *player, double vel, int dir);
 
 /* Collision and intersection */
-int		check_collision_y(int x, int y, int size);
-int		check_collision_x(int x, int y, int size);
+int		check_collision(int x, int y, int size, int map);
 t_coll	check_intersections(int x, int y, double rot);
 t_coll	check_dir(t_pos inter_y, t_pos inter_x, int side, double rot);
 
