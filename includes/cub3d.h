@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/01 15:03:21 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/01 20:27:13 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@
 # define TILE_SIZE		50
 # define MINI_TILE_S	10
 
+/* Sprites */
+# define SPRITE_AMNT	4
+
 /* Colors */
 # define WHITE			0xffffff
 # define BLACK			0x000000
@@ -58,6 +61,13 @@
 # define WEST_C			0x0020bb
 # define EAST_C			0x0000ff
 # define YELLOW			0xf0de18
+
+/* Parse errors */
+# define ERR_FILE		1
+# define ERR_MAPC		2
+# define ERR_WALL		3
+# define ERR_SPACE		4
+# define ERR_PLAYER		5
 
 typedef struct s_mlx	t_mlx;
 typedef struct s_img	t_img;
@@ -93,6 +103,14 @@ enum e_dir
 	SOUTH = 2,
 	WEST = 4,
 	EAST = 8
+};
+
+enum e_sprite
+{
+	NO = 0,
+	SO,
+	WE,
+	EA,
 };
 
 struct s_pos

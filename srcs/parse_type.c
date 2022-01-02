@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   parse_type.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/31 15:53:43 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/01 20:15:58 by fousse           ###   ########.fr       */
+/*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
+/*   Updated: 2022/01/01 18:15:35 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
 
-/*t_map	new_map(int width, int height, )
-{
-	
-	return (t);
-}*/
 
 /*
-* Function to be removed; used for initial testing when we didn't have parsing
+* Return 0 for error, 1 for sprites and 2 for map start.
 */
-int	*copy_map(int *src, int size)
+int	parse_get_type(char *line)
 {
-	int	*tiles;
-	int	i;
-
-	tiles = malloc(sizeof(int) * size);
-	i = 0;
-	while (i < size)
-	{
-		tiles[i] = src[i];
-		i++;
-	}
-	return (tiles);
 }

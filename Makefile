@@ -6,7 +6,7 @@
 #    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2021/12/31 18:48:11 by fousse           ###   ########.fr        #
+#    Updated: 2022/01/01 22:48:08 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ MK_LFT		= make -C $(DIR_LFT)
 #
 
 # Mains
-MAIN		= $(DIR_MAINS)/main.c
+#MAIN		= $(DIR_MAINS)/main.c
+MAIN		= $(DIR_MAINS)/main_texture.c
 MAIN_COLOR	= $(DIR_MAINS)/main_color.c
 
 # Headers

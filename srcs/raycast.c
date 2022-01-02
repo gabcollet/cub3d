@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/01 15:09:25 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/01 20:20:58 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 		if (rot < 0)
 			rot = 360.0 + rot;
 		coll = check_intersections(pos.x, pos.y, rot);
-		//dist = get_draw_distance(pos, rot, coll.pos);
-		dist = sqrt(pow((coll.pos.x - pos.x), 2) + pow((coll.pos.y - pos.y), 2));
+		dist = get_draw_distance(pos, rot, coll.pos);
+		//dist = sqrt(pow((coll.pos.x - pos.x), 2) + pow((coll.pos.y - pos.y), 2));
 		draw3d(dist, base_rot - rot, coll, WIN_W - win_x);
 		win_x++;
 		rot += (view / WIN_W);

@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/31 17:39:57 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/01 20:34:58 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ int main(void)
 
 	mlx = get_mlx();
 	init_game(&g_game);
+	//h.sheet.img = mlx_xpm_file_to_image(h.mlx.mlx, "sheetmegaman.xpm", &h.sheet.x_len, &h.sheet.y_len);
 	mlx_hook(mlx->win, 2, 1L<<0, key_press, mlx);
 	mlx_hook(mlx->win, 3, 1L<<1, key_release, mlx);
 	mlx_hook(mlx->win, 17, 0, quit_handler, NULL);
