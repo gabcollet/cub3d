@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
+#    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/01 22:48:08 by fousse           ###   ########.fr        #
+#    Updated: 2022/01/03 14:47:32 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,8 +47,8 @@ MK_LFT		= make -C $(DIR_LFT)
 #
 
 # Mains
-#MAIN		= $(DIR_MAINS)/main.c
-MAIN		= $(DIR_MAINS)/main_texture.c
+MAIN		= $(DIR_MAINS)/main.c
+#MAIN		= $(DIR_MAINS)/main_texture.c
 MAIN_COLOR	= $(DIR_MAINS)/main_color.c
 
 # Headers
@@ -60,7 +60,7 @@ HEADS		= $(patsubst %,$(DIR_INCS)/%,$(_HEADS))
 SRCS	= 	game.c map.c\
 			position.c rotation.c size.c\
 			vector3d.c math_utils.c\
-			image.c mlx.c color.c color_trgb.c\
+			image.c mlx.c color.c color_trgb.c textures.c\
 			draw_layer.c\
 			collision.c intersection.c intersection_utils.c\
 			raycast.c\

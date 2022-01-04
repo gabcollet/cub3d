@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/01 20:30:44 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/03 20:21:17 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
 
 void	init_game(t_game *game)
-{
+{	
+	int i;
 	int tiles[64] = {
 		1,1,1,1,1,1,1,1, 
 		1,0,0,0,0,0,0,1,
@@ -34,6 +35,8 @@ void	init_game(t_game *game)
 		0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,
 	};
+
+	i = 0;
 	game->player.pos.x = 190;
 	game->player.pos.y = 121;
 	game->player.rot = 270;
@@ -46,6 +49,13 @@ void	init_game(t_game *game)
 	game->mlx = get_mlx();
 	mlx_get_screen_size(game->mlx->mlx, &game->screen_x, &game->screen_y);
 	mlx_mouse_hide(game->mlx->mlx, game->mlx->win);
+	while (i < 4)
+	{
+		game->texture[i].img = mlx_xpm_file_to_image(game->mlx->mlx, TEXTURE[i], &game->texture[i].width, &game->texture[i].height);
+		game->texture[i].addr = mlx_get_data_addr(game->texture[i].img, &game->texture[i].bpp,
+					&game->texture[i].width, &game->texture[i].endian);
+		i++;
+	}
 }
 
 // for my parsing

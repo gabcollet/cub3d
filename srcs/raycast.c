@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/01 20:20:58 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/03 20:22:10 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,24 @@ int	draw3d(float dist, double cast_angle, t_coll coll, int x)
 	float	height;
 	int		color;
 	int		y;
+	float	offset = 0;
 
 	dist = dist * cos((deg_to_rad((int)cast_angle)));
 	height = (g_game.map.size * WIN_H) / dist;
 	if (height > WIN_H)
+	{
+		offset = (height - WIN_H) / 2;
 		height = WIN_H;
+	}
 	y = (WIN_H - height) / 2;
 	if (coll.dir & NORTH)
-		color = NORTH_C;
-	if (coll.dir & SOUTH)
-		color = SOUTH_C;
-	if (coll.dir & WEST)
-		color = WEST_C;
-	if (coll.dir & EAST)
-		color = EAST_C;
-	color = color_shift_int(color, BLACK, (WIN_H - height) / WIN_H);
-	while (y < height + (WIN_H - height) / 2)
-	{
-		my_mlx_pixel_put(get_mlx()->img, x, y, color);
-		y++;
-	}
+		fill_with_texture(&get_mlx()->img, &g_game.texture[0], x, y, height, coll, offset, 1);
+	else if (coll.dir & SOUTH)
+		fill_with_texture(&get_mlx()->img, &g_game.texture[1], x, y, height, coll, offset, 1);
+	else if (coll.dir & WEST)
+		fill_with_texture(&get_mlx()->img, &g_game.texture[2], x, y, height, coll, offset, 0);
+	else if (coll.dir & EAST)
+		fill_with_texture(&get_mlx()->img, &g_game.texture[3], x, y, height, coll, offset, 0);
 	return (0);
 }
 

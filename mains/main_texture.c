@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/01 22:47:00 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/03 14:35:16 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	fill_with_texture(t_img *win, t_img *text, int x, int y, double scale)
 	double	y_step;
 	int		bytes;
 	int		base_x;
-	int	color;
+	int		color;
 
 	// initial i_x and i_y are based on the initial x and y position
 	i_x = fmod(x, (text->width * scale / bytes));
@@ -95,7 +95,7 @@ void	fill_with_texture(t_img *win, t_img *text, int x, int y, double scale)
 	}
 }
 
-void	draw_texture(t_img *win, t_img *text, int x, int y, double scale)
+/* void	draw_texture(t_img *win, t_img *text, int x, int y, double scale)
 {
 	double	i_x;
 	double	i_y;
@@ -126,7 +126,7 @@ void	draw_texture(t_img *win, t_img *text, int x, int y, double scale)
 			x = base_x;
 		}		
 	}
-}
+} */
 
 int 	main(void)
 {

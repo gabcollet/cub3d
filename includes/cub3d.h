@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/01 20:27:13 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/03 20:21:32 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@
 # define ERR_WALL		3
 # define ERR_SPACE		4
 # define ERR_PLAYER		5
+
+static char *TEXTURE[4] = {"textures/T_1.xpm", "textures/T_2.xpm",\
+							"textures/T_3.xpm", "textures/T_4.xpm"};
 
 typedef struct s_mlx	t_mlx;
 typedef struct s_img	t_img;
@@ -199,6 +202,7 @@ struct s_game
 	t_player	player;
 	t_mlx		*mlx;
 	t_img		minimap;
+	t_img		texture[4];
 	int			screen_x;
 	int			screen_y;
 };
@@ -238,6 +242,7 @@ t_rgb	color_int_to_rgb(int color);
 int		color_rgb_to_int(t_rgb rgb);
 t_rgb	color_shift_rgb(t_rgb base, t_rgb shift, double force);
 int		color_shift_int(int base, int shift, double force);
+void	fill_with_texture(t_img *win, t_img *text, int x, int y, float height, t_coll coll, float offset, int side);
 
 /* Inputs */
 int		key_press(int key, t_mlx *mlx);
