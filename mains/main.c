@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/01 20:34:58 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/04 16:49:47 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void drawPlayer(t_mlx *mlx)
 		rotate_player(&g_game.player, g_game.player.turn_l + g_game.player.turn_r);
 	x = g_game.player.pos.x;
 	y = g_game.player.pos.y;
-	while (y++ < (g_game.player.pos.y + 10))
+	/* while (y++ < (g_game.player.pos.y + 10))
 	{
 		x = g_game.player.pos.x;
 		while (x++ < (g_game.player.pos.x + 10))
 		{
 			my_mlx_pixel_put(mlx->img, x, y, YELLOW);
 		}
-	}
+	} */
 }
 
 void drawTile(t_mlx *mlx, int x, int y, int type)

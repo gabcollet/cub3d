@@ -6,40 +6,44 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:38:28 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/03 20:23:30 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/04 17:03:38 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	fill_with_texture(t_img *win, t_img *text, int x, int y, float height, t_coll coll, float offset, int side)
+t_pos	textures_index(t_coll coll, float offset, float height, int side)
 {
 	double	i_x;
 	double	i_y;
+
+	if (side)
+		i_x = (fmod(fmod(coll.pos.x, TILE_SIZE), TEXTURES_SIZE));
+	else
+		i_x = (fmod(fmod(coll.pos.y, TILE_SIZE), TEXTURES_SIZE));
+	i_y = (TEXTURES_SIZE * offset) / (height + (offset * 2));
+	return (new_pos(i_x, i_y, 0));
+}
+
+void	fill_with_texture(t_img *text, t_pos pos, float height, t_pos index)
+{
+	t_img	*win;
 	double	y_step;
 	int		bytes;
 	int		color;
 
-	//pourquoi la text->width est de 128????
-	if (side)
-		i_x = (fmod(fmod(coll.pos.x, TILE_SIZE), (text->width / 4)));
-	else
-		i_x = (fmod(fmod(coll.pos.y, TILE_SIZE), (text->height)));
-
-	i_y = offset / 32; //c'est pas tout a fait bon
-	if (i_y >= 32)
-		i_y = fmod(i_y, 32);
-
-	y_step = (((float)text->height - (i_y * 2)) / (height + (win->height - height) / TILE_SIZE));
-	
+	win = &get_mlx()->img;
+	y_step = (((float)text->height - (index.y * 2))
+			/ (height + (win->height - height) / TILE_SIZE));
 	bytes = (text->bpp / 8);
-	while (y < height + (win->height - height) / 2)
+	while (pos.y < height + (win->height - height) / 2)
 	{
-		color = *((unsigned int *)(text->addr + ((int)i_y * text->width + (int)i_x * bytes)));
+		color = *((unsigned int *)(text->addr
+					+ ((int)index.y * text->width + (int)index.x * bytes)));
 		color = color_shift_int(color, BLACK, ((WIN_H - height) / WIN_H) / 1.5);
-		if (x >= 0 && x < win->width)
-			my_mlx_pixel_put(*win, x, y, color);
-		i_y += y_step;
-		y++;
+		if (pos.x >= 0 && pos.x < win->width)
+			my_mlx_pixel_put(*win, pos.x, pos.y, color);
+		index.y += y_step;
+		pos.y++;
 	}
 }

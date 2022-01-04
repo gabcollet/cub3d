@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/03 20:21:17 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/04 16:58:59 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void	init_game(t_game *game)
 		0,0,0,0,0,0,0,0,
 		0,0,0,0,0,0,0,0,
 	};
+	static char *TEXTURE[4] = {"textures/T_1_64.xpm", "textures/T_2_64.xpm",\
+							"textures/T_3_64.xpm", "textures/T_4_64.xpm"};
 
 	i = 0;
 	game->player.pos.x = 190;

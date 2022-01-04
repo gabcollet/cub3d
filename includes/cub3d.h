@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/03 20:21:32 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/04 17:01:40 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define VIEW_ANGLE		60
 # define VIEW_DIST		1000
 # define TILE_SIZE		50
+# define TEXTURES_SIZE	64.0
 # define MINI_TILE_S	10
 
 /* Sprites */
@@ -68,9 +69,6 @@
 # define ERR_WALL		3
 # define ERR_SPACE		4
 # define ERR_PLAYER		5
-
-static char *TEXTURE[4] = {"textures/T_1.xpm", "textures/T_2.xpm",\
-							"textures/T_3.xpm", "textures/T_4.xpm"};
 
 typedef struct s_mlx	t_mlx;
 typedef struct s_img	t_img;
@@ -242,7 +240,8 @@ t_rgb	color_int_to_rgb(int color);
 int		color_rgb_to_int(t_rgb rgb);
 t_rgb	color_shift_rgb(t_rgb base, t_rgb shift, double force);
 int		color_shift_int(int base, int shift, double force);
-void	fill_with_texture(t_img *win, t_img *text, int x, int y, float height, t_coll coll, float offset, int side);
+void	fill_with_texture(t_img *text, t_pos pos, float height, t_pos index);
+t_pos	textures_index(t_coll coll, float offset, float height, int side);
 
 /* Inputs */
 int		key_press(int key, t_mlx *mlx);
@@ -263,6 +262,6 @@ t_coll	check_dir(t_pos inter_y, t_pos inter_x, int side, double rot);
 
 /* Math */
 double	deg_to_rad(double angle);
-double	get_draw_distance(t_pos pos, double rot, t_pos pixel);
+double	get_draw_distance(t_pos pos, double rot, t_pos pixel, double cast_angle);
 
 #endif
