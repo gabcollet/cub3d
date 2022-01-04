@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:38:28 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/04 17:03:38 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/04 17:26:34 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_pos	textures_index(t_coll coll, float offset, float height, int side)
 		i_x = (fmod(fmod(coll.pos.x, TILE_SIZE), TEXTURES_SIZE));
 	else
 		i_x = (fmod(fmod(coll.pos.y, TILE_SIZE), TEXTURES_SIZE));
-	i_y = (TEXTURES_SIZE * offset) / (height + (offset * 2));
+	i_y = (TEXTURES_SIZE * offset / 2) / (height + (offset));
+	//i_y = (TEXTURES_SIZE * offset) / (height + (offset * 2));
 	return (new_pos(i_x, i_y, 0));
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/04 17:01:40 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/04 17:16:24 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define VIEW_ANGLE		60
 # define VIEW_DIST		1000
 # define TILE_SIZE		50
-# define TEXTURES_SIZE	64.0
+# define TEXTURES_SIZE	32.0
 # define MINI_TILE_S	10
 
 /* Sprites */
