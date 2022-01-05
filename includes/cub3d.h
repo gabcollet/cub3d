@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/04 17:16:24 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/04 22:40:05 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include	<unistd.h>
 # include	<math.h>
 # include	<complex.h>
+# include	<fcntl.h>
 # include	<mlx.h>
 # include	"../libft/libft.h"
 
@@ -62,6 +63,12 @@
 # define WEST_C			0x0020bb
 # define EAST_C			0x0000ff
 # define YELLOW			0xf0de18
+
+/* Map objects */
+# define M_FLOOR		'0'
+# define M_WALL			'1'
+# define M_EMPTY		' '
+# define M_DOOR			'D'
 
 /* Parse errors */
 # define ERR_FILE		1
@@ -171,7 +178,7 @@ struct s_map
 {
 	int	width;
 	int	height;
-	int *tiles;
+	char *tiles;
 	int *tiles_coll;
 	int size;
 };
@@ -221,7 +228,19 @@ void	init_game(t_game *game);
 void	exit_game(t_game *game, int exit_code);
 
 /* Map management */
-int		*copy_map(int *src, int size);
+int		*copy_map_int(int *src, int size);
+char	*copy_map(char *src, int size);
+void	fill_map(char **rows, t_map *map_ptr, int width, int height);
+
+/* Parsing */
+int	parse_map_is_enclosed(t_map map);
+int	parse_valid_map_line(char *line, int *len);
+int	parse_valid_map(t_map map);
+int	parse_valid_map_c(char c);
+int parse_map(char *line, t_map *map_ptr, int fd);
+int	parse_cub(char *path);
+int	parse_is_player(char c);
+int	parse_error(int code);
 
 /* Image and draw */
 void	my_mlx_pixel_put(t_img img, int x, int y, int color);
@@ -258,6 +277,8 @@ int		change_player_pos(t_player *player, double vel, int dir);
 /* Collision and intersection */
 int		check_collision(int x, int y, int size, int map);
 t_coll	check_intersections(int x, int y, double rot);
+int		check_inter_y(t_pos inter, int dir);
+int		check_inter_x(t_pos inter, int dir);
 t_coll	check_dir(t_pos inter_y, t_pos inter_x, int side, double rot);
 
 /* Math */

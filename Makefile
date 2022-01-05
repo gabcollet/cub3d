@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
+#    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/03 14:47:32 by gcollet          ###   ########.fr        #
+#    Updated: 2022/01/04 22:35:27 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@
 CC				= gcc
 CFLAGS			= -Wall -Wextra
 C_ALL			= $(CC) $(CFLAGS) $(INCS_FLAGS) $(INC_MLX)
-C_OBJS			= $(C_ALL)
+C_OBJS			= $(C_ALL) -g
 C_MAIN			= $(C_ALL) -g $(MAIN) $(OBJS) -lmlx $(C_FWRK) $(LIB_ALL) -o $(NAME)
-C_LINUX_OBJS	= $(C_ALL) -O3
+C_LINUX_OBJS	= $(C_ALL) -O3 -g
 C_LINUX_MAIN	= $(C_ALL) -g $(MAIN) $(OBJS) -Lmlx_linux -lmlx_linux -lXext -lX11 -lm -lz $(LIB_LFT) -o $(NAME)
 C_FWRK			= -framework OpenGL -framework AppKit
 #
@@ -49,6 +49,7 @@ MK_LFT		= make -C $(DIR_LFT)
 # Mains
 MAIN		= $(DIR_MAINS)/main.c
 #MAIN		= $(DIR_MAINS)/main_texture.c
+#MAIN		= $(DIR_MAINS)/main_parse.c
 MAIN_COLOR	= $(DIR_MAINS)/main_color.c
 
 # Headers
@@ -58,6 +59,7 @@ HEADS		= $(patsubst %,$(DIR_INCS)/%,$(_HEADS))
 
 # Sources and Objects
 SRCS	= 	game.c map.c\
+			parse.c parse_map.c parse_utils.c parse_wall.c\
 			position.c rotation.c size.c\
 			vector3d.c math_utils.c\
 			image.c mlx.c color.c color_trgb.c textures.c\

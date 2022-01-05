@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:55:56 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/01 15:01:47 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/04 22:47:32 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ t_coll	new_collider(t_pos pos, int type, int dir)
 
 int	check_collision(int x, int y, int size, int map)
 {
-	int		*tiles;
+	char		*tiles;
 
 	tiles = g_game.map.tiles;
-	if (tiles[(x - size) / TILE_SIZE + (y - size) / TILE_SIZE * map] == 1)
+	if (tiles[(x - size) / TILE_SIZE + (y - size) / TILE_SIZE * map] == M_WALL)
 		return (1);
-	if (tiles[(x - size) / TILE_SIZE + (y + size) / TILE_SIZE * map] == 1)
+	if (tiles[(x - size) / TILE_SIZE + (y + size) / TILE_SIZE * map] == M_WALL)
 		return (1);
-	if (tiles[(x + size) / TILE_SIZE + (y - size) / TILE_SIZE * map] == 1)
+	if (tiles[(x + size) / TILE_SIZE + (y - size) / TILE_SIZE * map] == M_WALL)
 		return (1);
-	if (tiles[(x + size) / TILE_SIZE + (y + size) / TILE_SIZE * map] == 1)
+	if (tiles[(x + size) / TILE_SIZE + (y + size) / TILE_SIZE * map] == M_WALL)
 		return (1);
 	return (0);
 }

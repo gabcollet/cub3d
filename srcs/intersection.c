@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 11:00:43 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/31 18:49:16 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/04 22:38:07 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	check_inter_x(t_pos inter, int dir)
 	i_y = (int)inter.y / TILE_SIZE;
 	if (i_x < 0 || i_y < 0 || i_x >= map.width || i_y >= map.height)
 		return (1);
-	if (map.tiles[i_x + (i_y * map.width)] == 1)
+	if (map.tiles[i_x + (i_y * map.width)] == M_WALL)
 		return (apply_tile_coll(i_x, i_y * map.width, dir));
-	if (i_x > 0 && map.tiles[i_x - 1 + (i_y * map.width)] == 1)
+	if (i_x > 0 && map.tiles[i_x - 1 + (i_y * map.width)] == M_WALL)
 		return (apply_tile_coll(i_x, i_x - 1 + i_y * map.width, dir));
 	return (0);
 }
@@ -41,9 +41,9 @@ int	check_inter_y(t_pos inter, int dir)
 	i_y = (int)inter.y / TILE_SIZE;
 	if (i_x < 0 || i_y < 0 || i_x >= map.width || i_y >= map.height)
 		return (1);
-	if (map.tiles[i_x + (i_y * map.width)] == 1)
+	if (map.tiles[i_x + (i_y * map.width)] == M_WALL)
 		return (apply_tile_coll(i_x, i_y * map.width, dir));
-	if (i_y > 0 && map.tiles[i_x + ((i_y - 1) * map.width)] == 1)
+	if (i_y > 0 && map.tiles[i_x + ((i_y - 1) * map.width)] == M_WALL)
 		return (apply_tile_coll(i_x, i_x + (i_y - 1) * map.width, dir));
 	return (0);
 }

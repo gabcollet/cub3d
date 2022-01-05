@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/05 10:38:52 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/20 12:28:02 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/04 22:05:20 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,9 @@ void		ft_free_tab(char **tab);
 void		*ft_free_array(void **ptr, void *(f)(void *));
 int			ft_array_size(void **arr);
 void		*ft_array_clear(void **ptr, void *(f)(void *));
+
+/* file */
+int			get_next_line(char **line, int fd);
 
 /* linked list */
 t_list		*ft_lstnew(void *content);

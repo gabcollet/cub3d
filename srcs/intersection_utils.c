@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/25 11:00:43 by gcollet           #+#    #+#             */
-/*   Updated: 2021/12/31 18:47:34 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/04 22:44:24 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 int	apply_tile_coll(int i_x, int i_y, int dir)
 {
-	int	*tiles_coll;
+	/*int	*tiles_coll;
 
 	tiles_coll = g_game.map.tiles_coll;
-	tiles_coll[i_x + i_y] = tiles_coll[i_x + i_y] | dir;
+	tiles_coll[i_x + i_y] = tiles_coll[i_x + i_y] | dir;*/
 	return (1);
 }
 

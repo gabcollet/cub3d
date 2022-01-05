@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_texture.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/03 14:35:16 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/04 17:50:11 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int 	main(void)
 	//draw_texture(&mlx->img, &texture, 1, 1, 1);
 
 	// fill_with_texture will fill the entire window with the texture with a specific scaling
-	fill_with_texture(&mlx->img, &texture, 1, 1, 10);
+	fill_with_texture(&mlx->img, &texture, 1, 1, 5);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	//mlx_put_image_to_window(mlx->mlx, mlx->win, texture.img, 0, 0);
 	mlx_hook(mlx->win, 2, 1L<<0, key_press, mlx);
