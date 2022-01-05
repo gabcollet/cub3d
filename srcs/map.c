@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 15:53:43 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/04 23:07:55 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/05 16:59:51 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,9 @@ void	fill_map(char **rows, t_map *map_ptr, int width, int height)
 	{
 		j = 0;
 		while ((*rows)[j])
-			map_ptr->tiles[i++] = (*rows)[j++];	
+			map_ptr->tiles[i++] = (*rows)[j++];
+		while (j < width)
+			map_ptr->tiles[i++] = M_EMPTY;	
 		rows++;
 	}
 	map_ptr->tiles[i] = '\0';

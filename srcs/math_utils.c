@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:44:54 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/04 16:49:13 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/05 16:49:40 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ double	get_draw_distance(t_pos pos, double rot, t_pos pixel, double cast_angle)
 	sin_result = fabs(sin(deg_to_rad((int)rot)));
 	dist = d_x * cos_result + d_y * sin_result;
 	dist = dist * cos((deg_to_rad((int)cast_angle)));
-	dist = (g_game.map.size * WIN_H) / dist;
+	dist = (50 * WIN_H) / dist;
 	return (dist);
 }

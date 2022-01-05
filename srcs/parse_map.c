@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/04 23:33:44 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/05 16:57:09 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	parse_floor(t_map map, int x, int y)
 		return (0);
 	if (x < map.width - 1 && tiles[x + 1 + y * map.width] == ' ')
 		return (0);
-	if (y != 0 && tiles[x + y - 1 * map.width] == ' ')
+	if (y != 0 && tiles[x + (y - 1) * map.width] == ' ')
 		return (0);
-	if (y < map.height && tiles[x + y - 1 * map.width] == ' ')
+	if (y < map.height && tiles[x + (y - 1) * map.width] == ' ')
 		return (0);
 	return (1);
 }

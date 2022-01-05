@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/04 22:50:07 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/05 17:01:50 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ void drawTile(t_mlx *mlx, int x, int y, int type)
 
 	index_x = x;
 	index_y = y;
-	while (index_y < (y + TILE_SIZE))
+	while (index_y < (y + MINI_TILE_S))
 	{
 		index_x = x;
-		while (index_x < (x + TILE_SIZE))
+		while (index_x < (x + MINI_TILE_S))
 		{
-			if (index_y % 50 == 0 || index_x % 50 == 0)
+			if (index_y % MINI_TILE_S == 0 || index_x % MINI_TILE_S == 0)
 				my_mlx_pixel_put(mlx->img, index_x, index_y, RED);
 			else if (type == WALL)
 				my_mlx_pixel_put(mlx->img, index_x, index_y, WHITE);
@@ -69,16 +69,16 @@ void drawMap2D(t_mlx *mlx, t_map map)
 	t_pos	p_pos;
 
 	p_pos = g_game.player.pos;
-	for (y=0; y<map.height; y++)
+	for (y = 0; y<map.height; y++)
 	{
-		for (x=0; x<map.width; x++)
+		for (x = 0; x<map.width; x++)
 		{
-			if (map.tiles[y*map.width+x]==1)
-				drawTile(mlx, x * TILE_SIZE, y * TILE_SIZE, WALL);
+			if (map.tiles[y * map.width + x] == M_WALL)
+				drawTile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, WALL);
 			else if (x==(int)p_pos.x / TILE_SIZE && y==(int)p_pos.y / TILE_SIZE)
-				drawTile(mlx, x * TILE_SIZE, y * TILE_SIZE, PLAYER);
+				drawTile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, PLAYER);
 			else
-				drawTile(mlx, x * TILE_SIZE, y * TILE_SIZE, FLOOR);
+				drawTile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, FLOOR);
 		}
 	}
 }
@@ -96,10 +96,10 @@ int display(void *ptr)
 		//mouse_handler(0, 0);
 		mlx_clear_img(mlx->img);
 		draw_background(mlx->img);
-		//drawMap2D(mlx, g_game.map);
-		drawPlayer(mlx); //on pogne dans les coins parce que la colision du player est trop large
 		
+		drawPlayer(mlx); //on pogne dans les coins parce que la colision du player est trop large
 		raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW_ANGLE);
+		drawMap2D(mlx, g_game.map);
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	}
 	else
