@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/04 23:20:09 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/04 23:33:44 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	parse_map_pos(t_map map, int x, int y, int *player_found)
 		//to be removed!!
 		g_game.player.pos.x = x * TILE_SIZE + 25;
 		g_game.player.pos.y = y * TILE_SIZE + 25;
-		printf("pos player x =%f ", g_game.player.pos.x);
-		printf("pos player y =%f ", g_game.player.pos.y);
+		printf("pos player x = %f\n", g_game.player.pos.x);
+		printf("pos player y = %f\n", g_game.player.pos.y);
 		if (*player_found > 0 || !parse_floor(map, x, y))
 			return (parse_error(ERR_PLAYER));
 		*player_found = 1;
