@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/04 23:27:28 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/05 15:51:46 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 void	init_game(t_game *game)
 {	
 	int i;
-	static char *TEXTURE[4] = {"textures/T_1.xpm", "textures/T_2.xpm",\
+	//static char *TEXTURE[4] = {"textures/T_1.xpm", "textures/T_2.xpm",\
 							"textures/T_3.xpm", "textures/T_4.xpm"};
+	//minecraft set :
+	static char *TEXTURE[4] = {"textures/bricks.xpm", "textures/cobblestone.xpm",\
+							"textures/grass_block_side.xpm", "textures/oak_planks.xpm"};
 
 	i = 0;
 	game->player.pos.x = 0;
@@ -26,8 +29,8 @@ void	init_game(t_game *game)
 	game->map.width = 0;
 	game->map.size = 0;
 	game->map.height = 0;
-	parse_cub("./maps/initial.cub");
-	printf("map = %s", game->map.tiles);
+	parse_cub("./maps/square.cub");
+	printf("map = %s\n", game->map.tiles);
 	game->mlx = get_mlx();
 	mlx_get_screen_size(game->mlx->mlx, &game->screen_x, &game->screen_y);
 	mlx_mouse_hide(game->mlx->mlx, game->mlx->win);

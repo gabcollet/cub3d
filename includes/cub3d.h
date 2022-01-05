@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/04 22:40:05 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/05 15:47:33 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define LEFT_KEY		65361
 
 /* Game parameter */
-# define SPEED			2
+# define SPEED			4
 # define TURN_SPEED		2.5
 # define MOUSE_TURN		0.1
 # define VIEW_ANGLE		60
