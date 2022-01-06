@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+         #
+#    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/11 12:58:26 by gcollet           #+#    #+#              #
-#    Updated: 2021/12/20 13:35:40 by sfournie         ###   ########.fr        #
+#    Updated: 2022/01/06 13:39:14 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRCS 	= ft_isalnum.c ft_isdigit.c ft_isint.c ft_isllong.c ft_isalpha.c\
 		ft_putchar_fd.c ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c\
 		\
 		ft_memccpy.c ft_memcpy.c ft_memmove.c ft_memchr.c ft_memcmp.c\
-		ft_memset.c ft_calloc.c ft_bzero.c\
+		ft_memset.c ft_calloc.c ft_bzero.c ft_free.c\
 		\
 		ft_toupper.c ft_tolower.c\
 		\
@@ -37,7 +37,7 @@ SRCS 	= ft_isalnum.c ft_isdigit.c ft_isint.c ft_isllong.c ft_isalpha.c\
 		dlst_last.c dlst_len.c dlst_add_back.c dlst_add_front.c dlst_new.c\
 		dlst_clear.c dlst_new_node.c dlst_unlink_node.c dlst_iter.c\
 		\
-		ft_sort_tab.c ft_free_tab.c ft_array_clear.c ft_array_size.c\
+		ft_sort_tab.c ft_free_tab.c ft_array_clear.c ft_free_array.c ft_array_size.c\
 		\
 		get_next_line.c
 		

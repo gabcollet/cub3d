@@ -6,11 +6,23 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:57:26 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/31 18:57:29 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/06 15:41:46 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
+
+int	color_valid_rgb(t_rgb rgb)
+{
+	if (rgb.r > 255 || rgb.r < 0)
+		return (0);
+	if (rgb.g > 255 || rgb.g < 0)
+		return (0);
+	if (rgb.b > 255 || rgb.b < 0)
+		return (0);
+	return (1);
+
+}
 
 int	color_rgb_to_int(t_rgb rgb)
 {

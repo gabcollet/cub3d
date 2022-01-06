@@ -6,11 +6,19 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:38:28 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/04 17:26:34 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/06 14:34:35 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	init_textures(t_game *game)
+{
+	game->texture[0].img = NULL;
+	game->texture[1].img = NULL;
+	game->texture[2].img = NULL;
+	game->texture[3].img = NULL;
+}
 
 t_pos	textures_index(t_coll coll, float offset, float height, int side)
 {

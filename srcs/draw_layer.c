@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 11:49:36 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/04 22:38:50 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/06 14:57:30 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ void	draw_background(t_img img)
 	y = 0;
 	while (x + y * img.width < img.width * img.height)
 	{
-		color = CEILING_C;
+		color = g_game.map.ceiling_c;
 		shift_force = (double)(y % (img.height / 2)) / (double)(img.height / 2);
 		if (y >= img.height / 2)
 		{
-			color = FLOOR_C;
+			color = g_game.map.floor_c;
 			shift_force = (double)1 - shift_force;
 		}
 		color = color_shift_int(color, BLACK, shift_force);

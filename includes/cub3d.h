@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/05 15:47:33 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/06 17:51:21 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define WIN_H		500
 # define FPS		30
 # define MLX_CD		10000
+# define MAP_PATH	"./maps/complex.cub"
+
 
 /* Key for linux */
 # define ESC 			65307
@@ -42,7 +44,7 @@
 /* Game parameter */
 # define SPEED			4
 # define TURN_SPEED		2.5
-# define MOUSE_TURN		0.1
+# define MOUSE_TURN		0.3
 # define VIEW_ANGLE		60
 # define VIEW_DIST		1000
 # define TILE_SIZE		50
@@ -76,6 +78,12 @@
 # define ERR_WALL		3
 # define ERR_SPACE		4
 # define ERR_PLAYER		5
+# define ERR_ARGC		6
+# define ERR_TEXTURE	7
+# define ERR_ID			8
+# define ERR_MISS		9
+# define ERR_COLOR		10
+# define ERR_MAP_LAST	11
 
 typedef struct s_mlx	t_mlx;
 typedef struct s_img	t_img;
@@ -86,7 +94,7 @@ typedef struct s_map	t_map;
 typedef struct s_wall	t_wall;
 typedef struct s_player	t_player;
 typedef struct s_cam	t_cam;
-typedef struct s_obj	t_obj;
+typedef struct s_sprite	t_sprite;
 
 typedef struct s_vect	t_vect;
 
@@ -137,9 +145,9 @@ struct s_size
 
 struct s_rgb
 {
-	int	r;
-	int	g;
-	int	b;
+	int		r;
+	int		g;
+	int		b;
 };
 
 struct s_coll
@@ -181,11 +189,17 @@ struct s_map
 	char *tiles;
 	int *tiles_coll;
 	int size;
+	int	floor_c;
+	int	ceiling_c;
 };
 
-struct s_obj
+struct s_sprite
 {
-
+	int		active;
+	t_img	*sheet;
+	double	anim_countdown;
+	double	anim_time;
+	int		playing;
 };
 
 struct s_player
@@ -225,9 +239,11 @@ t_mlx	*get_mlx(void);
 
 /* Game management */
 void	init_game(t_game *game);
+void	init_textures(t_game *game);
 void	exit_game(t_game *game, int exit_code);
 
 /* Map management */
+t_map	new_map(void);
 int		*copy_map_int(int *src, int size);
 char	*copy_map(char *src, int size);
 void	fill_map(char **rows, t_map *map_ptr, int width, int height);
@@ -245,12 +261,14 @@ int	parse_error(int code);
 /* Image and draw */
 void	my_mlx_pixel_put(t_img img, int x, int y, int color);
 void	mlx_clear_img(t_img img);
-int 	raycast_draw(t_pos pos, double rot, double dist);
+int 	raycast_draw(t_pos pos, double rot, double dist, int color);
 int 	raycast_draw_all(t_pos pos, double rot, double view);
 void	drawMap3D(t_mlx *mlx, t_map map);
 void	draw_background(t_img img);
 
 /* Color */
+int		color_valid_rgb(t_rgb rgb);
+t_rgb	new_rgb(int r, int g, int b);
 int		get_t(int trgb);
 int		get_r(int trgb);
 int		get_g(int trgb);
@@ -268,6 +286,11 @@ int		key_release(int key, t_mlx *mlx);
 int		mouse_handler(int x, int y);
 int		mouse_move(int x, int y, t_mlx *mlx);
 int 	quit_handler(void);
+
+/* Player */
+t_player	get_player(void);
+void		player_set_pos(int x, int y, int z);
+int			player_get_facing(t_player player);
 
 /* Position and movement */
 t_pos	move_pos(t_pos pos, double rot, double dist, int dir);

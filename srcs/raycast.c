@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/04 17:21:32 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/06 17:20:13 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ int	draw3d(float height, t_coll coll, int x)
 	}
 	y = (WIN_H - height) / 2;
 	if (coll.dir & NORTH)
-		fill_with_texture(&g_game.texture[0], new_pos(x, y, 0),
+		fill_with_texture(&g_game.texture[NO], new_pos(x, y, 0),
 			height, textures_index(coll, offset, height, 1));
 	else if (coll.dir & SOUTH)
-		fill_with_texture(&g_game.texture[1], new_pos(x, y, 0),
+		fill_with_texture(&g_game.texture[SO], new_pos(x, y, 0),
 			height, textures_index(coll, offset, height, 1));
 	else if (coll.dir & WEST)
-		fill_with_texture(&g_game.texture[2], new_pos(x, y, 0),
+		fill_with_texture(&g_game.texture[WE], new_pos(x, y, 0),
 			height, textures_index(coll, offset, height, 0));
 	else if (coll.dir & EAST)
-		fill_with_texture(&g_game.texture[3], new_pos(x, y, 0),
+		fill_with_texture(&g_game.texture[EA], new_pos(x, y, 0),
 			height, textures_index(coll, offset, height, 0));
 	return (0);
 }
@@ -74,7 +74,7 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 }
 
 // Literally draw a raycast on the mlx image
-int	raycast_draw(t_pos pos, double rot, double dist)
+int	raycast_draw(t_pos pos, double rot, double dist, int color)
 {
 	t_pos	r_pos;
 	int		i;
@@ -83,7 +83,7 @@ int	raycast_draw(t_pos pos, double rot, double dist)
 	r_pos = new_pos(pos.x, pos.y, pos.z);
 	while (i++ < dist && i < 800)
 	{
-		my_mlx_pixel_put(get_mlx()->img, r_pos.x, r_pos.y, 0x00FF00);
+		my_mlx_pixel_put(get_mlx()->img, r_pos.x, r_pos.y, color);
 		r_pos = move_pos(r_pos, rot, 1, 0);
 	}
 	return (1);

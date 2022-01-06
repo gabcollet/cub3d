@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/04 23:24:13 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/06 17:43:15 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	parse_col_is_enclosed(t_map map, int x)
 		y--;
 	if (map.tiles[x + y * map.width] != M_WALL)
 		return (0);
-	return(1);
+	return (1);
 }
 
 int	parse_row_is_enclosed(t_map map, int y)
@@ -47,7 +47,7 @@ int	parse_row_is_enclosed(t_map map, int y)
 		x--;
 	if (map.tiles[x + y * map.width] != M_WALL)
 		return (0);
-	return(1);
+	return (1);
 }
 
 int	parse_map_is_enclosed(t_map map)
@@ -66,10 +66,5 @@ int	parse_map_is_enclosed(t_map map)
 		if (!parse_col_is_enclosed(map, i++))
 			return (0);
 	}
-	return(1);
-}
-
-int	parse_wall(t_map map, int x, int y)
-{
-	return(1);
+	return (1);
 }

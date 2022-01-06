@@ -6,17 +6,25 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 15:53:43 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/06 11:43:49 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/06 16:45:03 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
 
-/*t_map	new_map(int width, int height, )
+t_map	new_map(void)
 {
-	
-	return (t);
-}*/
+	t_map	map;
+
+	map.tiles = NULL;
+	map.tiles_coll = NULL;
+	map.width = 0;
+	map.size = 0;
+	map.height = 0;
+	map.floor_c = -1;
+	map.ceiling_c = -1;
+	return (map);
+}
 
 /*
 * Take a str_split to then fill the char *map in map_ptr.
@@ -34,7 +42,6 @@ void	fill_map(char **rows, t_map *map_ptr, int width, int height)
 	i = 0;
 	while (rows && *rows)
 	{
-		write(1, *rows, ft_strlen(*rows));
 		j = 0;
 		while ((*rows)[j])
 			map_ptr->tiles[i++] = (*rows)[j++];

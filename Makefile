@@ -6,7 +6,7 @@
 #    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/04 22:35:27 by fousse           ###   ########.fr        #
+#    Updated: 2022/01/06 13:38:33 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRCS	= 	game.c map.c\
 			draw_layer.c\
 			collision.c intersection.c intersection_utils.c\
 			raycast.c\
+			player.c\
 			input.c
 
 _OBJS	= $(SRCS:.c=.o)
