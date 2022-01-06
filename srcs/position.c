@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   position.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 09:35:03 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/01 15:04:24 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/06 11:45:31 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	change_player_pos(t_player *player, double vel, int dir)
 		if (check_collision(new_pos.x, pos.y, 5, g_game.map.width))
 			new_pos.x = player->pos.x;
 	}
-	if (check_collision(new_pos.x, new_pos.y, 5, g_game.map.height))
+	if (check_collision(new_pos.x, new_pos.y, 5, g_game.map.width))
 		new_pos.y = player->pos.y;
 	player->pos.x = new_pos.x;
 	player->pos.y = new_pos.y;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/05 15:51:46 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/06 11:39:20 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	init_game(t_game *game)
 	game->map.width = 0;
 	game->map.size = 0;
 	game->map.height = 0;
-	parse_cub("./maps/square.cub");
+	parse_cub("./maps/complex.cub");
 	printf("map = %s\n", game->map.tiles);
 	game->mlx = get_mlx();
 	mlx_get_screen_size(game->mlx->mlx, &game->screen_x, &game->screen_y);
