@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/06 17:52:45 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/07 03:10:59 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int display(void *ptr)
 		raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW_ANGLE);
 		drawMap2D(mlx, g_game.map);
 		drawPlayer(mlx); //on pogne dans les coins parce que la colision du player est trop large
+		draw_ui(mlx);
 		mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	}
 	else

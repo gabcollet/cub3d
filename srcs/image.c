@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:51:46 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/31 18:52:26 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/07 12:57:03 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	my_mlx_pixel_put(t_img img, int x, int y, int color)
 	if (x > WIN_W || y > WIN_H || x <= 0 || y <= 0)
 		return ;
 	dst = img.addr + (y * img.width + x * (img.bpp / 8));
-	*(unsigned int *)dst = color;
+	if (color != TRANS)
+		*(unsigned int *)dst = color;
 }
 
 /* Set all pixel to black in a given image */

@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 11:49:36 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/06 14:57:30 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/07 03:53:14 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,11 @@ int	draw_sprites(t_mlx *mlx)
 
 int	draw_ui(t_mlx *mlx)
 {
+	int i;
+	t_obj	*obj;
+
+	obj = g_game.ui_elems;
+
+	i = 0;
+	draw_object(mlx, &obj[UI_GUN]);
 }

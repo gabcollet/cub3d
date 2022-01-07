@@ -6,11 +6,24 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:57:26 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/06 15:41:46 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/07 04:02:47 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
+
+int	color_get(t_img img, int x, int y)
+{
+	int	color;
+	
+	if (x >= img.width / 4 || y >= img.height)
+		return (0);
+	
+	color = *((unsigned int *)(img.addr
+					+ y * img.width + x * (img.bpp / 8)));
+	return (color);
+
+}
 
 int	color_valid_rgb(t_rgb rgb)
 {

@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/06 15:34:04 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/07 13:01:40 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_game(t_game *game)
 	game->screen_y = WIN_H;
 	game->map = new_map();
 	init_textures(game);
+	init_interface(game->ui_elems); // unfinished
 	
 	/* while (i < 4)
 	{
