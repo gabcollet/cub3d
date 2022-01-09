@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/07 04:09:25 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/09 16:54:25 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ void	init_interface(t_obj *objs) //To be reworked
 	init_sprite(&objs[UI_GUN].sprite);
 	img = &objs[UI_GUN].sprite.frames[0];
 	load_sprite(img, "./sprites/handgun/handgun1.xpm");
-	objs[UI_GUN].pos = new_pos(WIN_W / 2 - (img->width / 8), WIN_H - (img->height / 2), 0);
+	objs[UI_GUN].pos = new_pos(WIN_W / 2 - (img->width / 8), WIN_H - (img->height), 0);
 	objs[UI_GUN].sprite.scaling = 4.0;
 }
