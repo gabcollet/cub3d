@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 11:49:36 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/07 12:56:01 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 14:57:06 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,12 @@ void draw_object(t_mlx *mlx, t_obj *obj)
 		}
 		index_y++;
 	}
+}
+
+void	draw_ui(t_mlx *mlx)
+{
+	t_obj	*obj;
+
+	obj = g_game.ui_elems;
+	draw_object(mlx, &obj[UI_GUN]);
 }

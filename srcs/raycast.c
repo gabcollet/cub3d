@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/07 01:57:36 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 17:08:57 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 */
 int	draw3d(float height, t_coll coll, int x)
 {
-	int		color;
 	int		y;
 	float	offset;
 
@@ -66,8 +65,10 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 			rot = 360.0 + rot;
 		coll = check_intersections(pos.x, pos.y, rot);
 		dist = get_draw_distance(pos, rot, coll.pos, base_rot - rot);
+		if (rot == base_rot)
+			printf("%f\n", dist);
 		draw3d(dist, coll, WIN_W - win_x);
-		win_x++;
+		win_x += 1;
 		rot += (view / WIN_W);
 	}
 	return (1);

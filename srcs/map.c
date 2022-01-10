@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 15:53:43 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/07 01:57:46 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 14:46:41 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,6 @@ char	*copy_map(char *src, int size)
 		tiles[i] = src[i];
 		i++;
 	}
-	tiles[i] == '\0';
+	tiles[i] = '\0';
 	return (tiles);
 }

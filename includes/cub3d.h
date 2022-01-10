@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/07 12:55:04 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 17:01:41 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define FALSE		0
 # define TRUE		1
 
-# define WIN_W 		1000
-# define WIN_H		500
+# define WIN_W 		1800
+# define WIN_H		1000
 # define FPS		30
 # define MLX_CD		10000
 # define MAP_PATH	"./maps/complex.cub"
@@ -45,12 +45,12 @@
 # define LEFT_KEY		65361
 
 /* Game parameter */
-# define SPEED			4
+# define SPEED			2
 # define TURN_SPEED		2.5
-# define MOUSE_TURN		0.3
+# define MOUSE_TURN		0
 # define VIEW_ANGLE		60
 # define VIEW_DIST		1000
-# define TILE_SIZE		50
+# define TILE_SIZE		50.0
 # define TEXTURES_SIZE	32.0
 # define MINI_TILE_S	10
 
@@ -58,7 +58,7 @@
 # define SPRITE_AMNT	4
 
 /* Colors */
-# define TRANS			0x00ffff
+# define TRANS			0x980088
 # define WHITE			0xffffff
 # define BLACK			0x000000
 # define RED			0xFF0000
@@ -107,6 +107,7 @@ void	exit_game(t_game *game, int exit_code);
 
 /* Map management */
 t_map	new_map(void);
+t_img	create_background(double width, double height);
 int		*copy_map_int(int *src, int size);
 char	*copy_map(char *src, int size);
 void	fill_map(char **rows, t_map *map_ptr, int width, int height);
@@ -115,6 +116,7 @@ void	fill_map(char **rows, t_map *map_ptr, int width, int height);
 void	init_interface(t_obj *objs);
 void	gun_update(t_obj *gun);
 void	load_sprite(t_img *img, char *path);
+void	draw_ui(t_mlx *mlx);
 
 /* Parsing */
 int	parse_map_is_enclosed(t_map map);
@@ -154,8 +156,8 @@ void	fill_with_texture(t_img *text, t_pos pos, float height, t_pos index);
 t_pos	textures_index(t_coll coll, float offset, float height, int side);
 
 /* Inputs */
-int		key_press(int key, t_mlx *mlx);
-int		key_release(int key, t_mlx *mlx);
+int		key_press(int keyww);
+int		key_release(int key);
 int		mouse_handler(int x, int y);
 int		mouse_move(int x, int y, t_mlx *mlx);
 int 	quit_handler(void);
@@ -165,7 +167,13 @@ t_player	get_player(void);
 void		player_set_pos(int x, int y, int z);
 int			player_get_facing(t_player player);
 
+/* Minimap */
+void	drawMap2D(t_mlx *mlx, t_map map);
+void	drawTile(t_mlx *mlx, int x, int y, int type);
+void	drawPlayer(void);
+
 /* Position and movement */
+void	move_Player();
 t_pos	move_pos(t_pos pos, double rot, double dist, int dir);
 int		rotate_player(t_player *player, double rot);
 int		change_player_pos(t_player *player, double vel, int dir);
@@ -176,9 +184,9 @@ int 	raycast_draw_all(t_pos pos, double rot, double view);
 
 /* Collision and intersection */
 int		check_collision(int x, int y, int size, int map);
-t_coll	check_intersections(int x, int y, double rot);
-int		check_inter_y(t_pos inter, int dir);
-int		check_inter_x(t_pos inter, int dir);
+t_coll	check_intersections(double x, double y, double rot);
+int		check_inter_y(t_pos inter);
+int		check_inter_x(t_pos inter);
 t_coll	check_dir(t_pos inter_y, t_pos inter_x, int side, double rot);
 
 /* Math */

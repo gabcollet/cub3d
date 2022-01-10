@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/31 18:51:33 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 15:24:43 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	mouse_handler(int x, int y)
 {
 	static int	mouse_x;
-	static int	mouse_y;
 
 	mlx_mouse_get_pos(get_mlx()->mlx, get_mlx()->win, &x, &y);
 	if (mouse_x != x)
@@ -27,13 +26,11 @@ int	mouse_handler(int x, int y)
 		
 	}*/
 	mouse_x = x;
-	mouse_y = y;
 	return (0);
 }
 
-int	key_press(int key, t_mlx *mlx)
+int	key_press(int key)
 {
-	mlx = NULL;
 	if (key == LEFT_KEY)
 		g_game.player.turn_l = TURN_SPEED;
 	if (key == RIGHT_KEY)
@@ -49,9 +46,8 @@ int	key_press(int key, t_mlx *mlx)
 	return (key);
 }
 
-int	key_release(int key, t_mlx *mlx)
+int	key_release(int key)
 {
-	mlx = NULL;
 	if (key == W_KEY)
 		g_game.player.vel_u = 0;
 	if (key == A_KEY)

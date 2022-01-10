@@ -3,25 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/07 13:01:40 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 16:28:44 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"cub3d.h"
+#include "cub3d.h"
 
 void	init_game(t_game *game)
 {	
-	int i;
-	//static char *TEXTURE[4] = {"textures/T_1.xpm", "textures/T_2.xpm",\
-							"textures/T_3.xpm", "textures/T_4.xpm"};
-	//minecraft set :
- 	/*static char *TEXTURE[4] = {"textures/bricks.xpm", "textures/cobblestone.xpm",\
-							"textures/grass_block_side.xpm", "textures/oak_planks.xpm"}; 
-*/
-	i = 0;
 	game->player.pos.x = 0;
 	game->player.pos.y = 0;
 	game->player.rot = 0;
@@ -31,18 +23,10 @@ void	init_game(t_game *game)
 	game->map = new_map();
 	init_textures(game);
 	init_interface(game->ui_elems); // unfinished
-	
-	/* while (i < 4)
-	{
-		game->texture[i].img = mlx_xpm_file_to_image(game->mlx->mlx, TEXTURE[i], &game->texture[i].width, &game->texture[i].height);
-		game->texture[i].addr = mlx_get_data_addr(game->texture[i].img, &game->texture[i].bpp,
-					&game->texture[i].width, &game->texture[i].endian);
-		i++;
-	} */
 }
 
 void	exit_game(t_game *game, int exit_code)
 {
-	game = NULL;
+	game = NULL; //va servir a faire les images destroy
 	exit(exit_code);
 }

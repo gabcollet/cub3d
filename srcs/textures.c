@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:38:28 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/06 14:34:35 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 13:16:50 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	fill_with_texture(t_img *text, t_pos pos, float height, t_pos index)
 	{
 		color = *((unsigned int *)(text->addr
 					+ ((int)index.y * text->width + (int)index.x * bytes)));
-		color = color_shift_int(color, BLACK, ((WIN_H - height) / WIN_H) / 1.5);
+		color = color_shift_int(color, BLACK, ((WIN_H - height) / WIN_H) / 2);
 		if (pos.x >= 0 && pos.x < win->width)
 			my_mlx_pixel_put(*win, pos.x, pos.y, color);
 		index.y += y_step;

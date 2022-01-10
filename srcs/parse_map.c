@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/07 01:57:42 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 15:09:49 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	parse_map_pos(t_map map, int x, int y, int *player_found)
 			return (parse_error(ERR_PLAYER));
 		*player_found = 1;
 	}
-	x++;
+	return (1);
 }
 
 /*
@@ -158,6 +158,6 @@ int	parse_map(char *line, t_map *map_ptr, int fd)
 	}
 	if (valid)
 		fill_map(rows, map_ptr, longest, i);
-	ft_free_array(rows, ft_free);
+	ft_free_array((void**)rows, ft_free);
 	return (valid);
 }

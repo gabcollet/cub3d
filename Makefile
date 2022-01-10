@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
+#    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/07 03:15:30 by fousse           ###   ########.fr        #
+#    Updated: 2022/01/10 15:10:41 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,8 @@ SRCS	= 	game.c map.c interface.c\
 			position.c rotation.c size.c\
 			vector3d.c math_utils.c\
 			image.c mlx.c color.c color_trgb.c textures.c\
-			draw_layer.c draw.c\
+			draw.c minimap.c\
+			background.c\
 			animation.c\
 			collision.c intersection.c intersection_utils.c\
 			raycast.c\

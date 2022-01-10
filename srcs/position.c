@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   position.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 09:35:03 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/06 13:22:41 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 16:49:14 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,14 @@ int	change_player_pos(t_player *player, double vel, int dir)
 	player->pos.x = new_pos.x;
 	player->pos.y = new_pos.y;
 	return (0);
+}
+
+void	move_Player(void)
+{
+	if (g_game.player.vel_u + g_game.player.vel_d)
+		change_player_pos(&g_game.player, g_game.player.vel_u + g_game.player.vel_d, 0);
+	if (g_game.player.vel_r + g_game.player.vel_l)
+		change_player_pos(&g_game.player, g_game.player.vel_r + g_game.player.vel_l, 1);
+	if (g_game.player.turn_l + g_game.player.turn_r)
+		rotate_player(&g_game.player, g_game.player.turn_l + g_game.player.turn_r);
 }

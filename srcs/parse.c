@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/07 01:57:38 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 15:05:08 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +104,10 @@ int parse_identifier(char *line)
 int	parse_line(char *line, int fd)
 {
 	int		valid;
-	int		i;
 
 	valid = 0;
 	if (!line)
 		return (-1);
-	i = 0;
 	if (*line && g_game.map.tiles != NULL)
 		return (parse_error(ERR_MAP_LAST));
 	else if (ft_isalpha(line[0]))
