@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:01:03 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/10 15:00:39 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/10 18:13:14 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ void drawTile(t_mlx *mlx, int x, int y, int type)
 			/*if (index_y % MINI_TILE_S == 0 || index_x % MINI_TILE_S == 0)
 				my_mlx_pixel_put(mlx->img, index_x, index_y, RED);*/
 			if (type == WALL)
-				my_mlx_pixel_put(mlx->img, index_x, index_y, 0);
+				my_mlx_pixel_put(g_game.game_img, index_x, index_y, 0);
 			else if (type == FLOOR)
-				my_mlx_pixel_put(mlx->img, index_x, index_y, WHITE);
+				my_mlx_pixel_put(g_game.game_img, index_x, index_y, WHITE);
 			else if (type == PLAYER)
-				my_mlx_pixel_put(mlx->img, index_x, index_y, RED);
+				my_mlx_pixel_put(g_game.game_img, index_x, index_y, RED);
 			index_x++;
 		}
 		index_y++;

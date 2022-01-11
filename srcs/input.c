@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 15:24:43 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/10 19:51:22 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,21 @@ int	mouse_handler(int x, int y)
 
 int	key_press(int key)
 {
+	double	modifier;
+
+	modifier = ((double)WIN_H * (double)WIN_W) / 1000000.0;
 	if (key == LEFT_KEY)
-		g_game.player.turn_l = TURN_SPEED;
+		g_game.player.turn_l = TURN_SPEED * modifier;
 	if (key == RIGHT_KEY)
-		g_game.player.turn_r = -TURN_SPEED;
+		g_game.player.turn_r = -TURN_SPEED * modifier;
 	if (key == W_KEY)
-		g_game.player.vel_u = SPEED;
+		g_game.player.vel_u = SPEED * modifier;
 	if (key == S_KEY)
-		g_game.player.vel_d = -SPEED;
+		g_game.player.vel_d = -SPEED * modifier;
 	if (key == A_KEY)
-		g_game.player.vel_l = SPEED;
+		g_game.player.vel_l = SPEED * modifier;
 	if (key == D_KEY)
-		g_game.player.vel_r = -SPEED;
+		g_game.player.vel_r = -SPEED * modifier;
 	return (key);
 }
 

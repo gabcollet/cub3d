@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/10 17:01:41 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/10 19:55:38 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # define FALSE		0
 # define TRUE		1
 
-# define WIN_W 		1800
-# define WIN_H		1000
+# define WIN_W 		800
+# define WIN_H		600
 # define FPS		30
 # define MLX_CD		10000
 # define MAP_PATH	"./maps/complex.cub"
@@ -99,6 +99,10 @@ t_coll	new_collider(t_pos pos, int type, int dir);
 
 /* MLX */
 t_mlx	*get_mlx(void);
+void	mlx_fill_window(t_img *w_img, t_img *img);
+
+/* Image */
+void	my_mlx_new_image(void *mlx, t_img *img, int width, int height);
 
 /* Game management */
 void	init_game(t_game *game);

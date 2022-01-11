@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_struct.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/10 15:18:49 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/10 17:33:24 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,11 +176,12 @@ struct s_game
 	t_map		map;
 	t_player	player;
 	t_mlx		*mlx;
+	t_img		game_img;
 	t_img		minimap;
 	t_img		texture[4];
 	t_obj		ui_elems[UI_ELEMS];
-	int			screen_x;
-	int			screen_y;
+	int			res_w;
+	int			res_h;
 };
 
 t_game	g_game;

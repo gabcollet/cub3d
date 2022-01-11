@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 11:49:36 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 14:57:06 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/10 18:12:34 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void draw_object(t_mlx *mlx, t_obj *obj)
 		index_x = obj->pos.x;
 		while (index_x < obj->pos.x + width)
 		{
-			my_mlx_pixel_put(mlx->img, (int)index_x, (int)index_y, color_get(img, (int)(index_x - obj->pos.x), (int)(index_y - obj->pos.y)));
+			my_mlx_pixel_put(g_game.game_img, (int)index_x, (int)index_y, color_get(img, (int)(index_x - obj->pos.x), (int)(index_y - obj->pos.y)));
 			index_x++;
 		}
 		index_y++;

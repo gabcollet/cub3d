@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 16:28:44 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/10 19:49:20 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 
 void	init_game(t_game *game)
 {	
+	g_game.mlx = get_mlx();
 	game->player.pos.x = 0;
 	game->player.pos.y = 0;
 	game->player.rot = 0;
 	game->player.hp = 100;
-	game->screen_x = WIN_W;
-	game->screen_y = WIN_H;
+	game->res_w = WIN_W;
+	game->res_h = WIN_H;
 	game->map = new_map();
+	my_mlx_new_image(g_game.mlx->mlx, &game->game_img, game->res_w, game->res_h);
 	init_textures(game);
 	init_interface(game->ui_elems); // unfinished
 }

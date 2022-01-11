@@ -6,11 +6,18 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:51:46 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/07 12:57:03 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 18:06:23 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
+
+void	my_mlx_new_image(void *mlx, t_img *img, int width, int height)
+{
+	img->img = mlx_new_image(mlx, width, height);
+	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->width, &img->endian);
+	img->height = height;
+}
 
 void	my_mlx_pixel_put(t_img img, int x, int y, int color)
 {

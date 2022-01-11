@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/10 17:08:57 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/10 19:51:07 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 			rot = 360.0 + rot;
 		coll = check_intersections(pos.x, pos.y, rot);
 		dist = get_draw_distance(pos, rot, coll.pos, base_rot - rot);
-		if (rot == base_rot)
-			printf("%f\n", dist);
 		draw3d(dist, coll, WIN_W - win_x);
 		win_x += 1;
 		rot += (view / WIN_W);
@@ -84,7 +82,7 @@ int	raycast_draw(t_pos pos, double rot, double dist, int color)
 	r_pos = new_pos(pos.x, pos.y, pos.z);
 	while (i++ < dist && i < 800)
 	{
-		my_mlx_pixel_put(get_mlx()->img, r_pos.x, r_pos.y, color);
+		my_mlx_pixel_put(g_game.game_img, r_pos.x, r_pos.y, color);
 		r_pos = move_pos(r_pos, rot, 1, 0);
 	}
 	return (1);

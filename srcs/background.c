@@ -24,10 +24,8 @@ t_img	create_background(double width, double height)
 
 	x = 0;
 	y = 0;
-	img.img = mlx_new_image(get_mlx()->mlx, width, height);
-	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.width, &img.endian);
-	img.height = height;
-	while (img.img && x + y * width < width * height)
+	my_mlx_new_image(get_mlx()->mlx, &img, width, height);
+	while (x + y * width < width * height)
 	{
 		arrange_color_force(&color, height, y);
 		my_mlx_pixel_put(img, x, y, color);
@@ -49,7 +47,7 @@ void	draw_background(t_img img)
 
 	x = 0;
 	y = 0;
-	win_img = &get_mlx()->img;
+	win_img = &g_game.game_img;
 	while (x + y * (img.width / 4) < (img.width / 4) * img.height)
 	{
 		color = *(unsigned int *)(img.addr + (y * img.width + x * (img.bpp / 8)));
