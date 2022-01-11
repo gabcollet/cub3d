@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 19:49:20 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 00:48:33 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ void	init_game(t_game *game)
 	game->res_w = WIN_W;
 	game->res_h = WIN_H;
 	game->map = new_map();
-	my_mlx_new_image(g_game.mlx->mlx, &game->game_img, game->res_w, game->res_h);
+	my_mlx_new_image(g_game.mlx->mlx, &game->game_img,
+		game->res_w, game->res_h);
 	init_textures(game);
-	init_interface(game->ui_elems); // unfinished
+	init_interface(game->ui_elems);
 }
 
 void	exit_game(t_game *game, int exit_code)

@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/07 01:57:40 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 00:25:57 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	parse_error(int code)
 	else if (code == ERR_PLAYER)
 		ft_putendl_fd("map contains no players or too many", 2);
 	else if (code == ERR_ARGC)
-		ft_putendl_fd("cub3D requires only 1 argument, which is a .cub file", 2);
+		ft_putendl_fd("only 1 argument is required, which is a .cub file", 2);
 	else if (code == ERR_ID)
 		ft_putendl_fd(".cub file contains erronous identifiers", 2);
 	else if (code == ERR_MISS)

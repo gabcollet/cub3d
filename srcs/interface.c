@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 21:06:34 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 00:43:06 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,20 @@ void	init_sprite(t_sprite *sprite)
 void	load_sprite(t_img *img, char *path)
 {
 	t_mlx	*mlx;
-	mlx = get_mlx();
 
-	img->img = mlx_xpm_file_to_image(mlx->mlx, path, &img->width, &img->height);
-	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->width, &img->endian);
+	mlx = get_mlx();
+	img->img = mlx_xpm_file_to_image(mlx->mlx, path,
+			&img->width, &img->height);
+	img->addr = mlx_get_data_addr(img->img, &img->bpp,
+			&img->width, &img->endian);
 }
 
 // need to be reworked so it works with the parse. this is for testing purpose
-void	init_interface(t_obj *objs) //To be reworked
+void	init_interface(t_obj *objs)
 {	
-	t_img   img;
+	t_img	img;
 	int		scaling;
- 
+
 	init_handgun(&objs[UI_GUN].sprite);
 	img = objs[UI_GUN].sprite.frames[0];
 	scaling = objs[UI_GUN].sprite.scaling;

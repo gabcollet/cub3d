@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 15:53:43 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 14:46:41 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/11 00:34:43 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	fill_map(char **rows, t_map *map_ptr, int width, int height)
 		while ((*rows)[j])
 			map_ptr->tiles[i++] = (*rows)[j++];
 		while (j++ < width)
-			map_ptr->tiles[i++] = M_EMPTY;	
+			map_ptr->tiles[i++] = M_EMPTY;
 		rows++;
 	}
 	map_ptr->tiles[i] = '\0';
@@ -79,7 +79,7 @@ int	*copy_map_int(int *src, int size)
 char	*copy_map(char *src, int size)
 {
 	char	*tiles;
-	int	i;
+	int		i;
 
 	tiles = malloc(sizeof(char) * (size + 1));
 	i = 0;

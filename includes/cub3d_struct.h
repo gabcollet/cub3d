@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/10 21:03:24 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 01:03:50 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_map	t_map;
 
 typedef struct s_obj	t_obj;
 typedef struct s_wall	t_wall;
-typedef struct s_player	t_player;
+typedef struct s_player	t_plyr;
 typedef struct s_sprite	t_sprite;
 
 typedef struct s_vect	t_vect;
@@ -175,7 +175,7 @@ struct s_player
 struct s_game
 {
 	t_map		map;
-	t_player	player;
+	t_plyr		player;
 	t_mlx		*mlx;
 	t_img		game_img;
 	t_img		minimap;
@@ -185,6 +185,6 @@ struct s_game
 	int			res_h;
 };
 
-t_game	g_game;
+t_game					g_game;
 
 #endif

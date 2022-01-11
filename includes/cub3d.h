@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/10 20:24:19 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 01:02:39 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ t_coll	new_collider(t_pos pos, int type, int dir);
 
 /* MLX */
 t_mlx	*get_mlx(void);
-void	mlx_fill_window(t_img *w_img, t_img *img);
 
 /* Image */
 void	my_mlx_new_image(void *mlx, t_img *img, int width, int height);
@@ -128,21 +127,25 @@ void	init_handgun(t_sprite *sprite);
 void	gun_update(t_obj *gun);
 
 /* Parsing */
-int	parse_map_is_enclosed(t_map map);
-int	parse_valid_map_line(char *line, int *len);
-int	parse_valid_map(t_map map);
-int	parse_valid_map_c(char c);
-int parse_map(char *line, t_map *map_ptr, int fd);
-int	parse_cub(char *path);
-int	parse_is_player(char c);
-int	parse_error(int code);
+int		parse_map_is_enclosed(t_map map);
+int		parse_valid_map_line(char *line, int *len);
+int		parse_valid_map(t_map map);
+int		parse_valid_map_c(char c);
+int		parse_map(char *line, t_map *map_ptr, int fd);
+int		parse_cub(char *path);
+int		parse_is_player(char c);
+int		parse_error(int code);
+int		parse_wall(t_map map, int x, int y);
+int		parse_floor(t_map map, int x, int y, int compare);
+int		parse_f_c(char *colors, char id);
+int		parse_map_pos(t_map map, int x, int y, int *player_found);
 
 /* Image and draw */
 void	my_mlx_pixel_put(t_img img, int x, int y, int color);
 void	mlx_clear_img(t_img img);
 void	drawMap3D(t_mlx *mlx, t_map map);
 void	draw_background(t_img img);
-void 	draw_object(t_mlx *mlx, t_obj *obj);
+void	draw_object(t_mlx *mlx, t_obj *obj);
 
 /* Animations */
 void	start_animation(t_sprite *sprite);
@@ -169,27 +172,27 @@ int		key_press(int keyww);
 int		key_release(int key);
 int		mouse_handler(int x, int y);
 int		mouse_move(int x, int y, t_mlx *mlx);
-int 	quit_handler(void);
+int		quit_handler(void);
 
 /* Player */
-t_player	get_player(void);
-void		player_set_pos(int x, int y, int z);
-int			player_get_facing(t_player player);
+t_plyr	get_plyr(void);
+void	player_set_pos(int x, int y, int z);
+int		player_get_facing(t_plyr player);
 
 /* Minimap */
-void	drawMap2D(t_mlx *mlx, t_map map);
-void	drawTile(t_mlx *mlx, int x, int y, int type);
-void	drawPlayer(void);
+void	draw_map2d(t_mlx *mlx, t_map map);
+void	draw_tile(t_mlx *mlx, int x, int y, int type);
+void	draw_player(void);
 
 /* Position and movement */
-void	move_Player();
+void	move_player(void);
 t_pos	move_pos(t_pos pos, double rot, double dist, int dir);
-int		rotate_player(t_player *player, double rot);
-int		change_player_pos(t_player *player, double vel, int dir);
+int		rotate_player(t_plyr *player, double rot);
+int		change_player_pos(t_plyr *player, double vel, int dir);
 
 /* Raycasting */
-int 	raycast_draw(t_pos pos, double rot, double dist, int color);
-int 	raycast_draw_all(t_pos pos, double rot, double view);
+int		raycast_draw(t_pos pos, double rot, double dist, int color);
+int		raycast_draw_all(t_pos pos, double rot, double view);
 
 /* Collision and intersection */
 int		check_collision(int x, int y, int size, int map);
@@ -200,6 +203,6 @@ t_coll	check_dir(t_pos inter_y, t_pos inter_x, int side, double rot);
 
 /* Math */
 double	deg_to_rad(double angle);
-double	get_draw_distance(t_pos pos, double rot, t_pos pixel, double cast_angle);
+double	get_draw_distance(t_pos pos, double rot, t_pos pixel, double angle);
 
 #endif

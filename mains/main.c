@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/10 20:15:26 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 00:43:31 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int game(void *ptr)
 	raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW_ANGLE);
 	gun_update(&g_game.ui_elems[UI_GUN]);
 	draw_ui(mlx);
-	//drawMap2D(mlx, g_game.map);
-	move_Player();
+	//draw_map2d(mlx, g_game.map);
+	move_player();
 	//mlx_fill_window(&mlx->img, &g_game.game_img);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, g_game.game_img.img, 0, 0);
 	//mlx_do_sync(mlx->mlx);

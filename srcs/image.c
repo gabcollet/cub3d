@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:51:46 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 18:06:23 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 00:41:17 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 void	my_mlx_new_image(void *mlx, t_img *img, int width, int height)
 {
 	img->img = mlx_new_image(mlx, width, height);
-	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->width, &img->endian);
+	img->addr = mlx_get_data_addr(img->img, &img->bpp,
+			&img->width, &img->endian);
 	img->height = height;
 }
 

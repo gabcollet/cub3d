@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 20:25:51 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 00:41:01 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	gun_update(t_obj *gun)
 // need to be reworked so it works with the parse. this is for testing purpose
 void	init_handgun(t_sprite *sprite)
 {	
- 
 	init_sprite(sprite);
 	load_sprite(&sprite->frames[0], "./sprites/handgun/gun_01.xpm");
 	load_sprite(&sprite->frames[1], "./sprites/handgun/gun_02.xpm");

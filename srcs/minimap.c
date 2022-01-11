@@ -6,33 +6,40 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:01:03 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/10 18:13:14 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 00:59:39 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	drawMap2D(t_mlx *mlx, t_map map)
+void	draw_map2d(t_mlx *mlx, t_map map)
 {
-	int 	x, y;
-	
-	for (y = 0; y < map.height; y++)
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < map.height)
 	{
-		for (x = 0; x < map.width; x++)
+		x = 0;
+		while (x < map.width)
 		{
-			if (map.tiles[y * map.width + x] == M_WALL || map.tiles[y * map.width + x] == M_EMPTY)
-				drawTile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, WALL);
+			if (map.tiles[y * map.width + x] == M_WALL)
+				draw_tile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, WALL);
+			else if (map.tiles[y * map.width + x] == M_EMPTY)
+				draw_tile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, WALL);
 			else
-				drawTile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, FLOOR);
+				draw_tile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, FLOOR);
+				x++;
 		}
+		y++;
 	}
-	drawPlayer();
+	draw_player();
 }
 
-void drawTile(t_mlx *mlx, int x, int y, int type)
+void	draw_tile(t_mlx *mlx, int x, int y, int type)
 {
 	int	index_x;
-	int index_y;
+	int	index_y;
 
 	index_x = x;
 	index_y = y;
@@ -41,8 +48,6 @@ void drawTile(t_mlx *mlx, int x, int y, int type)
 		index_x = x;
 		while (index_x < (x + MINI_TILE_S))
 		{
-			/*if (index_y % MINI_TILE_S == 0 || index_x % MINI_TILE_S == 0)
-				my_mlx_pixel_put(mlx->img, index_x, index_y, RED);*/
 			if (type == WALL)
 				my_mlx_pixel_put(g_game.game_img, index_x, index_y, 0);
 			else if (type == FLOOR)
@@ -55,13 +60,10 @@ void drawTile(t_mlx *mlx, int x, int y, int type)
 	}
 }
 
-void	drawPlayer(void)
+void	draw_player(void)
 {
-	//int x;
-	//int y;
 	t_pos	facing;
-	int	i;
-	
+	int		i;
 	//x = g_game.player.pos.x / (TILE_SIZE / MINI_TILE_S) - 1;
 	//y = g_game.player.pos.y / (TILE_SIZE / MINI_TILE_S) - 1;
 	/* while (y++ < g_game.player.pos.y / (TILE_SIZE / MINI_TILE_S) + 1)
@@ -72,10 +74,11 @@ void	drawPlayer(void)
 			my_mlx_pixel_put(mlx->img, x , y, RED);
 		}
 	} */
+
 	facing.x = g_game.player.pos.x / (TILE_SIZE / MINI_TILE_S);
 	facing.y = g_game.player.pos.y / (TILE_SIZE / MINI_TILE_S);
 	i = -(VIEW_ANGLE / 2);
-	while(i <= VIEW_ANGLE / 2)
+	while (i <= VIEW_ANGLE / 2)
 	{
 		raycast_draw(facing, g_game.player.rot - i, 10, RED);
 		i += 3;

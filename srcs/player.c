@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 13:15:21 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 15:22:15 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/11 01:01:07 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-t_player	get_player(void)
+t_plyr	get_plyr(void)
 {
 	return (g_game.player);
 }
@@ -31,7 +31,7 @@ void	player_set_pos(int x, int y, int z)
 * Return the cardinal point where the player is facing.
 * It uses the (e_dir enum) in the header.
 */
-int	player_get_facing(t_player player)
+int	player_get_facing(t_plyr player)
 {
 	int	rot;
 

@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 21:06:13 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 00:34:59 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	update_animation(t_sprite *sprite)
 			else
 				end_animation(sprite);
 		}
-		sprite->anim_countdown = sprite->anim_time; 
+		sprite->anim_countdown = sprite->anim_time;
 	}
 	else
 		sprite->anim_countdown--;

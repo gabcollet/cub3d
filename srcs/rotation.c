@@ -6,13 +6,13 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 11:24:40 by fousse            #+#    #+#             */
-/*   Updated: 2021/12/31 13:38:36 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 01:01:07 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
 
-int	rotate_player(t_player *player, double rot)
+int	rotate_player(t_plyr *player, double rot)
 {
 	if (player->rot + rot >= 360)
 		player->rot = fmod((player->rot + rot), (double)360);

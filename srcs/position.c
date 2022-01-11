@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   position.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 09:35:03 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 16:49:14 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/11 01:01:07 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_pos	move_pos(t_pos pos, double rot, double dist, int dir)
 	return (new_pos);
 }
 
-int	change_player_pos(t_player *player, double vel, int dir)
+int	change_player_pos(t_plyr *player, double vel, int dir)
 {
 	t_pos	pos;
 	t_pos	new_pos;
@@ -54,12 +54,15 @@ int	change_player_pos(t_player *player, double vel, int dir)
 	return (0);
 }
 
-void	move_Player(void)
+void	move_player(void)
 {
-	if (g_game.player.vel_u + g_game.player.vel_d)
-		change_player_pos(&g_game.player, g_game.player.vel_u + g_game.player.vel_d, 0);
-	if (g_game.player.vel_r + g_game.player.vel_l)
-		change_player_pos(&g_game.player, g_game.player.vel_r + g_game.player.vel_l, 1);
-	if (g_game.player.turn_l + g_game.player.turn_r)
-		rotate_player(&g_game.player, g_game.player.turn_l + g_game.player.turn_r);
+	t_plyr	*p;
+
+	p = &g_game.player;
+	if (p->vel_u + p->vel_d)
+		change_player_pos(p, p->vel_u + p->vel_d, 0);
+	if (p->vel_r + p->vel_l)
+		change_player_pos(p, p->vel_r + p->vel_l, 1);
+	if (p->turn_l + p->turn_r)
+		rotate_player(p, p->turn_l + p->turn_r);
 }

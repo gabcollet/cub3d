@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   background.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/11 00:35:07 by fousse            #+#    #+#             */
+/*   Updated: 2022/01/11 00:35:26 by fousse           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include	"cub3d.h"
 
@@ -50,7 +61,8 @@ void	draw_background(t_img img)
 	win_img = &g_game.game_img;
 	while (x + y * (img.width / 4) < (img.width / 4) * img.height)
 	{
-		color = *(unsigned int *)(img.addr + (y * img.width + x * (img.bpp / 8)));
+		color = *(unsigned int *)
+			(img.addr + (y * img.width + x * (img.bpp / 8)));
 		my_mlx_pixel_put(*win_img, x, y, color);
 		if (++x == img.width / 4)
 		{
