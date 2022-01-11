@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub_id.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/11 00:31:23 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 14:12:05 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,34 @@ int	parse_wall_texture(char *path, int side)
 	return (1);
 }
 
+int	parse_enemy(char *line)
+{
+	static int	id;
+	t_pos		pos;
+	char		**split;
+	int			error;
+
+	error = 0;
+	while (*line == ' ')
+		line++;
+	split = ft_split(line, ',');
+	if (!split)
+		return (parse_error(-1));
+	if (ft_array_size((void **)split) != 3)
+		error = ERR_ENEMY;
+	else
+	{
+		pos = new_pos(ft_atoi(split[0]), ft_atoi(split[1]), ft_atoi(split[2]));
+		g_game.enemies[id].pos = pos;
+		g_game.enemies[id].type = ENEMY;
+		init_enemy(&g_game.enemies[id++].sprite);
+	}
+	ft_free_array((void **)split, ft_free);
+	if (error)
+		return (parse_error(error));
+	return (1);
+}
+
 /*
 * Received format is "r,g,b\0"
 */
@@ -40,9 +68,9 @@ int	parse_f_c(char *colors, char id)
 	int		error;
 
 	error = 0;
-	split = ft_split(colors, ',');
 	while (*colors == ' ')
 		colors++;
+	split = ft_split(colors, ',');
 	if (!split)
 		return (parse_error(-1));
 	if (ft_array_size((void **)split) != 3)
@@ -79,6 +107,8 @@ int	parse_identifier(char *line)
 		valid = parse_f_c(line + 2, 'F');
 	else if (!ft_strncmp("C ", line, 2))
 		valid = parse_f_c(line + 2, 'C');
+	else if (!ft_strncmp("E ", line, 2))
+		valid = parse_enemy(line + 2);
 	else if (!valid)
 		return (parse_error(ERR_ID));
 	return (1);

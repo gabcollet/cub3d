@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   background.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 00:35:07 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/11 00:35:26 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 14:09:41 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	arrange_color_force(int *color, double height, int y)
 		*color = g_game.map.floor_c;
 		shift_force = (double)1 - shift_force;
 	}
-	*color = color_shift_int(*color, BLACK, shift_force);
+	*color = color_shift_int(*color, BLACK, shift_force / 1.5);
 }
 
 t_img	create_background(double width, double height)

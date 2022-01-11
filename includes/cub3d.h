@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/11 13:19:16 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 14:06:49 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@
 # define M_WALL			'1'
 # define M_EMPTY		' '
 # define M_DOOR			'D'
-# define M_ENEMY		'M'
 # define M_PLYR_N		'N'
 # define M_PLYR_S		'S'
 # define M_PLYR_E		'E'
@@ -95,6 +94,7 @@
 # define ERR_MISS		9
 # define ERR_COLOR		10
 # define ERR_MAP_LAST	11
+# define ERR_ENEMY		12
 
 t_game	g_game;
 
@@ -142,6 +142,7 @@ int		parse_cub(char *path);
 int		parse_is_player(char c);
 int		parse_error(int code);
 int		parse_wall(t_map map, int x, int y);
+int		parse_enemy(char *line);
 int		parse_floor(t_map map, int x, int y, int compare);
 int		parse_f_c(char *colors, char id);
 int		parse_map_pos(t_map map, int x, int y, int *player_found);

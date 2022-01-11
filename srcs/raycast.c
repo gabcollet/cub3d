@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/10 19:51:07 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 16:36:20 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,25 @@ int	draw3d(float height, t_coll coll, int x)
 	return (0);
 }
 
+//fonction qui trouve la rot des ennemies selon la pos du player et la pos de la rot 0 
+//(trouver un angle a partir de 3 points)
+double enemy_rot(double enemy_dist, t_pos enemy_pos, t_pos pos)
+{
+	double rot;
+	double dist_A;
+	double dist_B;
+	double dist_C;
+	
+	dist_A = enemy_dist;
+	dist_B = sqrt(pow((pos.x - pos.x + 5), 2));
+	dist_C = sqrt(pow((enemy_pos.x - (pos.x + 5)), 2) + pow((enemy_pos.y - pos.y), 2));
+
+	rot = acosf((pow(dist_A, 2) + pow(dist_B, 2) - pow(dist_C, 2)) / (2 * dist_A * dist_B));
+	return (rot);
+}
+
+
+
 /*
 *	Check collisions and draw pixel columns based on collisions.
 *	Can also visually represent raycast in a 2d image.
@@ -57,6 +76,18 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 	win_x = 0;
 	base_rot = rot;
 	rot -= view / 2;
+	
+	/* while(enemy[id])
+	{
+		enemy[id].dist = sqrt(pow((enemy[id].pos.x - pos.x), 2) + pow((enemy[id].pos.y - pos.y), 2));
+		enemy[id].rot = enemy_rot(enemy[id].dist, enemy[id].pos, pos);
+		if (enemy[id].rot < rot += view/2 && enemy[id].rot > rot -= view/2)
+			enemy[id].visible = TRUE;
+		else
+			enemy[id].visible = FALSE;
+		id++;
+	} */
+
 	while (win_x < WIN_W)
 	{
 		if (rot >= 360)
@@ -66,6 +97,15 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 		coll = check_intersections(pos.x, pos.y, rot);
 		dist = get_draw_distance(pos, rot, coll.pos, base_rot - rot);
 		draw3d(dist, coll, WIN_W - win_x);
+		
+		/* while(enemy[id])
+		{
+			if (enemy[id].visible && enemy[id].dist < dist)
+				//fonction qui collide avec la hit box du monstre pour connaitre son Y
+				//fonction qui dessine une collone selon la dist et selon la hit box du mob
+			id++;
+		} */
+		
 		win_x += 1;
 		rot += (view / WIN_W);
 	}

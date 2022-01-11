@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_struct.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/11 13:19:12 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 14:01:27 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_STRUCT_H
 
 # define UI_ELEMS	2
+# define MAX_ENEMY	30
 
 /* Typedefs */
 typedef struct s_mlx	t_mlx;
@@ -43,7 +44,8 @@ enum e_obj_type
 	PLAYER,
 	FLOOR,
 	CEILING,
-	UI
+	UI,
+	ENEMY
 };
 
 enum e_dir
@@ -69,7 +71,6 @@ enum e_sprite
 enum e_ui_elem
 {
 	UI_GUN = 0,
-	ENEMY,
 	UI_FACE,
 };
 
@@ -155,6 +156,7 @@ struct s_obj
 {
 	int			enabled;
 	int			type;
+	int			id;
 	t_pos		pos;
 	t_sprite	sprite;
 	void		(*update)(t_obj *obj);
@@ -182,6 +184,7 @@ struct s_game
 	t_img		minimap;
 	t_img		texture[4];
 	t_obj		ui_elems[UI_ELEMS];
+	t_obj		enemies[MAX_ENEMY];
 	int			res_w;
 	int			res_h;
 };

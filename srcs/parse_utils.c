@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/11 00:25:57 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 13:24:03 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ int	parse_valid_map_c(char c)
 
 int	parse_is_player(char c)
 {
-	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+	if (c == M_PLYR_N || c == M_PLYR_S || c == M_PLYR_W || c == M_PLYR_E)
 	{
-		if (c == 'N')
+		if (c == M_PLYR_N)
 			g_game.player.rot = 90;
-		if (c == 'S')
+		if (c == M_PLYR_S)
 			g_game.player.rot = 270;
-		if (c == 'W')
+		if (c == M_PLYR_W)
 			g_game.player.rot = 180;
-		if (c == 'E')
+		if (c == M_PLYR_E)
 			g_game.player.rot = 0;
 		return (1);
 	}
