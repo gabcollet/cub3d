@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:51:46 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 18:06:23 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 12:26:21 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"cub3d.h"
+#include "cub3d.h"
 
 void	my_mlx_new_image(void *mlx, t_img *img, int width, int height)
 {

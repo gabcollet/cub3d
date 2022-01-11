@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   interface.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 21:06:34 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 13:00:03 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"cub3d.h"
+#include "cub3d.h"
 
 void	init_sprite(t_sprite *sprite)
 {
@@ -39,9 +39,15 @@ void	init_interface(t_obj *objs) //To be reworked
 	int		scaling;
  
 	init_handgun(&objs[UI_GUN].sprite);
+	init_enemy(&objs[ENEMY].sprite);
+	
 	img = objs[UI_GUN].sprite.frames[0];
 	scaling = objs[UI_GUN].sprite.scaling;
 	objs[UI_GUN].pos = new_pos(WIN_W / 2 - (img.width / 8 * scaling), WIN_H, 0);
+	
+	img = objs[ENEMY].sprite.frames[0];
+	scaling = objs[ENEMY].sprite.scaling;
+	objs[ENEMY].pos = new_pos(WIN_W / 2 - (img.width / 8 * scaling), WIN_H, 0);
 }
 
 void	draw_ui(t_mlx *mlx)
@@ -49,5 +55,6 @@ void	draw_ui(t_mlx *mlx)
 	t_obj	*obj;
 
 	obj = g_game.ui_elems;
+	draw_object(mlx, &obj[ENEMY]); //just for testing
 	draw_object(mlx, &obj[UI_GUN]);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/10 20:24:19 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/11 13:15:24 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@
 
 /* Key for linux */
 # define ESC 			65307
-# define SPACE_KEY 		49
-# define W_KEY			119
+# define SPACE_KEY 		32
 # define A_KEY			97
-# define E_KEY			101
-# define S_KEY			115
 # define D_KEY			100
+# define E_KEY			101
+# define R_KEY	 		114
+# define S_KEY			115
+# define W_KEY			119
 # define RIGHT_KEY		65363
 # define LEFT_KEY		65361
 
@@ -76,6 +77,11 @@
 # define M_WALL			'1'
 # define M_EMPTY		' '
 # define M_DOOR			'D'
+# define M_ENEMY		'M'
+# define M_PLYR_N		'N'
+# define M_PLYR_S		'S'
+# define M_PLYR_E		'E'
+# define M_PLYR_W		'W'
 
 /* Parse errors */
 # define ERR_FILE		1
@@ -175,6 +181,10 @@ int 	quit_handler(void);
 t_player	get_player(void);
 void		player_set_pos(int x, int y, int z);
 int			player_get_facing(t_player player);
+
+/* Enemy */
+void	init_enemy(t_sprite *sprite);
+void	enemy_update(t_obj *enemy); 
 
 /* Minimap */
 void	drawMap2D(t_mlx *mlx, t_map map);
