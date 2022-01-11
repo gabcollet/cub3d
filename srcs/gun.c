@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   gun.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/01/11 00:41:01 by fousse           ###   ########.fr       */
+=======
+/*   Updated: 2022/01/11 12:26:06 by gcollet          ###   ########.fr       */
+>>>>>>> bd9f2cdf7212f1207ed631093a086c87e093056c
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"cub3d.h"
+#include "cub3d.h"
 
 void	gun_update(t_obj *gun)
 {
