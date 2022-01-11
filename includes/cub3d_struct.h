@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/10 17:33:24 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 21:03:24 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ struct s_sprite
 	double	anim_countdown;
 	double	anim_time;
 	int		playing;
+	int		loop;
 	double	scaling;
 };
 

@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/07 13:01:06 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 21:06:13 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	start_animation(t_sprite *sprite)
 {
 	if (!sprite)
 		return ;
-	if (sprite->playing == FALSE)
+	if (sprite->playing != TRUE)
 	{
 		sprite->playing = TRUE;
 	}
@@ -36,13 +36,15 @@ void	update_animation(t_sprite *sprite)
 		return ;
 	if (sprite->anim_countdown <= 0)
 	{
+		sprite->active++;
 		if (sprite->active >= sprite->frames_n)
-			end_animation(sprite);
-		else
 		{
-			sprite->active++;
-			sprite->anim_countdown = sprite->anim_time; 
-		}	
+			if (sprite->loop)
+				sprite->active = 0;
+			else
+				end_animation(sprite);
+		}
+		sprite->anim_countdown = sprite->anim_time; 
 	}
 	else
 		sprite->anim_countdown--;

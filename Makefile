@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
+#    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/10 15:10:41 by gcollet          ###   ########.fr        #
+#    Updated: 2022/01/10 20:19:25 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,6 @@ MK_LFT		= make -C $(DIR_LFT)
 # Mains
 MAIN		= $(DIR_MAINS)/main.c
 #MAIN		= $(DIR_MAINS)/main_texture.c
-#MAIN		= $(DIR_MAINS)/main_parse.c
-MAIN_COLOR	= $(DIR_MAINS)/main_color.c
 
 # Headers
 _HEADS	=	cub3d.h cub3d_struct.h
@@ -68,7 +66,7 @@ SRCS	= 	game.c map.c interface.c\
 			animation.c\
 			collision.c intersection.c intersection_utils.c\
 			raycast.c\
-			player.c\
+			player.c gun.c\
 			input.c
 
 _OBJS	= $(SRCS:.c=.o)

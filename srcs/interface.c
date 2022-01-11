@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/10 19:47:53 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 21:06:34 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@ void	init_sprite(t_sprite *sprite)
 	sprite->anim_countdown = 0;
 	sprite->anim_time = 0;
 	sprite->frames_n = 0;
-	sprite->playing = 0;
+	sprite->playing = FALSE;
 	sprite->scaling = 1;
+	sprite->loop = FALSE;
 }
 
 void	load_sprite(t_img *img, char *path)
@@ -31,20 +32,22 @@ void	load_sprite(t_img *img, char *path)
 	img->addr = mlx_get_data_addr(img->img, &img->bpp, &img->width, &img->endian);
 }
 
-void	gun_update(t_obj *gun)
-{
-	if (gun->sprite.playing)
-		update_animation(&gun->sprite);
-}
-
 // need to be reworked so it works with the parse. this is for testing purpose
 void	init_interface(t_obj *objs) //To be reworked
 {	
-	t_img	*img;
+	t_img   img;
+	int		scaling;
+ 
+	init_handgun(&objs[UI_GUN].sprite);
+	img = objs[UI_GUN].sprite.frames[0];
+	scaling = objs[UI_GUN].sprite.scaling;
+	objs[UI_GUN].pos = new_pos(WIN_W / 2 - (img.width / 8 * scaling), WIN_H, 0);
+}
 
-	init_sprite(&objs[UI_GUN].sprite);
-	img = &objs[UI_GUN].sprite.frames[0];
-	load_sprite(img, "./sprites/handgun/gun_01.xpm");
-	objs[UI_GUN].pos = new_pos(WIN_W / 2 - (img->width / 8), WIN_H - (img->height), 0);
-	objs[UI_GUN].sprite.scaling = 4.0;
+void	draw_ui(t_mlx *mlx)
+{
+	t_obj	*obj;
+
+	obj = g_game.ui_elems;
+	draw_object(mlx, &obj[UI_GUN]);
 }

@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/10 19:55:38 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/10 20:24:19 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define SPACE_KEY 		49
 # define W_KEY			119
 # define A_KEY			97
+# define E_KEY			101
 # define S_KEY			115
 # define D_KEY			100
 # define RIGHT_KEY		65363
@@ -118,9 +119,13 @@ void	fill_map(char **rows, t_map *map_ptr, int width, int height);
 
 /* User Interface */
 void	init_interface(t_obj *objs);
-void	gun_update(t_obj *gun);
+void	init_sprite(t_sprite *sprite);
 void	load_sprite(t_img *img, char *path);
 void	draw_ui(t_mlx *mlx);
+
+/* Weapons */
+void	init_handgun(t_sprite *sprite);
+void	gun_update(t_obj *gun);
 
 /* Parsing */
 int	parse_map_is_enclosed(t_map map);
