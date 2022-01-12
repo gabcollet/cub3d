@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:38:28 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/11 14:08:35 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/12 16:36:21 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void	init_textures(t_game *game)
 	game->texture[3].img = NULL;
 }
 
-t_pos	textures_index(t_coll coll, float offset, float height, int side)
+t_pos	textures_index(t_pos pos, float offset, float height, int side)
 {
 	double	i_x;
 	double	i_y;
 
 	if (side)
-		i_x = (fmod(fmod(coll.pos.x, TILE_SIZE), TEXTURES_SIZE));
+		i_x = (fmod(fmod(pos.x, TILE_SIZE), TEXTURES_SIZE));
 	else
-		i_x = (fmod(fmod(coll.pos.y, TILE_SIZE), TEXTURES_SIZE));
+		i_x = (fmod(fmod(pos.y, TILE_SIZE), TEXTURES_SIZE));
 	i_y = (TEXTURES_SIZE * offset / 2) / (height + (offset));
 	return (new_pos(i_x, i_y, 0));
 }

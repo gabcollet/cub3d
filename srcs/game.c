@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/11 00:48:33 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/12 14:20:11 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	init_game(t_game *game)
 		game->res_w, game->res_h);
 	init_textures(game);
 	init_interface(game->ui_elems);
+	init_obj_array(game->enemies, MAX_ENEMY);
 }
 
 void	exit_game(t_game *game, int exit_code)

@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/11 14:06:49 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/12 16:37:00 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ void	mlx_clear_img(t_img img);
 void	drawMap3D(t_mlx *mlx, t_map map);
 void	draw_background(t_img img);
 void	draw_object(t_mlx *mlx, t_obj *obj);
+void	draw_enemy(t_img *text, t_pos pos, float height, t_pos index);
 
 /* Animations */
 void	start_animation(t_sprite *sprite);
@@ -172,7 +173,7 @@ int		color_rgb_to_int(t_rgb rgb);
 t_rgb	color_shift_rgb(t_rgb base, t_rgb shift, double force);
 int		color_shift_int(int base, int shift, double force);
 void	fill_with_texture(t_img *text, t_pos pos, float height, t_pos index);
-t_pos	textures_index(t_coll coll, float offset, float height, int side);
+t_pos	textures_index(t_pos pos, float offset, float height, int side);
 
 /* Inputs */
 int		key_press(int keyww);
@@ -181,13 +182,18 @@ int		mouse_handler(int x, int y);
 int		mouse_move(int x, int y, t_mlx *mlx);
 int		quit_handler(void);
 
+/* Object */
+void	init_obj_array(t_obj *obj_array, int size);
+t_obj	new_obj(void);
+
 /* Player */
 t_plyr	get_plyr(void);
 void	player_set_pos(int x, int y, int z);
 int		player_get_facing(t_plyr player);
 
 /* Enemy */
-void	init_enemy(t_sprite *sprite);
+void	init_enemy(t_obj *enemy, t_pos pos);
+void	init_enemy_sprite(t_sprite *sprite);
 void	enemy_update(t_obj *enemy); 
 
 /* Minimap */
@@ -214,6 +220,7 @@ t_coll	check_dir(t_pos inter_y, t_pos inter_x, int side, double rot);
 
 /* Math */
 double	deg_to_rad(double angle);
+double	rad_to_deg(double rad);
 double	get_draw_distance(t_pos pos, double rot, t_pos pixel, double angle);
 
 #endif

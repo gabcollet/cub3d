@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
+#    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/11 13:19:30 by fousse           ###   ########.fr        #
+#    Updated: 2022/01/12 14:21:15 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ SRCS	= 	game.c map.c interface.c\
 			animation.c\
 			collision.c intersection.c intersection_utils.c\
 			raycast.c\
+			object.c\
 			player.c gun.c enemy.c\
 			input.c
 

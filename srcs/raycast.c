@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/11 16:36:20 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/12 17:34:40 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,20 @@ int	draw3d(float height, t_coll coll, int x)
 	y = (WIN_H - height) / 2;
 	if (coll.dir & NORTH)
 		fill_with_texture(&g_game.texture[NO], new_pos(x, y, 0),
-			height, textures_index(coll, offset, height, 1));
+			height, textures_index(coll.pos, offset, height, 1));
 	else if (coll.dir & SOUTH)
 		fill_with_texture(&g_game.texture[SO], new_pos(x, y, 0),
-			height, textures_index(coll, offset, height, 1));
+			height, textures_index(coll.pos, offset, height, 1));
 	else if (coll.dir & WEST)
 		fill_with_texture(&g_game.texture[WE], new_pos(x, y, 0),
-			height, textures_index(coll, offset, height, 0));
+			height, textures_index(coll.pos, offset, height, 0));
 	else if (coll.dir & EAST)
 		fill_with_texture(&g_game.texture[EA], new_pos(x, y, 0),
-			height, textures_index(coll, offset, height, 0));
+			height, textures_index(coll.pos, offset, height, 0));
 	return (0);
 }
 
-//fonction qui trouve la rot des ennemies selon la pos du player et la pos de la rot 0 
-//(trouver un angle a partir de 3 points)
+
 double enemy_rot(double enemy_dist, t_pos enemy_pos, t_pos pos)
 {
 	double rot;
@@ -56,10 +55,12 @@ double enemy_rot(double enemy_dist, t_pos enemy_pos, t_pos pos)
 	dist_C = sqrt(pow((enemy_pos.x - (pos.x + 5)), 2) + pow((enemy_pos.y - pos.y), 2));
 
 	rot = acosf((pow(dist_A, 2) + pow(dist_B, 2) - pow(dist_C, 2)) / (2 * dist_A * dist_B));
+	rot = rad_to_deg(rot);
+	if (pos.y < enemy_pos.y)
+		rot = 360 - rot;
+	//printf("rot enemy : %f", rot);
 	return (rot);
 }
-
-
 
 /*
 *	Check collisions and draw pixel columns based on collisions.
@@ -72,22 +73,39 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 	double	base_rot;
 	t_coll	coll;
 
+	t_obj	*enemy;
+	int		id = 0;
+	/* t_coll	coll_enemy; */
+
+	enemy = (char *)g_game.enemies;
+	enemy[0].pos = new_pos(80.0, 80.0, 0);
+	enemy[0].dist = 0;
+	enemy[0].rot = 0;
+	enemy[0].visible = 0;
+	enemy[0].alive = 1;
+	enemy[0].enabled = 1;
+
 	coll = new_collider(new_pos(0, 0, 0), 0, 0);
 	win_x = 0;
 	base_rot = rot;
-	rot -= view / 2;
-	
-	/* while(enemy[id])
-	{
+	//printf("rot player : %f  ", rot);
+	/* while(id < 1 && enemy[id].enabled && enemy[id].alive)
+	{ */
 		enemy[id].dist = sqrt(pow((enemy[id].pos.x - pos.x), 2) + pow((enemy[id].pos.y - pos.y), 2));
 		enemy[id].rot = enemy_rot(enemy[id].dist, enemy[id].pos, pos);
-		if (enemy[id].rot < rot += view/2 && enemy[id].rot > rot -= view/2)
+		if (enemy[id].rot > (rot - (view/2)) && enemy[id].rot < (rot + (view/2)))
+			enemy[id].visible = TRUE;
+		else if ((rot + view / 2) > 360 && enemy[id].rot < (rot + (view/2) - 360))
 			enemy[id].visible = TRUE;
 		else
 			enemy[id].visible = FALSE;
-		id++;
+		printf("  visible : %d\n", enemy[id].visible);
+	/* 	id++;
 	} */
-
+	/* coll_enemy.obj = &enemy[id];
+	coll_enemy.pos = enemy[id].pos;
+	coll_enemy.type = ENEMY; */
+	rot -= view / 2;
 	while (win_x < WIN_W)
 	{
 		if (rot >= 360)
@@ -98,13 +116,18 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 		dist = get_draw_distance(pos, rot, coll.pos, base_rot - rot);
 		draw3d(dist, coll, WIN_W - win_x);
 		
-		/* while(enemy[id])
+		if (enemy[0].visible == TRUE
+			&& ((int)enemy[0].rot - (int)(enemy[0].sprite.frames->width / 2) < (int)rot
+				 && (int)enemy[0].rot + (int)(enemy[0].sprite.frames->width / 2) > (int)rot))
 		{
-			if (enemy[id].visible && enemy[id].dist < dist)
-				//fonction qui collide avec la hit box du monstre pour connaitre son Y
-				//fonction qui dessine une collone selon la dist et selon la hit box du mob
-			id++;
-		} */
+			if (enemy[id].dist < dist)
+			{
+				dist = get_draw_distance(pos, rot, enemy[id].pos, base_rot - rot);
+				//draw_enemy(&enemy[id].sprite.frames[0], enemy[id].pos, dist, textures_index(enemy[id].pos, 0, dist, 0));
+				draw_enemy(&enemy[id].sprite.frames[0], new_pos(win_x, (WIN_H - dist) / 2, 0), dist, textures_index(enemy[id].pos, 0, dist, 0));
+			}
+			 /* id++; */
+		}
 		
 		win_x += 1;
 		rot += (view / WIN_W);

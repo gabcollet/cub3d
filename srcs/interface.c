@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/11 14:12:59 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/12 15:00:59 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	init_interface(t_obj *objs)
 	int		scaling;
 
 	init_handgun(&objs[UI_GUN].sprite);
-	init_enemy(&objs[ENEMY].sprite);
+	init_enemy_sprite(&objs[ENEMY].sprite);
 	
 	img = objs[UI_GUN].sprite.frames[0];
 	scaling = objs[UI_GUN].sprite.scaling;
@@ -60,6 +60,6 @@ void	draw_ui(t_mlx *mlx)
 	t_obj	*obj;
 
 	obj = g_game.ui_elems;
-	draw_object(mlx, &g_game.enemies[0]); //just for testing
+	//draw_object(mlx, &g_game.enemies[0]); //just for testing
 	draw_object(mlx, &obj[UI_GUN]);
 }

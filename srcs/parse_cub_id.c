@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/11 14:12:05 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/12 14:28:13 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ int	parse_enemy(char *line)
 	else
 	{
 		pos = new_pos(ft_atoi(split[0]), ft_atoi(split[1]), ft_atoi(split[2]));
-		g_game.enemies[id].pos = pos;
-		g_game.enemies[id].type = ENEMY;
-		init_enemy(&g_game.enemies[id++].sprite);
+		init_enemy(&g_game.enemies[id], pos);
+		g_game.enemies[id++].type = ENEMY;
 	}
 	ft_free_array((void **)split, ft_free);
 	if (error)

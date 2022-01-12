@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:44:54 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/11 01:02:18 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/12 16:21:47 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@
 double	deg_to_rad(double angle)
 {
 	return (angle * M_PI / 180.0);
+}
+
+//	Convert radians to angle (0 to 359)
+double	rad_to_deg(double rad)
+{
+	return (rad * 180 / M_PI);
 }
 
 /*

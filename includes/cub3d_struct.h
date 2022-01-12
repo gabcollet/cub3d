@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/11 14:01:27 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/12 15:24:16 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ struct s_coll
 	t_pos	pos;
 	int		type;
 	int		dir;
+	t_obj	*obj;
 };
 
 struct s_img
@@ -156,9 +157,12 @@ struct s_obj
 {
 	int			enabled;
 	int			type;
-	int			id;
 	t_pos		pos;
 	t_sprite	sprite;
+	float		dist;
+	double		rot;
+	int			visible;
+	int			alive;
 	void		(*update)(t_obj *obj);
 };
 
