@@ -6,11 +6,20 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/12 15:00:59 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 14:58:19 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+typedef struct s_obj_draw
+{
+	double		index_x;
+	double		index_y;
+	double		step;
+	int			x;
+	int			y;
+}				t_obj_draw;
 
 void	init_sprite(t_sprite *sprite)
 {
@@ -61,5 +70,36 @@ void	draw_ui(t_mlx *mlx)
 
 	obj = g_game.ui_elems;
 	//draw_object(mlx, &g_game.enemies[0]); //just for testing
-	draw_object(mlx, &obj[UI_GUN]);
+	draw_ui_element(mlx, &obj[UI_GUN]);
+}
+
+void	draw_ui_element(t_mlx *mlx, t_obj *obj)
+{
+	t_obj_draw	d;
+	int			color;
+	t_img		img;
+
+	img = obj->sprite.frames[obj->sprite.active];
+	d.step = 1.0 / obj->sprite.scaling;
+	d.index_y = 0;
+	d.index_x = 0;
+	d.x = obj->pos.x;
+	d.y = obj->pos.y - (double)img.height * obj->sprite.scaling;
+	while (d.index_y < img.height)
+	{
+		if (d.index_x < img.width / 4)
+		{
+			color = color_get(img, (int)d.index_x, (int)d.index_y);
+			my_mlx_pixel_put(g_game.game_img, (int)d.x, (int)d.y, color);
+			d.index_x += d.step;
+			d.x++;
+		}
+		else if (d.index_x <= img.width / 4)
+		{
+			d.y++;
+			d.index_y += d.step;
+			d.x = obj->pos.x;
+			d.index_x = 0;
+		}
+	}
 }

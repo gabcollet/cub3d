@@ -6,11 +6,13 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/12 17:34:40 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 15:40:05 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+
 
 /*
 *	Draw a column of pixel based on a tile/wall.
@@ -42,24 +44,26 @@ int	draw3d(float height, t_coll coll, int x)
 	return (0);
 }
 
-
-double enemy_rot(double enemy_dist, t_pos enemy_pos, t_pos pos)
+int	raycast_draw_sprite(double dist, double rot, int win_x)
 {
-	double rot;
-	double dist_A;
-	double dist_B;
-	double dist_C;
-	
-	dist_A = enemy_dist;
-	dist_B = sqrt(pow((pos.x - pos.x + 5), 2));
-	dist_C = sqrt(pow((enemy_pos.x - (pos.x + 5)), 2) + pow((enemy_pos.y - pos.y), 2));
+	t_obj	*enemy;
+	int		id;
 
-	rot = acosf((pow(dist_A, 2) + pow(dist_B, 2) - pow(dist_C, 2)) / (2 * dist_A * dist_B));
-	rot = rad_to_deg(rot);
-	if (pos.y < enemy_pos.y)
-		rot = 360 - rot;
-	//printf("rot enemy : %f", rot);
-	return (rot);
+	enemy = g_game.enemies;
+	id = 0;
+	while (id < g_game.enemy_count)
+	{
+		if (enemy[id].visible == TRUE && (int)enemy[id].rot == (int)rot)
+		{
+			if (enemy[id].dist >= dist)
+			{
+				//enemy[id].sprite.scaling =  
+				draw_object(get_mlx(), &enemy[id], WIN_W - win_x);
+			}
+		}
+		id++;
+	}
+	return (1);
 }
 
 /*
@@ -69,43 +73,15 @@ double enemy_rot(double enemy_dist, t_pos enemy_pos, t_pos pos)
 int	raycast_draw_all(t_pos pos, double rot, double view)
 {
 	int		win_x;
-	float	dist;
+	double	dist;
 	double	base_rot;
 	t_coll	coll;
-
-	t_obj	*enemy;
-	int		id = 0;
-	/* t_coll	coll_enemy; */
-
-	enemy = (char *)g_game.enemies;
-	enemy[0].pos = new_pos(80.0, 80.0, 0);
-	enemy[0].dist = 0;
-	enemy[0].rot = 0;
-	enemy[0].visible = 0;
-	enemy[0].alive = 1;
-	enemy[0].enabled = 1;
 
 	coll = new_collider(new_pos(0, 0, 0), 0, 0);
 	win_x = 0;
 	base_rot = rot;
-	//printf("rot player : %f  ", rot);
-	/* while(id < 1 && enemy[id].enabled && enemy[id].alive)
-	{ */
-		enemy[id].dist = sqrt(pow((enemy[id].pos.x - pos.x), 2) + pow((enemy[id].pos.y - pos.y), 2));
-		enemy[id].rot = enemy_rot(enemy[id].dist, enemy[id].pos, pos);
-		if (enemy[id].rot > (rot - (view/2)) && enemy[id].rot < (rot + (view/2)))
-			enemy[id].visible = TRUE;
-		else if ((rot + view / 2) > 360 && enemy[id].rot < (rot + (view/2) - 360))
-			enemy[id].visible = TRUE;
-		else
-			enemy[id].visible = FALSE;
-		printf("  visible : %d\n", enemy[id].visible);
-	/* 	id++;
-	} */
-	/* coll_enemy.obj = &enemy[id];
-	coll_enemy.pos = enemy[id].pos;
-	coll_enemy.type = ENEMY; */
-	rot -= view / 2;
+	obj_all_set_visible(g_game.enemies, g_game.enemy_count, base_rot, pos);
+	rot -= VIEW_ANGLE / 2;
 	while (win_x < WIN_W)
 	{
 		if (rot >= 360)
@@ -115,20 +91,7 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 		coll = check_intersections(pos.x, pos.y, rot);
 		dist = get_draw_distance(pos, rot, coll.pos, base_rot - rot);
 		draw3d(dist, coll, WIN_W - win_x);
-		
-		if (enemy[0].visible == TRUE
-			&& ((int)enemy[0].rot - (int)(enemy[0].sprite.frames->width / 2) < (int)rot
-				 && (int)enemy[0].rot + (int)(enemy[0].sprite.frames->width / 2) > (int)rot))
-		{
-			if (enemy[id].dist < dist)
-			{
-				dist = get_draw_distance(pos, rot, enemy[id].pos, base_rot - rot);
-				//draw_enemy(&enemy[id].sprite.frames[0], enemy[id].pos, dist, textures_index(enemy[id].pos, 0, dist, 0));
-				draw_enemy(&enemy[id].sprite.frames[0], new_pos(win_x, (WIN_H - dist) / 2, 0), dist, textures_index(enemy[id].pos, 0, dist, 0));
-			}
-			 /* id++; */
-		}
-		
+		raycast_draw_sprite(dist, rot, win_x);
 		win_x += 1;
 		rot += (view / WIN_W);
 	}
@@ -136,17 +99,26 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 }
 
 // Literally draw a raycast on the mlx image
-int	raycast_draw(t_pos pos, double rot, double dist, int color)
+int	raycast_draw(double rot, double dist, int color, int side)
 {
+	t_pos	facing;
 	t_pos	r_pos;
 	int		i;
+	int		trans;
 
+	trans = FALSE;
+	if (color == WHITE)
+		trans = TRUE;
+	facing.x = g_game.player.pos.x / (TILE_SIZE / MINI_TILE_S);
+	facing.y = g_game.player.pos.y / (TILE_SIZE / MINI_TILE_S);
 	i = 0;
-	r_pos = new_pos(pos.x, pos.y, pos.z);
+	r_pos = new_pos(facing.x, facing.y, facing.z);
 	while (i++ < dist && i < 800)
 	{
+		if (trans == TRUE)
+			color = color_shift_int(color_get(g_game.game_img, r_pos.x, r_pos.y), WHITE, 0.03);
 		my_mlx_pixel_put(g_game.game_img, r_pos.x, r_pos.y, color);
-		r_pos = move_pos(r_pos, rot, 1, 0);
+		r_pos = move_pos(r_pos, rot, side, 0);
 	}
 	return (1);
 }

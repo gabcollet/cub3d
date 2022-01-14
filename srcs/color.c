@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:57:26 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/11 00:38:17 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/13 16:15:38 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ int	color_shift_int(int base, int shift, double force)
 	t_rgb	rgb;
 	t_rgb	base_rgb;
 	t_rgb	shift_rgb;
-
+	
+	if (base == TRANS)
+		return (base);
 	base_rgb = color_int_to_rgb(base);
 	shift_rgb = color_int_to_rgb(shift);
 	rgb = color_shift_rgb(base_rgb, shift_rgb, force);

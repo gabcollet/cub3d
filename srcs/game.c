@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/12 14:20:11 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/13 13:03:13 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_game(t_game *game)
 	init_textures(game);
 	init_interface(game->ui_elems);
 	init_obj_array(game->enemies, MAX_ENEMY);
+	game->enemy_count = 0;
 }
 
 void	exit_game(t_game *game, int exit_code)

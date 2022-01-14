@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/12 15:24:16 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 15:39:33 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,13 +117,14 @@ struct s_img
 struct s_sprite
 {
 	int		active;
-	t_img	frames[10];
+	t_img	frames[20];
 	int		frames_n;
 	double	anim_countdown;
 	double	anim_time;
 	int		playing;
 	int		loop;
 	double	scaling;
+	double	scaled_width;
 };
 
 struct s_vect
@@ -155,7 +156,6 @@ struct s_map
 
 struct s_obj
 {
-	int			enabled;
 	int			type;
 	t_pos		pos;
 	t_sprite	sprite;
@@ -189,6 +189,7 @@ struct s_game
 	t_img		texture[4];
 	t_obj		ui_elems[UI_ELEMS];
 	t_obj		enemies[MAX_ENEMY];
+	int			enemy_count;
 	int			res_w;
 	int			res_h;
 };

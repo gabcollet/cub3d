@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/11 14:38:52 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 15:42:25 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,30 @@
 int game(void *ptr)
 {
 	t_mlx *mlx;
+	static double	frame_timer = 0;
+	static int	i;
 
 	mlx = (t_mlx *)ptr;
-	//frame_timer = MLX_CD / FPS;
-	mouse_handler(0, 0);
-	//mlx_clear_img(mlx->img);
-	draw_background(g_game.map.back);
-	raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW_ANGLE);
-	enemy_update(&g_game.enemies[0]);
-	gun_update(&g_game.ui_elems[UI_GUN]);
-	draw_ui(mlx);
-	//draw_map2d(mlx, g_game.map);
-	move_player();
-	//mlx_fill_window(&mlx->img, &g_game.game_img);
-	mlx_put_image_to_window(mlx->mlx, mlx->win, g_game.game_img.img, 0, 0);
+	if (frame_timer <= 0)
+	{
+		//frame_timer = MLX_CD / FPS;
+		mouse_handler(0, 0);
+		//mlx_clear_img(mlx->img);
+		draw_background(g_game.map.back);
+		raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW_ANGLE);
+		enemy_update(g_game.enemies);
+		gun_update(&g_game.ui_elems[UI_GUN]);
+		draw_ui(mlx);
+		draw_map2d(mlx, g_game.map);
+		move_player();
+		//mlx_fill_window(&mlx->img, &g_game.game_img);
+		mlx_put_image_to_window(mlx->mlx, mlx->win, g_game.game_img.img, 0, 0);
+		frame_timer = 1.0 / FPS;
+	}
+	else
+		frame_timer -= get_frame_time();
+	
+	
 	return (0);
 }
 

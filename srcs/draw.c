@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 11:49:36 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/12 17:23:21 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/13 14:16:13 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,6 @@ typedef struct s_obj_draw
 	int			x;
 	int			y;
 }				t_obj_draw;
-
-void	draw_object(t_mlx *mlx, t_obj *obj)
-{
-	t_obj_draw	d;
-	int			color;
-	t_img		img;
-
-	img = obj->sprite.frames[obj->sprite.active];
-	d.step = 1.0 / obj->sprite.scaling;
-	d.index_y = 0;
-	d.y = obj->pos.y - (double)img.height * obj->sprite.scaling;
-	while (d.index_y < img.height)
-	{
-		d.x = obj->pos.x;
-		d.index_x = 0;
-		while (d.index_x < img.width / 4)
-		{
-			color = color_get(img, (int)d.index_x, (int)d.index_y);
-			my_mlx_pixel_put(g_game.game_img, (int)d.x, (int)d.y, color);
-			d.index_x += d.step;
-			d.x++;
-		}
-		d.y++;
-		d.index_y += d.step;
-	}
-}
 
 void	draw_enemy(t_img *text, t_pos pos, float height, t_pos index)
 {

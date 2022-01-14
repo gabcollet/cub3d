@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:44:54 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/12 16:21:47 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/13 14:01:53 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ double	deg_to_rad(double angle)
 //	Convert radians to angle (0 to 359)
 double	rad_to_deg(double rad)
 {
-	return (rad * 180 / M_PI);
+	return (rad * 180.0 / M_PI);
 }
 
 /*

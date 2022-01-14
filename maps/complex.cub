@@ -1,16 +1,15 @@
-WE ./textures/grass_block_side.xpm
-SO ./textures/cobblestone.xpm
-EA       ./textures/oak_planks.xpm
-NO ./textures/bricks.xpm
+WE ./textures/wall_1.xpm
+SO ./textures/wall_2.xpm
+EA ./textures/wall_3.xpm
+NO ./textures/wall_4.xpm
 
-F 0,200,0
-C 0,0,200
+F 133,117,92
+C 82,39,16
 
-E 400,600,0
-E 200,600,0
+E 100,100,0
 
 111111111111111111
-10000N010000000101
+10000W010000000101
 10000000010001000111
 1000000001000000011
 10001011110100000111111

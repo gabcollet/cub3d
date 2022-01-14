@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/11 13:46:09 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 13:53:31 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,6 @@ void	init_handgun(t_sprite *sprite)
 	load_sprite(&sprite->frames[3], "./sprites/handgun/gun_04.xpm");
 	load_sprite(&sprite->frames[4], "./sprites/handgun/gun_05.xpm");
 	sprite->frames_n = 5;
-	sprite->anim_time = 15;
+	sprite->anim_time = ANIM_TIME / 2;
 	sprite->scaling = 4.0;
 }

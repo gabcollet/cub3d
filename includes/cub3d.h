@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/12 16:37:00 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 15:45:40 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include	<complex.h>
 # include	<fcntl.h>
 # include	<mlx.h>
+# include	"cub3d_time.h"
 # include	"cub3d_struct.h"
 # include	"../libft/libft.h"
 
@@ -30,8 +31,8 @@
 
 # define WIN_W 		800
 # define WIN_H		600
-# define FPS		30
-# define MLX_CD		10000
+# define FPS		30.0
+# define MLX_CD		10
 # define MAP_PATH	"./maps/complex.cub"
 
 /* Key for linux */
@@ -47,8 +48,9 @@
 # define LEFT_KEY		65361
 
 /* Game parameter */
-# define SPEED			2
-# define TURN_SPEED		2.5
+# define SPEED			8
+# define TURN_SPEED		8
+# define ANIM_TIME		10
 # define MOUSE_TURN		0
 # define VIEW_ANGLE		60
 # define VIEW_DIST		1000
@@ -64,12 +66,10 @@
 # define WHITE			0xffffff
 # define BLACK			0x000000
 # define RED			0xFF0000
+# define GRAY			0xAAAAAA
 # define FLOOR_C		0x303030
 # define CEILING_C		0x909090
-# define NORTH_C		0x00aa50
-# define SOUTH_C		0x005090
-# define WEST_C			0x0020bb
-# define EAST_C			0x0000ff
+# define BLUE			0x0000ff
 # define YELLOW			0xf0de18
 
 /* Map objects */
@@ -127,6 +127,7 @@ void	init_interface(t_obj *objs);
 void	init_sprite(t_sprite *sprite);
 void	load_sprite(t_img *img, char *path);
 void	draw_ui(t_mlx *mlx);
+void	draw_ui_element(t_mlx *mlx, t_obj *obj);
 
 /* Weapons */
 void	init_handgun(t_sprite *sprite);
@@ -152,7 +153,7 @@ void	my_mlx_pixel_put(t_img img, int x, int y, int color);
 void	mlx_clear_img(t_img img);
 void	drawMap3D(t_mlx *mlx, t_map map);
 void	draw_background(t_img img);
-void	draw_object(t_mlx *mlx, t_obj *obj);
+void	draw_object(t_mlx *mlx, t_obj *obj, int x);
 void	draw_enemy(t_img *text, t_pos pos, float height, t_pos index);
 
 /* Animations */
@@ -185,6 +186,8 @@ int		quit_handler(void);
 /* Object */
 void	init_obj_array(t_obj *obj_array, int size);
 t_obj	new_obj(void);
+void    obj_all_set_visible(t_obj *objs, int array_size, double rot, t_pos base_pos);
+double	obj_rot(double enemy_dist, t_pos enemy_pos, t_pos pos);
 
 /* Player */
 t_plyr	get_plyr(void);
@@ -194,7 +197,7 @@ int		player_get_facing(t_plyr player);
 /* Enemy */
 void	init_enemy(t_obj *enemy, t_pos pos);
 void	init_enemy_sprite(t_sprite *sprite);
-void	enemy_update(t_obj *enemy); 
+void	enemy_update(t_obj *enemies); 
 
 /* Minimap */
 void	draw_map2d(t_mlx *mlx, t_map map);
@@ -208,7 +211,7 @@ int		rotate_player(t_plyr *player, double rot);
 int		change_player_pos(t_plyr *player, double vel, int dir);
 
 /* Raycasting */
-int		raycast_draw(t_pos pos, double rot, double dist, int color);
+int		raycast_draw(double rot, double dist, int color, int side);
 int		raycast_draw_all(t_pos pos, double rot, double view);
 
 /* Collision and intersection */
@@ -224,3 +227,4 @@ double	rad_to_deg(double rad);
 double	get_draw_distance(t_pos pos, double rot, t_pos pixel, double angle);
 
 #endif
+                                                          

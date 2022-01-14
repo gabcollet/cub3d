@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/11 12:52:47 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 15:49:27 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,8 @@ int	key_press(int key)
 	double	modifier;
 
 	modifier = ((double)WIN_H * (double)WIN_W) / 1000000.0;
-	//if (key == E_KEY)
-	//printf("key : %d\n", key);
 	if (key == SPACE_KEY)
 		start_animation(&g_game.ui_elems[UI_GUN].sprite);
-	//if (key == E_KEY)
-	//	start_animation(&g_game.ui_elems[ENEMY].sprite);
 	if (key == LEFT_KEY)
 		g_game.player.turn_l = TURN_SPEED * modifier;
 	if (key == RIGHT_KEY)
