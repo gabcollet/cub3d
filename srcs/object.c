@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/14 14:52:53 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 17:24:38 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,59 @@ void	draw_object(t_mlx *mlx, t_obj *obj, int x)
 	d.x = x;
 	d.y = y;
 	d.step = (double)img.height / height;
+	//printf("in draw x : %d\n", d.x);
+	while (d.y < WIN_H - y)
+	{
+		
+		/*color = *((unsigned int *)(img.addr
+					+ ((int)d.index_y * img.width + (int)obj->sprite.i_x * 4)));*/
+		color = color_get(img, (int)obj->sprite.i_x, (int)d.index_y);
+		//color = color_shift_int(color, BLACK, ((WIN_H - height) / WIN_H) / 2);
+		if (x >= 0 && x < WIN_W)
+			my_mlx_pixel_put(g_game.game_img, x, d.y, color);
+		d.index_y += d.step;
+		d.y++;
+	}		
+/*
+	while (d.index_y < img.height)
+	{
+		d.x = obj->pos.x;
+		d.index_x = 0;
+		while (d.index_x < img.width / 4)
+		{
+			color = color_get(img, (int)d.index_x, (int)d.index_y);
+			my_mlx_pixel_put(g_game.game_img, (int)d.x, (int)d.y, color);
+			d.index_x += d.step;
+			d.x++;
+		}
+		d.y++;
+		d.index_y += d.step;
+	}*/
+}
+
+/*void	draw_object(t_mlx *mlx, t_obj *obj, int x)
+{
+	t_obj_draw	d;
+	int			color;
+	t_img		img;
+	int		y;
+	float	offset;
+	double	height;
+
+	offset = 0;
+	height = obj->dist;
+	if (height > WIN_H)
+	{
+		offset = (height - WIN_H);
+		height = WIN_H;
+	}
+	y = (WIN_H - height) / 2;
+	img = obj->sprite.frames[obj->sprite.active];
+	d.index_y = 0;
+	d.index_x = 0;
+	d.x = x;
+	d.y = y;
+	d.step = (double)img.height / height;
 	while (d.index_x < img.width / 4)
 	{
 		color = color_get(img, (int)d.index_x, (int)d.index_y);
@@ -99,8 +152,8 @@ void	draw_object(t_mlx *mlx, t_obj *obj, int x)
 		}
 		d.y++;
 		d.index_y += d.step;
-	}*/
-}
+	}
+}*/
 
 double obj_rot(double enemy_dist, t_pos enemy_pos, t_pos pos)
 {

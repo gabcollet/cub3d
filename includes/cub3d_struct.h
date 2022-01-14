@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/14 15:39:33 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 16:52:50 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,11 @@ struct s_sprite
 	int		loop;
 	double	scaling;
 	double	scaled_width;
+	double	i_x;
+	double	x_step;
+	int		drawing;
+	
+	int		rewind;
 };
 
 struct s_vect

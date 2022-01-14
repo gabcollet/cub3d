@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/14 15:40:05 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 17:27:58 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,29 @@ int	draw3d(float height, t_coll coll, int x)
 	return (0);
 }
 
-int	raycast_draw_sprite(double dist, double rot, int win_x)
+int	raycast_draw_sprite(double height, double rot, int win_x)
 {
 	t_obj	*enemy;
 	int		id;
 
 	enemy = g_game.enemies;
 	id = 0;
-	while (id < g_game.enemy_count)
+	while (id < 1)
 	{
-		if (enemy[id].visible == TRUE && (int)enemy[id].rot == (int)rot)
+		if (enemy[id].sprite.drawing == FALSE && enemy[id].visible == TRUE && (int)enemy[id].rot == (int)rot)
 		{
-			if (enemy[id].dist >= dist)
-			{
-				//enemy[id].sprite.scaling =  
+			enemy[id].sprite.scaled_width == enemy[id].sprite.frames[0].width * (enemy[id].dist / enemy[id].sprite.frames[0].height);
+			enemy[id].sprite.x_step = enemy[id].sprite.frames[0].height / enemy[id].dist;
+			enemy[id].sprite.i_x = 0;
+			enemy[id].sprite.drawing = TRUE;
+		}
+		if (enemy[id].sprite.drawing == TRUE)
+		{
+			if (enemy[id].dist >= height)
 				draw_object(get_mlx(), &enemy[id], WIN_W - win_x);
-			}
+			enemy[id].sprite.i_x += enemy[id].sprite.x_step;
+			if (enemy[id].sprite.i_x >= enemy[id].sprite.frames[0].width / 4)
+				enemy[id].sprite.drawing = FALSE;
 		}
 		id++;
 	}
@@ -73,7 +80,7 @@ int	raycast_draw_sprite(double dist, double rot, int win_x)
 int	raycast_draw_all(t_pos pos, double rot, double view)
 {
 	int		win_x;
-	double	dist;
+	double	height;
 	double	base_rot;
 	t_coll	coll;
 
@@ -89,9 +96,9 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 		if (rot < 0)
 			rot = 360.0 + rot;
 		coll = check_intersections(pos.x, pos.y, rot);
-		dist = get_draw_distance(pos, rot, coll.pos, base_rot - rot);
-		draw3d(dist, coll, WIN_W - win_x);
-		raycast_draw_sprite(dist, rot, win_x);
+		height = get_draw_distance(pos, rot, coll.pos, base_rot - rot);
+		draw3d(height, coll, WIN_W - win_x);
+		raycast_draw_sprite(height, rot, win_x);
 		win_x += 1;
 		rot += (view / WIN_W);
 	}

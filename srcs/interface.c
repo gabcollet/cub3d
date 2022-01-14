@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/14 14:58:19 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 17:10:47 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	init_sprite(t_sprite *sprite)
 	sprite->playing = FALSE;
 	sprite->scaling = 1;
 	sprite->loop = FALSE;
+	sprite->drawing = FALSE;
 }
 
 void	load_sprite(t_img *img, char *path)
