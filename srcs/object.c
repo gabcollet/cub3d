@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/14 21:40:09 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/15 16:28:46 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ void	draw_object(t_mlx *mlx, t_obj *obj, int x)
 					+ ((int)d.index_y * img.width + (int)obj->sprite.i_x * 4)));*/
 		color = color_get(img, (int)obj->sprite.i_x, (int)d.index_y);
 		//color = color_shift_int(color, BLACK, ((WIN_H - height) / WIN_H) / 2);
-		if (x >= 0 && x < WIN_W)
-			my_mlx_pixel_put(g_game.game_img, x, d.y, color);
+		my_mlx_pixel_put(g_game.game_img, x, d.y, color);
 		d.index_y += d.step;
 		d.y++;
 	}		
