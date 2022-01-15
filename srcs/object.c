@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/14 17:24:38 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 21:40:09 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	draw_object(t_mlx *mlx, t_obj *obj, int x)
 	d.y = y;
 	d.step = (double)img.height / height;
 	//printf("in draw x : %d\n", d.x);
-	while (d.y < WIN_H - y)
+	while (d.y >= 0 && d.y < WIN_H - y && x >= 0 && x < WIN_W)
 	{
 		
 		/*color = *((unsigned int *)(img.addr
@@ -165,24 +165,25 @@ double obj_rot(double enemy_dist, t_pos enemy_pos, t_pos pos)
 	dist_A = enemy_dist;
 	dist_B = sqrt(pow((pos.x - pos.x + 5), 2));
 	dist_C = sqrt(pow((enemy_pos.x - (pos.x + 5)), 2) + pow((enemy_pos.y - pos.y), 2));
-
 	rot = acosf((pow(dist_A, 2) + pow(dist_B, 2) - pow(dist_C, 2)) / (2 * dist_A * dist_B));
 	rot = rad_to_deg(rot);
 	if (pos.y < enemy_pos.y)
-		rot = 360 - rot;
-	//printf("rot enemy : %f", rot);
+		rot = 360.0 - rot;
 	return (rot);
 }
 
 void    obj_all_set_visible(t_obj *objs, int array_size, double rot, t_pos base_pos)
 {
-    int        id;
+    int			id;
+	t_pos		side_pos;
 
 	id = 0;
     while(id < array_size && objs[id].alive)
     {
         objs[id].dist = sqrt(pow((objs[id].pos.x - base_pos.x), 2) + pow((objs[id].pos.y - base_pos.y), 2));
         objs[id].rot = obj_rot(objs[id].dist, objs[id].pos, base_pos);
+		// side_pos = move_pos(objs[id].pos, rotate(objs[id].rot, -90.0), objs[id].sprite.frames[0].width / 4.0, 0);
+		// objs[id].rot_side = obj_rot( sqrt(pow((side_pos.x - base_pos.x), 2) + pow((side_pos.y - base_pos.y), 2)), side_pos, base_pos);
         if (objs[id].rot > (rot - (VIEW_ANGLE/2)) && objs[id].rot < (rot + (VIEW_ANGLE/2)))
             objs[id].visible = TRUE;
         else if ((rot + VIEW_ANGLE / 2) > 360 && objs[id].rot < (rot + (VIEW_ANGLE/2) - 360))

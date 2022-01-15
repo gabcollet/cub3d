@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 09:35:03 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/11 01:01:07 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/14 21:37:11 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,18 @@ void	move_player(void)
 	t_plyr	*p;
 
 	p = &g_game.player;
-	if (p->vel_u + p->vel_d)
-		change_player_pos(p, p->vel_u + p->vel_d, 0);
-	if (p->vel_r + p->vel_l)
-		change_player_pos(p, p->vel_r + p->vel_l, 1);
+	if (p->vel_u + p->vel_d && p->vel_r + p->vel_l)
+	{
+		change_player_pos(p, (p->vel_u + p->vel_d) * 0.707, 0);
+		change_player_pos(p, (p->vel_r + p->vel_l) * 0.707, 1);
+	}
+	else
+	{
+		if (p->vel_u + p->vel_d)
+			change_player_pos(p, p->vel_u + p->vel_d, 0);
+		if (p->vel_r + p->vel_l)
+			change_player_pos(p, p->vel_r + p->vel_l, 1);
+	}
 	if (p->turn_l + p->turn_r)
 		rotate_player(p, p->turn_l + p->turn_r);
 }

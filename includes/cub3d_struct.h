@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_struct.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/14 16:52:50 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 20:23:30 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ struct s_obj
 	t_sprite	sprite;
 	float		dist;
 	double		rot;
+	double		rot_side;
 	int			visible;
 	int			alive;
 	void		(*update)(t_obj *obj);

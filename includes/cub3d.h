@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/14 15:45:40 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/14 20:33:11 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,7 @@ void	draw_player(void);
 void	move_player(void);
 t_pos	move_pos(t_pos pos, double rot, double dist, int dir);
 int		rotate_player(t_plyr *player, double rot);
+double	rotate(double base_rot, double rot);
 int		change_player_pos(t_plyr *player, double vel, int dir);
 
 /* Raycasting */
