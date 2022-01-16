@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/15 21:16:47 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/15 22:05:22 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ int	raycast_draw_sprite(double height, double rot, int win_x)
 				// 	(((double)((int)rot - (int)enemy[id].rot) / 
 				// 	(double)((int)enemy[id].rot_side - (int)enemy[id].rot)) / 
 				// 	enemy[id].sprite.x_step);
-				enemy[id].sprite.i_x = (enemy[id].sprite.frames[0].width / 4.0) *  
-					(((double)((int)rot - (int)enemy[id].rot) / 
-				 	(double)((int)enemy[id].rot_side - (int)enemy[id].rot)) / 
-				 	enemy[id].sprite.x_step);
+				enemy[id].sprite.i_x = ((enemy[id].sprite.frames[0].width / 4.0) * enemy[id].sprite.x_step) *
+                    ((int)(rot - enemy[id].rot) /
+                     (enemy[id].rot_side - enemy[id].rot) / 
+                     enemy[id].sprite.x_step) * 1.5;
 				
 				enemy[id].sprite.drawing = TRUE;
 			}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/15 20:52:55 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/15 21:56:26 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ void    obj_all_set_visible(t_obj *objs, int array_size, double rot, t_pos base_
             objs[id].visible = FALSE;       
 		if (objs[id].visible == TRUE)
 			objs[id].dist = get_draw_distance(base_pos, rot, objs[id].pos, 0); 
-		printf("visible : %d | p.rot : %f | e.rot : %f e_siderot %f\n", objs[id].visible, rot, objs[id].rot, objs[id].rot_side);
+		//printf("visible : %d | p.rot : %f | e.rot : %f e_siderot %f\n", objs[id].visible, rot, objs[id].rot, objs[id].rot_side);
 		id++;
     }
 }
