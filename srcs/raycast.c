@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/15 22:05:22 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/16 03:09:26 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 
 /*
@@ -44,59 +43,32 @@ int	draw3d(float height, t_coll coll, int x)
 	return (0);
 }
 
-int	raycast_draw_sprite(double height, double rot, int win_x)
+int	raycast_draw_enemies(t_obj *enemies, double height, double rot, int win_x)
 {
-	t_obj	*enemy;
-	int		id;
+	t_obj		*enemy;
+	t_sprite	*sprite;
+	int			id;
 
-	enemy = g_game.enemies;
 	id = 0;
-	while (id < 1)
+	while (id < g_game.enemy_count)
 	{
-		if (enemy[id].sprite.drawing == FALSE && enemy[id].visible == TRUE)
+		sprite = &enemies[id].sprite;
+		enemy = &enemies[id];
+		if (sprite->drawing == FALSE && enemy->visible == TRUE)
 		{
-			if (((int)enemy[id].rot <= (int)rot && (int)enemy[id].rot_side >= (int)rot))
+			if (angle_is_between(rot, enemy->rot, enemy->rot_side))
 			{
-				enemy[id].sprite.x_step = enemy[id].sprite.frames[0].height / enemy[id].dist;
-				// enemy[id].sprite.i_x = enemy[id].sprite.frames[0].width / 4.0 * 
-				// 	(((double)((int)rot - (int)enemy[id].rot) / 
-				// 	(double)((int)enemy[id].rot_side - (int)enemy[id].rot)) / 
-				// 	enemy[id].sprite.x_step);
-				enemy[id].sprite.i_x = ((enemy[id].sprite.frames[0].width / 4.0) * enemy[id].sprite.x_step) *
-                    ((int)(rot - enemy[id].rot) /
-                     (enemy[id].rot_side - enemy[id].rot) / 
-                     enemy[id].sprite.x_step) * 1.5;
-				
-				enemy[id].sprite.drawing = TRUE;
+				sprite->x_step = sprite->frames[0].height / enemy->dist;
+				sprite->i_x = enemy_get_index(*enemy, *sprite, rot);
+				sprite->drawing = TRUE;
 			}
-			
 		}
-		
-		/*//ca fonctionne mais pas tant
-		else if (enemy[id].sprite.drawing == FALSE && enemy[id].visible == FALSE)
+		if (sprite->drawing == TRUE)
 		{
-			enemy[id].sprite.i_x = 0;
-			enemy[id].sprite.x_step = enemy[id].sprite.frames[0].height / enemy[id].dist;
-			while (enemy[id].sprite.i_x <= enemy[id].sprite.frames[0].width / 4)
-			{
-				enemy[id].sprite.i_x += enemy[id].sprite.x_step;
-				rot -= ((double)VIEW_ANGLE / (double)WIN_W);
-				if ((int)enemy[id].rot == (int)rot)
-				{
-					enemy[id].sprite.drawing = TRUE;
-					break ;
-				}
-			}
-		}*/
-		
-		if (enemy[id].sprite.drawing == TRUE)
-		{
-			if (enemy[id].dist >= height && enemy[id].sprite.i_x < enemy[id].sprite.frames[0].width / 4)
+			if (enemy->dist >= height && sprite->i_x < sprite->frames[0].width / 4)
 				draw_object(get_mlx(), &enemy[id], WIN_W - win_x);
-			enemy[id].sprite.i_x += enemy[id].sprite.x_step;
+			sprite->i_x += sprite->x_step;
 				
-			// if (enemy[id].sprite.i_x >= enemy[id].sprite.frames[0].width / 4)
-			// 	enemy[id].sprite.drawing = FALSE;
 		}
 		id++;
 	}
@@ -117,7 +89,7 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 	coll = new_collider(new_pos(0, 0, 0), 0, 0);
 	win_x = 0;
 	base_rot = rot;
-	obj_all_set_visible(g_game.enemies, g_game.enemy_count, base_rot, pos);
+	obj_all_set_visible(g_game.enemies, 3, base_rot, pos);
 	rot -= VIEW_ANGLE / 2;
 	while (win_x < WIN_W)
 	{
@@ -128,7 +100,7 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 		coll = check_intersections(pos.x, pos.y, rot);
 		height = get_draw_distance(pos, rot, coll.pos, base_rot - rot);
 		draw3d(height, coll, WIN_W - win_x);
-		raycast_draw_sprite(height, rot, win_x);
+		raycast_draw_enemies(g_game.enemies, height, rot, win_x);
 		win_x += 1;
 		rot += (view / WIN_W);
 	}

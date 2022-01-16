@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
+#    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/14 15:50:15 by gcollet          ###   ########.fr        #
+#    Updated: 2022/01/16 02:59:42 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ SRCS	= 	game.c map.c interface.c\
 			parse.c parse_map.c parse_utils.c parse_wall.c\
 			parse_map_id.c parse_cub_id.c\
 			position.c rotation.c size.c\
-			vector3d.c math_utils.c\
+			vector3d.c math_utils.c math_angles.c\
 			image.c mlx.c textures.c\
 			color.c color_trgb.c color_utils.c\
 			draw.c minimap.c\

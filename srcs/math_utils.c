@@ -3,25 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   math_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 18:44:54 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/13 14:01:53 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/16 03:04:31 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
 
-//	Convert angle (0 to 359) to radians
-double	deg_to_rad(double angle)
+double	math_pytha(double x, double y)
 {
-	return (angle * M_PI / 180.0);
-}
-
-//	Convert radians to angle (0 to 359)
-double	rad_to_deg(double rad)
-{
-	return (rad * 180.0 / M_PI);
+	return (sqrt(pow(x, 2) + pow(y, 2)));
 }
 
 /*

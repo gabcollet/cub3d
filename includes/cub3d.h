@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/14 20:33:11 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/16 03:04:09 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,8 @@ int		player_get_facing(t_plyr player);
 /* Enemy */
 void	init_enemy(t_obj *enemy, t_pos pos);
 void	init_enemy_sprite(t_sprite *sprite);
-void	enemy_update(t_obj *enemies); 
+void	enemy_update(t_obj *enemies);
+double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle);
 
 /* Minimap */
 void	draw_map2d(t_mlx *mlx, t_map map);
@@ -226,6 +227,8 @@ t_coll	check_dir(t_pos inter_y, t_pos inter_x, int side, double rot);
 double	deg_to_rad(double angle);
 double	rad_to_deg(double rad);
 double	get_draw_distance(t_pos pos, double rot, t_pos pixel, double angle);
+int		angle_is_between(double angle, double min, double max);
+double	math_pytha(double x, double y);
 
 #endif
                                                           

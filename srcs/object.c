@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/15 21:56:26 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/16 03:06:56 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,26 +99,32 @@ double obj_rot(double enemy_dist, t_pos enemy_pos, t_pos pos)
 void    obj_all_set_visible(t_obj *objs, int array_size, double rot, t_pos base_pos)
 {
     int			id;
+	int			view;
 	t_pos		side_pos;
+	t_obj		*obj;
 
 	id = 0;
+	view = VIEW_ANGLE / 2;
     while(id < array_size && objs[id].alive)
     {
-        objs[id].dist = sqrt(pow((objs[id].pos.x - base_pos.x), 2) + pow((objs[id].pos.y - base_pos.y), 2));
-        objs[id].rot = obj_rot(objs[id].dist, objs[id].pos, base_pos);
-		side_pos = move_pos(objs[id].pos, rotate(objs[id].rot, 90.0), objs[id].sprite.frames[0].width / 4.0, 0);
-		objs[id].rot_side = obj_rot(sqrt(pow((side_pos.x - base_pos.x), 2) + pow((side_pos.y - base_pos.y), 2)), side_pos, base_pos);
-        if (objs[id].rot > (rot - (VIEW_ANGLE/2)) && objs[id].rot < (rot + (VIEW_ANGLE/2)))
-            objs[id].visible = TRUE;
-		else if ((rot + VIEW_ANGLE / 2) > 360 && objs[id].rot < (rot + (VIEW_ANGLE/2) - 360))
-            objs[id].visible = TRUE;
-        else if (objs[id].rot_side > (rot - (VIEW_ANGLE/2)) && objs[id].rot_side < (rot + (VIEW_ANGLE/2)))
-            objs[id].visible = TRUE;
+		obj = &objs[id];
+        obj->dist = sqrt(pow((obj->pos.x - base_pos.x), 2) + pow((obj->pos.y - base_pos.y), 2));
+        obj->rot = obj_rot(obj->dist, obj->pos, base_pos);
+		side_pos = move_pos(obj->pos, rotate(obj->rot, 90.0), obj->sprite.frames[0].width / 4.0, 0);
+		obj->dist_side = math_pytha(side_pos.x - base_pos.x, side_pos.y - base_pos.y);
+		//sqrt(pow((side_pos.x - base_pos.x), 2) + pow((side_pos.y - base_pos.y), 2));
+		obj->rot_side = obj_rot(obj->dist_side, side_pos, base_pos);
+        if (obj->rot >= (rot - view) && obj->rot <= (rot + view))
+            obj->visible = TRUE;
+		else if ((rot + view) >= 360 && obj->rot <= (rot + view - 360))
+            obj->visible = TRUE;
+        else if (obj->rot_side >= (rot - view) && obj->rot_side <= (rot + view))
+            obj->visible = TRUE;
 		else
-            objs[id].visible = FALSE;       
-		if (objs[id].visible == TRUE)
-			objs[id].dist = get_draw_distance(base_pos, rot, objs[id].pos, 0); 
-		//printf("visible : %d | p.rot : %f | e.rot : %f e_siderot %f\n", objs[id].visible, rot, objs[id].rot, objs[id].rot_side);
+            obj->visible = FALSE;       
+		if (obj->visible == TRUE)
+			obj->dist = get_draw_distance(base_pos, rot, obj->pos, 0); 
+		//printf("visible : %d | p.rot : %f | e.rot : %f e_siderot %f\n", obj->visible, rot, objs[id].rot, objs[id].rot_side);
 		id++;
     }
 }

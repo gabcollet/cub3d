@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/14 13:44:26 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/16 03:10:44 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ double	get_frame_time(void)
 	if (time_last == -1)
 		time_last = get_cur_time();
 	time_current = (long long)get_cur_time();
-	
 	frame_diff = time_current - time_last;
 	time_last = time_current;
 	return ((double)frame_diff / 1000000.0);

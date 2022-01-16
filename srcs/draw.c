@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 11:49:36 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/13 14:16:13 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/16 03:14:53 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ void	draw_enemy(t_img *text, t_pos pos, float height, t_pos index)
 	int		color;
 
 	if (height > WIN_H)
-	{
-		//offset = (height - WIN_H);
 		height = WIN_H;
-	}
 	img = &g_game.game_img;
 	index.x = 0;
 	y_step = (((float)text->height - (index.y * 2))

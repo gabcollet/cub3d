@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/14 17:10:47 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/16 03:13:10 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,11 @@ void	init_interface(t_obj *objs)
 
 	init_handgun(&objs[UI_GUN].sprite);
 	init_enemy_sprite(&objs[ENEMY].sprite);
-	
 	img = objs[UI_GUN].sprite.frames[0];
 	scaling = objs[UI_GUN].sprite.scaling;
 	objs[UI_GUN].pos = new_pos(WIN_W / 2 - (img.width / 8 * scaling), WIN_H, 0);
-	
 	img = g_game.enemies[ENEMY].sprite.frames[0];
 	scaling = g_game.enemies[ENEMY].sprite.scaling;
-	//g_game.enemies[ENEMY].pos = new_pos(WIN_W / 2 - (img.width / 8 * scaling), WIN_H, 0);
-	// img = objs[ENEMY].sprite.frames[0];
-	// scaling = objs[ENEMY].sprite.scaling;
-	// objs[ENEMY].pos = new_pos(WIN_W / 2 - (img.width / 8 * scaling), WIN_H, 0);
 }
 
 void	draw_ui(t_mlx *mlx)
@@ -70,7 +64,6 @@ void	draw_ui(t_mlx *mlx)
 	t_obj	*obj;
 
 	obj = g_game.ui_elems;
-	//draw_object(mlx, &g_game.enemies[0]); //just for testing
 	draw_ui_element(mlx, &obj[UI_GUN]);
 }
 
