@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/15 17:00:04 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/15 21:16:47 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,26 @@ int	raycast_draw_sprite(double height, double rot, int win_x)
 	id = 0;
 	while (id < 1)
 	{
-		if (enemy[id].sprite.drawing == FALSE && enemy[id].visible == TRUE && (int)enemy[id].rot == (int)rot)
+		if (enemy[id].sprite.drawing == FALSE && enemy[id].visible == TRUE)
 		{
-			enemy[id].sprite.x_step = enemy[id].sprite.frames[0].height / enemy[id].dist;
-			enemy[id].sprite.i_x = 0;
-			enemy[id].sprite.drawing = TRUE;
+			if (((int)enemy[id].rot <= (int)rot && (int)enemy[id].rot_side >= (int)rot))
+			{
+				enemy[id].sprite.x_step = enemy[id].sprite.frames[0].height / enemy[id].dist;
+				// enemy[id].sprite.i_x = enemy[id].sprite.frames[0].width / 4.0 * 
+				// 	(((double)((int)rot - (int)enemy[id].rot) / 
+				// 	(double)((int)enemy[id].rot_side - (int)enemy[id].rot)) / 
+				// 	enemy[id].sprite.x_step);
+				enemy[id].sprite.i_x = (enemy[id].sprite.frames[0].width / 4.0) *  
+					(((double)((int)rot - (int)enemy[id].rot) / 
+				 	(double)((int)enemy[id].rot_side - (int)enemy[id].rot)) / 
+				 	enemy[id].sprite.x_step);
+				
+				enemy[id].sprite.drawing = TRUE;
+			}
+			
 		}
 		
-		//ca fonctionne mais pas tant
+		/*//ca fonctionne mais pas tant
 		else if (enemy[id].sprite.drawing == FALSE && enemy[id].visible == FALSE)
 		{
 			enemy[id].sprite.i_x = 0;
@@ -75,15 +87,16 @@ int	raycast_draw_sprite(double height, double rot, int win_x)
 					break ;
 				}
 			}
-		}
+		}*/
 		
 		if (enemy[id].sprite.drawing == TRUE)
 		{
-			if (enemy[id].dist >= height)
+			if (enemy[id].dist >= height && enemy[id].sprite.i_x < enemy[id].sprite.frames[0].width / 4)
 				draw_object(get_mlx(), &enemy[id], WIN_W - win_x);
 			enemy[id].sprite.i_x += enemy[id].sprite.x_step;
-			if (enemy[id].sprite.i_x >= enemy[id].sprite.frames[0].width / 4)
-				enemy[id].sprite.drawing = FALSE;
+				
+			// if (enemy[id].sprite.i_x >= enemy[id].sprite.frames[0].width / 4)
+			// 	enemy[id].sprite.drawing = FALSE;
 		}
 		id++;
 	}
@@ -119,6 +132,7 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 		win_x += 1;
 		rot += (view / WIN_W);
 	}
+	g_game.enemies[0].sprite.drawing = FALSE;
 	return (1);
 }
 
