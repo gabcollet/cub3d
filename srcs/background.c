@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 00:35:07 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/11 14:09:41 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/17 14:10:32 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	draw_background(t_img img)
 			y++;
 		}
 	}
-	return (img);
 }
 
 /*void	draw_background(t_img img)

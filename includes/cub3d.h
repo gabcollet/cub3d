@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/01/17 18:29:54 by fousse           ###   ########.fr       */
+=======
+/*   Updated: 2022/01/17 14:14:42 by gcollet          ###   ########.fr       */
+>>>>>>> 01d23196afeb054b268094dcfb4f53ac9a86d499
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +40,7 @@
 # define MAP_PATH	"./maps/complex.cub"
 
 /* Key for linux */
-# define ESC 			65307
+/* # define ESC 			65307
 # define SPACE_KEY 		32
 # define A_KEY			97
 # define D_KEY			100
@@ -45,7 +49,19 @@
 # define S_KEY			115
 # define W_KEY			119
 # define RIGHT_KEY		65363
-# define LEFT_KEY		65361
+# define LEFT_KEY		65361 */
+
+/* Key for mac */
+# define ESC 			53
+# define SPACE_KEY 		49
+# define A_KEY			0
+# define D_KEY			2
+# define E_KEY			14
+# define R_KEY	 		15
+# define S_KEY			1
+# define W_KEY			13
+# define RIGHT_KEY		124
+# define LEFT_KEY		123
 
 /* Game parameter */
 # define MAP_MAX_SIZE	20000
@@ -151,6 +167,7 @@ int		parse_enemy(char *line);
 int		parse_floor(t_map map, int x, int y, int compare);
 int		parse_f_c(char *colors, char id);
 int		parse_map_pos(t_map map, int x, int y, int *player_found);
+int		parse_identifier(char *line);
 
 /* Image and draw */
 void	my_mlx_pixel_put(t_img img, int x, int y, int color);
