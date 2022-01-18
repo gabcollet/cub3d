@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/17 19:03:07 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/17 19:10:08 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ void	place_door(t_door *door, int face_rot, int i_x, int i_y)
 	door->dist_side = 0;
 	door->tile_i = i_x + (i_y * g_game.map.width);
 	init_door_sprite(&door->sprite);
-	printf("door placed at tiles : x %d, y %d, tile_i %d\n", i_x, i_y, door->tile_i);
 }
 
 void	draw_door(t_mlx *mlx, t_door *door, int x)
@@ -207,7 +206,6 @@ void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos)
             door->visible = TRUE;                   
 		if (door->visible == TRUE)
 			door->dist = get_draw_distance(base_pos, rot, door->pos, 0); 
-		printf("door | visible %d, x %f, y %f, tile_i %d\n", door->visible, door->pos.x, door->pos.y, door->tile_i);
 		i++;
     }
 }

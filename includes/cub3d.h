@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/01/17 18:29:54 by fousse           ###   ########.fr       */
-=======
-/*   Updated: 2022/01/17 14:14:42 by gcollet          ###   ########.fr       */
->>>>>>> 01d23196afeb054b268094dcfb4f53ac9a86d499
+/*   Updated: 2022/01/17 19:09:27 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +36,7 @@
 # define MAP_PATH	"./maps/complex.cub"
 
 /* Key for linux */
-/* # define ESC 			65307
+# define ESC 			65307
 # define SPACE_KEY 		32
 # define A_KEY			97
 # define D_KEY			100
@@ -49,10 +45,10 @@
 # define S_KEY			115
 # define W_KEY			119
 # define RIGHT_KEY		65363
-# define LEFT_KEY		65361 */
+# define LEFT_KEY		65361 
 
 /* Key for mac */
-# define ESC 			53
+/*# define ESC 			53
 # define SPACE_KEY 		49
 # define A_KEY			0
 # define D_KEY			2
@@ -61,7 +57,7 @@
 # define S_KEY			1
 # define W_KEY			13
 # define RIGHT_KEY		124
-# define LEFT_KEY		123
+# define LEFT_KEY		123*/
 
 /* Game parameter */
 # define MAP_MAX_SIZE	20000
