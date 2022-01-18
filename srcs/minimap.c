@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:01:03 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/16 03:13:28 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/17 15:49:51 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	draw_map2d(t_mlx *mlx, t_map map)
 		{
 			if (map.tiles[y * map.width + x] == M_WALL)
 				draw_tile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, WALL);
+			else if (map.tiles[y * map.width + x] == M_DOOR)
+				draw_tile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, DOOR);
 			else if (map.tiles[y * map.width + x] == M_EMPTY)
 				draw_tile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, WALL);
 			else
@@ -55,6 +57,8 @@ void	draw_tile(t_mlx *mlx, int x, int y, int type)
 			color = color_get(g_game.game_img, index_x, index_y);
 			if (type == WALL)
 				color = color_shift_int(color, BLACK, 0.5);
+			else if (type == DOOR)
+				color = color_shift_int(color, YELLOW, 0.5);
 			else if (type == FLOOR)
 				color = color_shift_int(color, GRAY, 0.5);
 			my_mlx_pixel_put(g_game.game_img, index_x, index_y, color);

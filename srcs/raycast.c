@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/16 03:09:26 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/17 18:54:45 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,40 @@ int	raycast_draw_enemies(t_obj *enemies, double height, double rot, int win_x)
 		if (sprite->drawing == TRUE)
 		{
 			if (enemy->dist >= height && sprite->i_x < sprite->frames[0].width / 4)
-				draw_object(get_mlx(), &enemy[id], WIN_W - win_x);
+				draw_object(get_mlx(), enemy, WIN_W - win_x);
 			sprite->i_x += sprite->x_step;
 				
+		}
+		id++;
+	}
+	return (1);
+}
+
+int	raycast_draw_doors(t_door *doors, double height, double rot, int win_x)
+{
+	t_door		*door;
+	t_sprite	*sprite;
+	int			id;
+
+	id = 0;
+	while (id < g_game.door_count)
+	{
+		door = &doors[id];
+		sprite = &door->sprite;
+		if (sprite->drawing == FALSE && door->visible == TRUE)
+		{
+			if (angle_is_between(rot, door->rot, door->rot_side))
+			{
+				sprite->x_step = sprite->frames[0].height / door->dist;
+				sprite->i_x = door_get_index(*door, *sprite, rot);
+				sprite->drawing = TRUE;
+			}
+		}
+		if (sprite->drawing == TRUE)
+		{
+			if (door->dist >= height && sprite->i_x < sprite->frames[0].width / 4)
+				draw_door(get_mlx(), door, WIN_W - win_x);
+			sprite->i_x += sprite->x_step;
 		}
 		id++;
 	}
@@ -89,7 +120,8 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 	coll = new_collider(new_pos(0, 0, 0), 0, 0);
 	win_x = 0;
 	base_rot = rot;
-	obj_all_set_visible(g_game.enemies, 3, base_rot, pos);
+	obj_all_set_visible(g_game.enemies, g_game.enemy_count, base_rot, pos);
+	doors_set_visible(g_game.doors, g_game.door_count, base_rot, pos);
 	rot -= VIEW_ANGLE / 2;
 	while (win_x < WIN_W)
 	{
@@ -100,11 +132,12 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 		coll = check_intersections(pos.x, pos.y, rot);
 		height = get_draw_distance(pos, rot, coll.pos, base_rot - rot);
 		draw3d(height, coll, WIN_W - win_x);
+		raycast_draw_doors(g_game.doors, height, rot, win_x);
 		raycast_draw_enemies(g_game.enemies, height, rot, win_x);
 		win_x += 1;
 		rot += (view / WIN_W);
 	}
-	g_game.enemies[0].sprite.drawing = FALSE;
+	reset_drawings();
 	return (1);
 }
 

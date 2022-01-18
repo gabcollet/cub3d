@@ -6,12 +6,13 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/16 03:13:10 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/17 14:49:01 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
+#ifndef S_OBJ_DRAW
+# define S_OBJ_DRAW
 typedef struct s_obj_draw
 {
 	double		index_x;
@@ -20,6 +21,7 @@ typedef struct s_obj_draw
 	int			x;
 	int			y;
 }				t_obj_draw;
+#endif
 
 void	init_sprite(t_sprite *sprite)
 {

@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/14 16:26:33 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/17 19:03:07 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
+#ifndef S_OBJ_DRAW
+# define S_OBJ_DRAW
+typedef struct s_obj_draw
+{
+	double		index_x;
+	double		index_y;
+	double		step;
+	int			x;
+	int			y;
+}				t_obj_draw;
+#endif
 
 void	init_door_sprite(t_sprite *sprite)
 {	
@@ -30,58 +41,173 @@ void	init_door_sprite(t_sprite *sprite)
 	load_sprite(&sprite->frames[12], "./sprites/door/door_13.xpm");
 	load_sprite(&sprite->frames[13], "./sprites/door/door_14.xpm");
 	load_sprite(&sprite->frames[14], "./sprites/door/door_15.xpm");
-	load_sprite(&sprite->frames[15], "./sprites/door/door_16.xpm");
-	sprite->frames_n = 16;
-	sprite->anim_time = ANIM_TIME / 3;
+	//load_sprite(&sprite->frames[15], "./sprites/door/door_16.xpm");
+	sprite->frames_n = 15;
+	sprite->anim_time = 1;
 	sprite->scaling = 3.0;
 	sprite->playing = FALSE;
 	sprite->loop = FALSE;
 	sprite->rewind = TRUE;
 }
 
-// /*
-// * If the sprite is not already animated, it will 
-// * set its playing flag to true;
-// */
-// void	open_door(t_sprite *sprite)
-// {
-// 	if (!sprite)
-// 		return ;
-// 	if (sprite->playing != TRUE)
-// 	{
-// 		sprite->playing = TRUE;
-// 	}
-// }
+void	init_doors(t_door *doors)
+{	
+	int i;
 
-// /*
-// * Manage a sprite's playing animation.
-// * Will change its frame or end the animation if needed 
-// */
-// void	update_animation(t_sprite *sprite)
-// {
-// 	if (!sprite || sprite->playing == FALSE)
-// 		return ;
-// 	if (sprite->anim_countdown <= 0)
-// 	{
-// 		sprite->active++;
-// 		if (sprite->active >= sprite->frames_n)
-// 		{
-// 			if (sprite->loop)
-// 				sprite->active = 0;
-// 			else
-// 				end_animation(sprite);
-// 		}
-// 		sprite->anim_countdown = sprite->anim_time;
-// 	}
-// 	else
-// 		sprite->anim_countdown--;
-// }
+	i = 0;
+	while (i < MAX_DOOR)
+	{
+		doors[i].opened = FALSE;
+		doors[i].pos = new_pos(0, 0, 0);
+		doors[i].face_rot = 0;
+		doors[i].rot = 0;
+		doors[i].rot_side = 0;
+		doors[i].dist = 0;
+		doors[i].dist_side = 0;
+		doors[i].tile_i = 0;
+		i++;
+	}
+}
 
-// void	end_animation(t_sprite *sprite)
-// {
-// 	if (!sprite)
-// 		return ;
-// 	sprite->active = 0;
-// 	sprite->anim_countdown = 0;
-// 	sprite->playing = FALSE;
-// }
+void	doors_update(t_door *doors)
+{
+	int	id;
+
+	id = 0;
+	while (id < g_game.door_count)
+	{
+		if (doors[id].sprite.playing)
+			update_door(&doors[id]);
+		id++;
+	}
+}
+
+void	interact_door(void)
+{
+	t_pos	act_pos;
+	int		tile_i;
+	int		player_tile_i;
+	int		i;
+
+	act_pos = move_pos(g_game.player.pos, g_game.player.rot, TILE_SIZE - 1, 0);
+	player_tile_i = ((int)g_game.player.pos.x / (int)TILE_SIZE) + 
+		((int)g_game.player.pos.y / (int)TILE_SIZE * g_game.map.width);
+	tile_i = ((int)act_pos.x / (int)TILE_SIZE) + 
+		((int)act_pos.y / (int)TILE_SIZE * g_game.map.width);
+	if (tile_i >= g_game.map.width * g_game.map.height || tile_i == player_tile_i)
+		return ;
+	if (g_game.map.tiles[tile_i] == M_DOOR)
+	{
+		i = 0;
+		while (i < g_game.door_count)
+		{
+			if (g_game.doors[i].tile_i == tile_i)
+				return (open_door(&g_game.doors[i]));
+			i++;
+		}
+	}
+	
+}
+
+void	place_door(t_door *door, int face_rot, int i_x, int i_y)
+{	
+	door->pos.x = i_x * TILE_SIZE;
+	door->pos.y = i_y * TILE_SIZE;
+	if (face_rot == 0)
+		door->pos.x = i_x * TILE_SIZE + (TILE_SIZE / 2);
+	else if (face_rot == 90)
+		door->pos.y = i_y * TILE_SIZE + (TILE_SIZE / 2);
+	door->face_rot = face_rot;
+	door->rot = 0;
+	door->rot_side = 0;
+	door->dist = 0;
+	door->dist_side = 0;
+	door->tile_i = i_x + (i_y * g_game.map.width);
+	init_door_sprite(&door->sprite);
+	printf("door placed at tiles : x %d, y %d, tile_i %d\n", i_x, i_y, door->tile_i);
+}
+
+void	draw_door(t_mlx *mlx, t_door *door, int x)
+{
+	t_obj_draw	d;
+	int			color;
+	t_img		img;
+	int			y;
+	float		offset;
+	double		height;
+
+	offset = 0;
+	height = door->dist;
+	if (height > WIN_H)
+	{
+		offset = (height - WIN_H);
+		height = WIN_H;
+	}
+	y = (WIN_H - height) / 2;
+	img = door->sprite.frames[door->sprite.active];
+	d.index_y = 0;
+	d.index_x = 0;
+	d.x = x;
+	d.y = y;
+	d.step = (double)img.height / height;
+	while (d.y >= 0 && d.y < WIN_H - y && x >= 0 && x < WIN_W && d.index_y < img.height)
+	{
+		color = color_get(img, (int)door->sprite.i_x, (int)d.index_y);
+		color = color_shift_int(color, BLACK, ((WIN_H - height) / WIN_H) / 2);
+		my_mlx_pixel_put(g_game.game_img, x, d.y, color);
+		d.index_y += d.step;
+		d.y++;
+	}
+}
+
+double	door_get_index(t_door door, t_sprite sprite, double angle)
+{
+	double	min;
+	double	max;
+	double	i_x;
+
+	min = door.rot;
+	max = door.rot_side;
+	if (max < min)
+	{
+		if (angle <= max)
+			angle += 360;
+		max += 360;
+	}
+	i_x = ((sprite.frames[0].width / 4.0) * sprite.x_step)
+		* ((int)(angle - min) / (max - min)
+			/ sprite.x_step) * 1.5;
+	return (i_x);
+}
+
+void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos)
+{
+    int			i;
+	int			view;
+	t_pos		side_pos;
+	t_door		*door;
+
+	i = 0;
+	view = VIEW_ANGLE / 2;
+    while(i < size)
+    {
+
+		door = &doors[i];
+		door->visible = FALSE;
+        door->dist = sqrt(pow((door->pos.x - base_pos.x), 2) + pow((door->pos.y - base_pos.y), 2));
+        door->rot = obj_rot(door->dist, door->pos, base_pos);
+		side_pos = move_pos(door->pos, rotate(door->rot, 90.0), door->sprite.frames[0].width / 4.0, 0);
+		door->dist_side = math_pytha(side_pos.x - base_pos.x, side_pos.y - base_pos.y);
+		door->rot_side = obj_rot(door->dist_side, side_pos, base_pos);
+        if (door->rot >= (rot - view) && door->rot <= (rot + view))
+            door->visible = TRUE;
+		else if ((rot + view) >= 360 && door->rot <= (rot + view - 360))
+            door->visible = TRUE;
+        else if (door->rot_side >= (rot - view) && door->rot_side <= (rot + view))
+            door->visible = TRUE;                   
+		if (door->visible == TRUE)
+			door->dist = get_draw_distance(base_pos, rot, door->pos, 0); 
+		printf("door | visible %d, x %f, y %f, tile_i %d\n", door->visible, door->pos.x, door->pos.y, door->tile_i);
+		i++;
+    }
+}

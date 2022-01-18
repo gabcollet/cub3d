@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/11 13:24:03 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/17 15:36:42 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,19 @@ int	parse_error(int code)
 	return (0);
 }
 
+int	parse_error_bonus(int code)
+{
+	ft_putendl_fd("Error", 2);
+	if (code == ERR_DOOR)
+		ft_putendl_fd("doors can not be on the edges of a map", 2);
+	else if (code == ERR_DOOR_ENC)
+		ft_putendl_fd("doors need to be surrounded by 2 wall and 2 floor tiles", 2);
+	return (0);
+}
+
 int	parse_valid_map_c(char c)
 {
-	if (c == ' ' || c == '0' || c == '1')
+	if (c == ' ' || c == '0' || c == '1' || c == 'D')
 		return (1);
 	if (parse_is_player(c))
 		return (1);

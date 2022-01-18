@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/16 03:04:09 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/17 18:29:54 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define LEFT_KEY		65361
 
 /* Game parameter */
+# define MAP_MAX_SIZE	20000
 # define SPEED			8
 # define TURN_SPEED		8
 # define ANIM_TIME		10
@@ -95,6 +96,8 @@
 # define ERR_COLOR		10
 # define ERR_MAP_LAST	11
 # define ERR_ENEMY		12
+# define ERR_DOOR_ENC	13
+# define ERR_DOOR		14
 
 t_game	g_game;
 
@@ -142,6 +145,7 @@ int		parse_map(char *line, t_map *map_ptr, int fd);
 int		parse_cub(char *path);
 int		parse_is_player(char c);
 int		parse_error(int code);
+int		parse_error_bonus(int code);
 int		parse_wall(t_map map, int x, int y);
 int		parse_enemy(char *line);
 int		parse_floor(t_map map, int x, int y, int compare);
@@ -155,6 +159,7 @@ void	drawMap3D(t_mlx *mlx, t_map map);
 void	draw_background(t_img img);
 void	draw_object(t_mlx *mlx, t_obj *obj, int x);
 void	draw_enemy(t_img *text, t_pos pos, float height, t_pos index);
+void	reset_drawings(void);
 
 /* Animations */
 void	start_animation(t_sprite *sprite);
@@ -189,6 +194,18 @@ t_obj	new_obj(void);
 void    obj_all_set_visible(t_obj *objs, int array_size, double rot, t_pos base_pos);
 double	obj_rot(double enemy_dist, t_pos enemy_pos, t_pos pos);
 
+/* Door */
+void	init_door_sprite(t_sprite *sprite);
+void	init_doors(t_door *doors);
+void	update_door(t_door *door);
+void	open_door(t_door *door);
+void	draw_door(t_mlx *mlx, t_door *door, int x);
+void	place_door(t_door *door, int face_rot, int i_x, int i_y);
+void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos);
+void	doors_update(t_door *doors);
+double	door_get_index(t_door door, t_sprite sprite, double angle);
+void	interact_door(void);
+
 /* Player */
 t_plyr	get_plyr(void);
 void	player_set_pos(int x, int y, int z);
@@ -197,7 +214,7 @@ int		player_get_facing(t_plyr player);
 /* Enemy */
 void	init_enemy(t_obj *enemy, t_pos pos);
 void	init_enemy_sprite(t_sprite *sprite);
-void	enemy_update(t_obj *enemies);
+void	enemies_update(t_obj *enemies);
 double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle);
 
 /* Minimap */

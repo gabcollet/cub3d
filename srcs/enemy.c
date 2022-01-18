@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/16 03:18:29 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/17 16:51:51 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle)
 	return (i_x);
 }
 
-void	enemy_update(t_obj *enemies)
+void	enemies_update(t_obj *enemies)
 {
 	int	id;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:51:46 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/11 14:08:02 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/17 18:52:59 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	my_mlx_pixel_put(t_img img, int x, int y, int color)
 	char	*dst;
 
 	if (x > WIN_W || y > WIN_H || x <= 0 || y <= 0)
+		return ;
+	if (x + (y * img.width / 4) >= (img.width / 4) * img.height)
 		return ;
 	dst = img.addr + (y * img.width + x * (img.bpp / 8));
 	if (color != TRANS)

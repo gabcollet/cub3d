@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 11:49:36 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/16 03:14:53 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/17 18:51:55 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,26 @@ void	draw_enemy(t_img *text, t_pos pos, float height, t_pos index)
 		color = *((unsigned int *)(text->addr
 					+ ((int)index.y * text->width + (int)index.x * bytes)));
 		color = color_shift_int(color, BLACK, ((WIN_H - height) / WIN_H) / 2);
-		if (pos.x >= 0 && pos.x < img->width)
+		if (pos.x >= 0 && pos.x < img->width / 4)
 			my_mlx_pixel_put(*img, pos.x, pos.y, color);
 		index.y += y_step;
 		pos.y++;
 	}
 	index.x++;
+}
+
+void	reset_drawings(void)
+{
+	int	i;
+
+	i = 0;
+	while (i < g_game.door_count)
+	{
+		g_game.doors[i++].sprite.drawing = FALSE;
+	}
+	i = 0;
+	while (i < g_game.enemy_count)
+	{
+		g_game.enemies[i++].sprite.drawing = FALSE;
+	}
 }

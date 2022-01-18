@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/14 15:49:27 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/17 17:42:34 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	key_press(int key)
 		g_game.player.vel_l = SPEED * modifier;
 	if (key == D_KEY)
 		g_game.player.vel_r = -SPEED * modifier;
+	if (key == E_KEY)
+		interact_door();
 	return (key);
 }
 

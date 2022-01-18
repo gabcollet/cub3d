@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub_id.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/14 14:38:50 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/17 18:24:24 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ int	parse_enemy(char *line)
 	else
 	{
 		pos = new_pos(ft_atoi(split[0]), ft_atoi(split[1]), ft_atoi(split[2]));
-		init_enemy(&g_game.enemies[id++], pos);
+		init_enemy(&g_game.enemies[id], pos);
 	}
 	ft_free_array((void **)split, ft_free);
 	if (error)
 		return (parse_error(error));
-	g_game.enemy_count = id;
+	g_game.enemy_count = ++id;
 	return (1);
 }
 

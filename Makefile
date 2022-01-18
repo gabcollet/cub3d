@@ -6,7 +6,7 @@
 #    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/16 02:59:42 by fousse           ###   ########.fr        #
+#    Updated: 2022/01/17 14:50:25 by fousse           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,6 +69,7 @@ SRCS	= 	game.c map.c interface.c\
 			collision.c intersection.c intersection_utils.c\
 			raycast.c\
 			object.c\
+			door.c animation_door.c\
 			player.c gun.c enemy.c\
 			input.c
 

@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:57:26 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/11 00:38:38 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/17 17:33:06 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	color_get(t_img img, int x, int y)
 {
 	int	color;
 
-	if (x >= img.width / 4 || y >= img.height)
+	if (x + (y * img.width) >= img.width * img.height)
 		return (0);
 	color = *((unsigned int *)(img.addr
 				+ y * img.width + x * (img.bpp / 8)));

@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/16 03:06:56 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/17 17:09:18 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void	draw_object(t_mlx *mlx, t_obj *obj, int x)
 	t_obj_draw	d;
 	int			color;
 	t_img		img;
-	int		y;
-	float	offset;
-	double	height;
+	int			y;
+	float		offset;
+	double		height;
 
 	offset = 0;
 	height = obj->dist;
@@ -108,23 +108,23 @@ void    obj_all_set_visible(t_obj *objs, int array_size, double rot, t_pos base_
     while(id < array_size && objs[id].alive)
     {
 		obj = &objs[id];
+		obj->visible = FALSE;
         obj->dist = sqrt(pow((obj->pos.x - base_pos.x), 2) + pow((obj->pos.y - base_pos.y), 2));
         obj->rot = obj_rot(obj->dist, obj->pos, base_pos);
 		side_pos = move_pos(obj->pos, rotate(obj->rot, 90.0), obj->sprite.frames[0].width / 4.0, 0);
 		obj->dist_side = math_pytha(side_pos.x - base_pos.x, side_pos.y - base_pos.y);
-		//sqrt(pow((side_pos.x - base_pos.x), 2) + pow((side_pos.y - base_pos.y), 2));
 		obj->rot_side = obj_rot(obj->dist_side, side_pos, base_pos);
-        if (obj->rot >= (rot - view) && obj->rot <= (rot + view))
-            obj->visible = TRUE;
-		else if ((rot + view) >= 360 && obj->rot <= (rot + view - 360))
-            obj->visible = TRUE;
-        else if (obj->rot_side >= (rot - view) && obj->rot_side <= (rot + view))
-            obj->visible = TRUE;
-		else
-            obj->visible = FALSE;       
+		if (obj->dist > 40)
+		{
+			if (obj->rot >= (rot - view) && obj->rot <= (rot + view))
+           	 obj->visible = TRUE;
+			else if ((rot + view) >= 360 && obj->rot <= (rot + view - 360))
+				obj->visible = TRUE;
+			else if (obj->rot_side >= (rot - view) && obj->rot_side <= (rot + view))
+				obj->visible = TRUE;  
+		}    
 		if (obj->visible == TRUE)
 			obj->dist = get_draw_distance(base_pos, rot, obj->pos, 0); 
-		//printf("visible : %d | p.rot : %f | e.rot : %f e_siderot %f\n", obj->visible, rot, objs[id].rot, objs[id].rot_side);
 		id++;
     }
 }

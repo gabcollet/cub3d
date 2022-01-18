@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/16 03:13:52 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/17 16:20:10 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # define UI_ELEMS	2
 # define MAX_ENEMY	30
+# define MAX_DOOR	20
 
 /* Typedefs */
 typedef struct s_mlx	t_mlx;
@@ -25,6 +26,7 @@ typedef struct s_map	t_map;
 
 typedef struct s_obj	t_obj;
 typedef struct s_wall	t_wall;
+typedef struct s_door	t_door;
 typedef struct s_player	t_plyr;
 typedef struct s_sprite	t_sprite;
 
@@ -45,7 +47,8 @@ enum e_obj_type
 	FLOOR,
 	CEILING,
 	UI,
-	ENEMY
+	ENEMY,
+	DOOR
 };
 
 enum e_dir
@@ -172,6 +175,20 @@ struct s_obj
 	void		(*update)(t_obj *obj);
 };
 
+struct s_door
+{
+	t_pos		pos;
+	t_sprite	sprite;
+	float		dist;
+	float		dist_side;
+	double		face_rot;
+	double		rot;
+	double		rot_side;
+	int			visible;
+	int			tile_i;
+	int			opened;
+};
+
 struct s_player
 {
 	t_pos	pos;
@@ -191,6 +208,8 @@ struct s_game
 	t_plyr		player;
 	t_mlx		*mlx;
 	t_img		game_img;
+	t_door		doors[MAX_DOOR];
+	int			door_count;
 	t_img		minimap;
 	t_img		texture[4];
 	t_obj		ui_elems[UI_ELEMS];
