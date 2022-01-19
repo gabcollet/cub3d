@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   background.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 00:35:07 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/17 14:10:32 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/18 15:03:03 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,20 +54,23 @@ void	draw_background(t_img img)
 	t_img	*win_img;
 	int		x;
 	int		y;
+	int		back_y;
 	int		color;
 
 	x = 0;
 	y = 0;
+	back_y = 0;
 	win_img = &g_game.game_img;
-	while (x + y * (img.width / 4) < (img.width / 4) * img.height)
+	while (x + back_y * (img.width / 4) < (img.width / 4) * img.height)
 	{
 		color = *(unsigned int *)
-			(img.addr + (y * img.width + x * (img.bpp / 8)));
+			(img.addr + (back_y * img.width + x * (img.bpp / 8)));
 		my_mlx_pixel_put(*win_img, x, y, color);
 		if (++x == img.width / 4)
 		{
 			x = 0;
 			y++;
+			back_y++;
 		}
 	}
 }

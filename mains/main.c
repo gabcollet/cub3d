@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/17 18:43:51 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/18 19:22:20 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int main(int argc, char **argv)
 	if (!parse_cub(argv[1]))
 		return (0);
 	mlx = get_mlx();
-	g_game.map.back = create_background(g_game.res_w, g_game.res_h);
+	g_game.map.back = create_background(WIN_W, WIN_H);
 	mlx_hook(mlx->win, 2, 1L<<0, key_press, mlx);
 	mlx_hook(mlx->win, 3, 1L<<1, key_release, mlx);
 	mlx_hook(mlx->win, 17, 0, quit_handler, NULL);

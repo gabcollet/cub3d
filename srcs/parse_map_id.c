@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/17 18:15:47 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/18 19:37:26 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ int	parse_door(t_map map, int x, int y)
 	else if (t[x - 1 + y * w] == M_WALL && t[x + 1 + y * w] == M_WALL)
 	{
 		if (t[x + (y - 1) * w] == M_FLOOR && t[x + (y + 1) * w] == M_FLOOR)
-			place_door(&g_game.doors[count], 90, x, y);
+			place_door(&g_game.doors[count], 0, x, y);
 	}
 	else if (t[x - 1 + y * w] == M_FLOOR && t[x + 1 + y * w] == M_FLOOR)
 	{
 		if (t[x + (y - 1) * w] == M_WALL && t[x + (y + 1) * w] == M_WALL)
-			place_door(&g_game.doors[count], 0, x, y);
+			place_door(&g_game.doors[count], 270, x, y);
 	}
 	else
 		error = ERR_DOOR_ENC;

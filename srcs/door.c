@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/17 19:10:08 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/18 19:11:44 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,9 @@ void	place_door(t_door *door, int face_rot, int i_x, int i_y)
 	door->pos.x = i_x * TILE_SIZE;
 	door->pos.y = i_y * TILE_SIZE;
 	if (face_rot == 0)
+		door->pos.y = i_y * TILE_SIZE + (TILE_SIZE / 2 );
+	else if (face_rot == 270)
 		door->pos.x = i_x * TILE_SIZE + (TILE_SIZE / 2);
-	else if (face_rot == 90)
-		door->pos.y = i_y * TILE_SIZE + (TILE_SIZE / 2);
 	door->face_rot = face_rot;
 	door->rot = 0;
 	door->rot_side = 0;
@@ -126,17 +126,17 @@ void	place_door(t_door *door, int face_rot, int i_x, int i_y)
 	init_door_sprite(&door->sprite);
 }
 
-void	draw_door(t_mlx *mlx, t_door *door, int x)
+void	draw_door(t_mlx *mlx, t_door *door, int x, double height)
 {
 	t_obj_draw	d;
 	int			color;
 	t_img		img;
 	int			y;
 	float		offset;
-	double		height;
+	//double		height;
 
 	offset = 0;
-	height = door->dist;
+	//height = door->dist;
 	if (height > WIN_H)
 	{
 		offset = (height - WIN_H);
@@ -145,10 +145,9 @@ void	draw_door(t_mlx *mlx, t_door *door, int x)
 	y = (WIN_H - height) / 2;
 	img = door->sprite.frames[door->sprite.active];
 	d.index_y = 0;
-	d.index_x = 0;
-	d.x = x;
 	d.y = y;
 	d.step = (double)img.height / height;
+	//printf("sprite_ix %f\n   height %f", door->sprite.i_x, height);
 	while (d.y >= 0 && d.y < WIN_H - y && x >= 0 && x < WIN_W && d.index_y < img.height)
 	{
 		color = color_get(img, (int)door->sprite.i_x, (int)d.index_y);
@@ -164,18 +163,22 @@ double	door_get_index(t_door door, t_sprite sprite, double angle)
 	double	min;
 	double	max;
 	double	i_x;
+	double	scaled_w;
 
 	min = door.rot;
 	max = door.rot_side;
+	if (min > max)
+	{
+		min = door.rot_side;
+		max = door.rot;
+	}
 	if (max < min)
 	{
 		if (angle <= max)
 			angle += 360;
 		max += 360;
 	}
-	i_x = ((sprite.frames[0].width / 4.0) * sprite.x_step)
-		* ((int)(angle - min) / (max - min)
-			/ sprite.x_step) * 1.5;
+	i_x = (int)((sprite.frames[0].width / 4.0) * ((angle - min) / (max - min)));
 	return (i_x);
 }
 
@@ -187,15 +190,17 @@ void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos)
 	t_door		*door;
 
 	i = 0;
-	view = VIEW_ANGLE / 2;
+	view = VIEW_ANGLE;
     while(i < size)
     {
-
 		door = &doors[i];
 		door->visible = FALSE;
         door->dist = sqrt(pow((door->pos.x - base_pos.x), 2) + pow((door->pos.y - base_pos.y), 2));
         door->rot = obj_rot(door->dist, door->pos, base_pos);
-		side_pos = move_pos(door->pos, rotate(door->rot, 90.0), door->sprite.frames[0].width / 4.0, 0);
+		if (door->face_rot == 0)
+			side_pos = new_pos(door->pos.x + 50, door->pos.y, 0);
+		else
+			side_pos = new_pos(door->pos.x, door->pos.y + 50, 0);
 		door->dist_side = math_pytha(side_pos.x - base_pos.x, side_pos.y - base_pos.y);
 		door->rot_side = obj_rot(door->dist_side, side_pos, base_pos);
         if (door->rot >= (rot - view) && door->rot <= (rot + view))
@@ -203,9 +208,12 @@ void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos)
 		else if ((rot + view) >= 360 && door->rot <= (rot + view - 360))
             door->visible = TRUE;
         else if (door->rot_side >= (rot - view) && door->rot_side <= (rot + view))
-            door->visible = TRUE;                   
+            door->visible = TRUE;              
 		if (door->visible == TRUE)
-			door->dist = get_draw_distance(base_pos, rot, door->pos, 0); 
+		{
+			door->dist = get_draw_distance(base_pos, door->rot, door->pos, 0); 
+			door->dist_side = get_draw_distance(base_pos, door->rot_side, side_pos, 0); 
+		}
 		i++;
     }
 }

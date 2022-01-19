@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/17 19:09:27 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/18 19:22:17 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # define R_KEY	 		114
 # define S_KEY			115
 # define W_KEY			119
+# define SHIFT_KEY		65505
 # define RIGHT_KEY		65363
 # define LEFT_KEY		65361 
 
@@ -63,8 +64,10 @@
 # define MAP_MAX_SIZE	20000
 # define SPEED			8
 # define TURN_SPEED		8
+# define JUMP_FORCE		50
+# define GRAVITY		8
 # define ANIM_TIME		10
-# define MOUSE_TURN		0
+# define MOUSE_TURN		0.5
 # define VIEW_ANGLE		60
 # define VIEW_DIST		1000
 # define TILE_SIZE		50.0
@@ -212,7 +215,7 @@ void	init_door_sprite(t_sprite *sprite);
 void	init_doors(t_door *doors);
 void	update_door(t_door *door);
 void	open_door(t_door *door);
-void	draw_door(t_mlx *mlx, t_door *door, int x);
+void	draw_door(t_mlx *mlx, t_door *door, int x, double height);
 void	place_door(t_door *door, int face_rot, int i_x, int i_y);
 void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos);
 void	doors_update(t_door *doors);
@@ -223,6 +226,7 @@ void	interact_door(void);
 t_plyr	get_plyr(void);
 void	player_set_pos(int x, int y, int z);
 int		player_get_facing(t_plyr player);
+int		player_apply_gravity(t_plyr *player);
 
 /* Enemy */
 void	init_enemy(t_obj *enemy, t_pos pos);

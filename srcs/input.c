@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/17 19:08:29 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/18 19:34:15 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int	mouse_handler(int x, int y)
 {
-	static int	mouse_x;
+	static int	mouse_x = 0;
+	static int	mouse_y = 0;
 
-	//mlx_mouse_get_pos(get_mlx()->mlx, get_mlx()->win, &x, &y);
+	mlx_mouse_get_pos(get_mlx()->mlx, get_mlx()->win, &x, &y);
 	if (mouse_x != x)
 		rotate_player(&g_game.player, (mouse_x - x) * MOUSE_TURN);
 	/*if (x >= WIN_W)
@@ -26,6 +27,7 @@ int	mouse_handler(int x, int y)
 		
 	}*/
 	mouse_x = x;
+	mouse_y = y;
 	return (0);
 }
 
@@ -47,6 +49,8 @@ int	key_press(int key)
 		g_game.player.vel_l = SPEED * modifier;
 	if (key == D_KEY)
 		g_game.player.vel_r = -SPEED * modifier;
+	if (key == SHIFT_KEY)
+		g_game.player.vel_z += JUMP_FORCE;
 	if (key == E_KEY)
 		interact_door();
 	return (key);

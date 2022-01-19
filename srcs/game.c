@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/17 16:31:11 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/18 14:35:04 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	init_game(t_game *game)
 	game->player.pos.y = 0;
 	game->player.rot = 0;
 	game->player.hp = 100;
+	game->player.gravity = GRAVITY;
+	game->player.vel_z = 0;
 	game->res_w = WIN_W;
 	game->res_h = WIN_H;
 	game->map = new_map();

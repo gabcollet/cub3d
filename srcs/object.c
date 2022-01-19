@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/17 17:09:18 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/18 19:24:18 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	draw_object(t_mlx *mlx, t_obj *obj, int x)
 	{
 		color = color_get(img, (int)obj->sprite.i_x, (int)d.index_y);
 		color = color_shift_int(color, BLACK, ((WIN_H - height) / WIN_H) / 2);
-		my_mlx_pixel_put(g_game.game_img, x, d.y, color);
+		my_mlx_pixel_put(g_game.game_img, x, d.y + g_game.player.pos.z, color);
 		d.index_y += d.step;
 		d.y++;
 	}		
@@ -114,7 +114,7 @@ void    obj_all_set_visible(t_obj *objs, int array_size, double rot, t_pos base_
 		side_pos = move_pos(obj->pos, rotate(obj->rot, 90.0), obj->sprite.frames[0].width / 4.0, 0);
 		obj->dist_side = math_pytha(side_pos.x - base_pos.x, side_pos.y - base_pos.y);
 		obj->rot_side = obj_rot(obj->dist_side, side_pos, base_pos);
-		if (obj->dist > 40)
+		if (obj->dist > 10)
 		{
 			if (obj->rot >= (rot - view) && obj->rot <= (rot + view))
            	 obj->visible = TRUE;

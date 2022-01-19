@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 09:35:03 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/14 21:37:11 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/18 16:25:09 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	move_player(void)
 	t_plyr	*p;
 
 	p = &g_game.player;
+	player_apply_gravity(p);
 	if (p->vel_u + p->vel_d && p->vel_r + p->vel_l)
 	{
 		change_player_pos(p, (p->vel_u + p->vel_d) * 0.707, 0);

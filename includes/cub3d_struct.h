@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/17 16:20:10 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/18 14:34:48 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,8 @@ struct s_player
 	double	vel_l;
 	double	vel_u;
 	double	vel_d;
+	double	vel_z;
+	double	gravity;
 	double	turn_l;
 	double	turn_r;
 };

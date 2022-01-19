@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 13:15:21 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/11 01:01:07 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/18 19:15:45 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,15 @@ int	player_get_facing(t_plyr player)
 	if (rot >= 315 || rot <= 45)
 		return (EAST);
 	return (NORTH);
+}
+
+int	player_apply_gravity(t_plyr *player)
+{
+	player->pos.z += player->vel_z;
+	if (player->pos.z > 0.0)
+		player->vel_z -= GRAVITY;
+	else
+		player->vel_z = 0;
+	/*if (player->pos.z < 0.0)
+		player->pos.z = 0;*/
 }

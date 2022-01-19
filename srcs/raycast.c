@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/17 18:54:45 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/18 19:11:26 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,26 +80,32 @@ int	raycast_draw_doors(t_door *doors, double height, double rot, int win_x)
 	t_door		*door;
 	t_sprite	*sprite;
 	int			id;
+	double		door_height;
+	t_coll		coll;
 
 	id = 0;
 	while (id < g_game.door_count)
 	{
 		door = &doors[id];
 		sprite = &door->sprite;
-		if (sprite->drawing == FALSE && door->visible == TRUE)
+		if (door->visible == TRUE && 
+			((door->rot <= door->rot_side && angle_is_between(rot, door->rot, door->rot_side)) ||
+			((door->rot >= door->rot_side && angle_is_between(rot, door->rot_side, door->rot)))))
 		{
-			if (angle_is_between(rot, door->rot, door->rot_side))
-			{
-				sprite->x_step = sprite->frames[0].height / door->dist;
-				sprite->i_x = door_get_index(*door, *sprite, rot);
-				sprite->drawing = TRUE;
-			}
-		}
-		if (sprite->drawing == TRUE)
-		{
-			if (door->dist >= height && sprite->i_x < sprite->frames[0].width / 4)
-				draw_door(get_mlx(), door, WIN_W - win_x);
-			sprite->i_x += sprite->x_step;
+			sprite->i_x = door_get_index(*door, *sprite, rot);
+			//sprite->i_x = 1;
+			//printf("raycast rot %f | door rot %f | door rotside %f\n", rot, door->rot, door->rot_side);
+			//printf("dist: %f + diff: %f * ratio: %f\n", door->dist,door->dist_side - door->dist, ((rot - door->rot_side) / fabs(door->rot - door->rot_side)));
+			//printf("pos.x %f   pos.y: %f\n", door->pos.x, door->pos.y);
+
+			if (rot >= 180 && rot <= 270 || rot >= 0 && rot <= 90)
+				door_height = door->dist + (fabs((door->dist - door->dist_side)) * ((rot - door->rot) / fabs(door->rot_side - door->rot)));
+			else if (rot >= 270 && rot <= 360 || rot >= 90 && rot <= 180)
+				door_height = door->dist + ((door->dist_side - door->dist) * ((rot - door->rot) / fabs(door->rot_side - door->rot)));
+
+			//printf("sprite_ix %f   height %f\n", door->sprite.i_x, door_height);
+			if (door_height >= height && sprite->i_x < sprite->frames[0].width / 4)
+				draw_door(get_mlx(), door, win_x, door_height);
 		}
 		id++;
 	}
@@ -132,7 +138,7 @@ int	raycast_draw_all(t_pos pos, double rot, double view)
 		coll = check_intersections(pos.x, pos.y, rot);
 		height = get_draw_distance(pos, rot, coll.pos, base_rot - rot);
 		draw3d(height, coll, WIN_W - win_x);
-		raycast_draw_doors(g_game.doors, height, rot, win_x);
+		raycast_draw_doors(g_game.doors, height, rot, WIN_W - win_x);
 		raycast_draw_enemies(g_game.enemies, height, rot, win_x);
 		win_x += 1;
 		rot += (view / WIN_W);

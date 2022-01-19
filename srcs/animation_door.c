@@ -6,7 +6,7 @@
 /*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/17 19:04:02 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/18 15:39:29 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	open_door(t_door *door)
 			door->opened = TRUE;
 		sprite->playing = TRUE;
 	}
-	printf("input pressed frame : %d\n", sprite->active);
 }
 
 void	end_door_animation(t_door *door)
@@ -56,7 +55,6 @@ void	closing_door(t_door *door)
 		sprite->active--;
 		sprite->anim_countdown = sprite->anim_time;
 	}
-	printf("closing frame : %d\n", sprite->active);
 }
 
 void	opening_door(t_door *door)
@@ -73,8 +71,6 @@ void	opening_door(t_door *door)
 		sprite->active++;
 		sprite->anim_countdown = sprite->anim_time;
 	}
-		
-	printf("opening frame : %d\n", sprite->active);
 }
 
 void	update_door(t_door *door)
