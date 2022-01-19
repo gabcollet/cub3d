@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:01:03 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/17 15:49:51 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/19 15:58:06 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ void	draw_map2d(t_mlx *mlx, t_map map)
 	int	x;
 	int	y;
 
-	y = 0;
 	x = 0;
+	y = 0;
 	while (y < map.height)
 	{
 		if (x < map.width)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/18 19:22:17 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/19 15:47:10 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,9 @@ t_img	create_background(double width, double height);
 int		*copy_map_int(int *src, int size);
 char	*copy_map(char *src, int size);
 void	fill_map(char **rows, t_map *map_ptr, int width, int height);
+int		get_map_index(int win_x, int win_y);
+int		get_map_index_y(int win_y);
+int		get_map_index_x(int win_x);
 
 /* User Interface */
 void	init_interface(t_obj *objs);

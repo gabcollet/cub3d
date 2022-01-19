@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fousse <fousse@student.42.fr>              +#+  +:+       +#+         #
+#    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/17 19:06:57 by fousse           ###   ########.fr        #
+#    Updated: 2022/01/19 15:54:42 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ HEADS		= $(patsubst %,$(DIR_INCS)/%,$(_HEADS))
 #
 
 # Sources and Objects
-SRCS	= 	game.c map.c interface.c\
+SRCS	= 	game.c map.c map_utils.c interface.c\
 			parse.c parse_map.c parse_utils.c parse_wall.c\
 			parse_map_id.c parse_cub_id.c\
 			position.c rotation.c size.c\

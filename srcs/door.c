@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/18 19:11:44 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/19 15:34:16 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,16 @@ void	interact_door(void)
 {
 	t_pos	act_pos;
 	int		tile_i;
-	int		player_tile_i;
+	int		p_tile_i;
 	int		i;
 
-	act_pos = move_pos(g_game.player.pos, g_game.player.rot, TILE_SIZE - 1, 0);
-	player_tile_i = ((int)g_game.player.pos.x / (int)TILE_SIZE) + 
+	act_pos = move_pos(g_game.player.pos, g_game.player.rot, TILE_SIZE / 2.0, 0);
+	p_tile_i = ((int)g_game.player.pos.x / (int)TILE_SIZE) + 
 		((int)g_game.player.pos.y / (int)TILE_SIZE * g_game.map.width);
 	tile_i = ((int)act_pos.x / (int)TILE_SIZE) + 
 		((int)act_pos.y / (int)TILE_SIZE * g_game.map.width);
-	if (tile_i >= g_game.map.width * g_game.map.height || tile_i == player_tile_i)
+	if (tile_i >= g_game.map.width * g_game.map.height || tile_i == p_tile_i
+		|| tile_i < 0)
 		return ;
 	if (g_game.map.tiles[tile_i] == M_DOOR)
 	{
@@ -105,8 +106,7 @@ void	interact_door(void)
 				return (open_door(&g_game.doors[i]));
 			i++;
 		}
-	}
-	
+	}	
 }
 
 void	place_door(t_door *door, int face_rot, int i_x, int i_y)
@@ -133,10 +133,8 @@ void	draw_door(t_mlx *mlx, t_door *door, int x, double height)
 	t_img		img;
 	int			y;
 	float		offset;
-	//double		height;
 
 	offset = 0;
-	//height = door->dist;
 	if (height > WIN_H)
 	{
 		offset = (height - WIN_H);
@@ -144,10 +142,9 @@ void	draw_door(t_mlx *mlx, t_door *door, int x, double height)
 	}
 	y = (WIN_H - height) / 2;
 	img = door->sprite.frames[door->sprite.active];
-	d.index_y = 0;
+	d.index_y = (TEXTURES_SIZE * offset / 2) / (height + offset);
 	d.y = y;
-	d.step = (double)img.height / height;
-	//printf("sprite_ix %f\n   height %f", door->sprite.i_x, height);
+	d.step = (double)img.height / (height + offset);
 	while (d.y >= 0 && d.y < WIN_H - y && x >= 0 && x < WIN_W && d.index_y < img.height)
 	{
 		color = color_get(img, (int)door->sprite.i_x, (int)d.index_y);
@@ -203,6 +200,8 @@ void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos)
 			side_pos = new_pos(door->pos.x, door->pos.y + 50, 0);
 		door->dist_side = math_pytha(side_pos.x - base_pos.x, side_pos.y - base_pos.y);
 		door->rot_side = obj_rot(door->dist_side, side_pos, base_pos);
+		// if (angle_is_between(rot, door->rot, door->rot_side))
+		// 	door->visible = TRUE;
         if (door->rot >= (rot - view) && door->rot <= (rot + view))
             door->visible = TRUE;
 		else if ((rot + view) >= 360 && door->rot <= (rot + view - 360))
@@ -211,8 +210,8 @@ void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos)
             door->visible = TRUE;              
 		if (door->visible == TRUE)
 		{
-			door->dist = get_draw_distance(base_pos, door->rot, door->pos, 0); 
-			door->dist_side = get_draw_distance(base_pos, door->rot_side, side_pos, 0); 
+			door->dist = get_draw_distance(base_pos, g_game.player.rot, door->pos, 0); 
+			door->dist_side = get_draw_distance(base_pos, g_game.player.rot, side_pos, 0); 
 		}
 		i++;
     }

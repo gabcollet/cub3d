@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/18 19:34:15 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/19 15:56:03 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	mouse_handler(int x, int y)
 {
-	static int	mouse_x = 0;
-	static int	mouse_y = 0;
+	static int	mouse_x = INT_MIN;
+	static int	mouse_y = INT_MIN;
 
 	mlx_mouse_get_pos(get_mlx()->mlx, get_mlx()->win, &x, &y);
-	if (mouse_x != x)
+	if (mouse_x != x && mouse_x != INT_MIN)
 		rotate_player(&g_game.player, (mouse_x - x) * MOUSE_TURN);
 	/*if (x >= WIN_W)
 	{
@@ -58,6 +58,7 @@ int	key_press(int key)
 
 int	key_release(int key)
 {
+	//printf("key %d\n", key);
 	if (key == W_KEY)
 		g_game.player.vel_u = 0;
 	if (key == A_KEY)

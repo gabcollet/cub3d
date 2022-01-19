@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:55:56 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/18 19:10:45 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/19 15:05:57 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	check_door(int tile_pos)
 	id = 0;
 	while (id < g_game.door_count)
 	{
-		if (door[id].tile_i = tile_pos)
+		if (door[id].tile_i == tile_pos)
 		{
 			if (door[id].opened)
 				return (0);
