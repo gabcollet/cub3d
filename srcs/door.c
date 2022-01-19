@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/19 15:34:16 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/19 17:37:46 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,9 @@ void	place_door(t_door *door, int face_rot, int i_x, int i_y)
 	init_door_sprite(&door->sprite);
 }
 
-void	draw_door(t_mlx *mlx, t_door *door, int x, double height)
+
+//va devenir le nouveaum draw_object
+void	draw_door(t_mlx *mlx, t_sprite *sprite, int x, double height)
 {
 	t_obj_draw	d;
 	int			color;
@@ -141,13 +143,13 @@ void	draw_door(t_mlx *mlx, t_door *door, int x, double height)
 		height = WIN_H;
 	}
 	y = (WIN_H - height) / 2;
-	img = door->sprite.frames[door->sprite.active];
+	img = sprite->frames[sprite->active];
 	d.index_y = (TEXTURES_SIZE * offset / 2) / (height + offset);
 	d.y = y;
 	d.step = (double)img.height / (height + offset);
 	while (d.y >= 0 && d.y < WIN_H - y && x >= 0 && x < WIN_W && d.index_y < img.height)
 	{
-		color = color_get(img, (int)door->sprite.i_x, (int)d.index_y);
+		color = color_get(img, (int)sprite->i_x, (int)d.index_y);
 		color = color_shift_int(color, BLACK, ((WIN_H - height) / WIN_H) / 2);
 		my_mlx_pixel_put(g_game.game_img, x, d.y, color);
 		d.index_y += d.step;
@@ -164,18 +166,28 @@ double	door_get_index(t_door door, t_sprite sprite, double angle)
 
 	min = door.rot;
 	max = door.rot_side;
-	if (min > max)
+	if (min < 90 && max > 270)
 	{
-		min = door.rot_side;
-		max = door.rot;
+		if (angle < 90)
+			i_x = (int)((sprite.frames[0].width / 4.0) * ((min - angle) / (min + 360.0 - max)));
+		else
+			i_x = (int)((sprite.frames[0].width / 4.0) * ((min + 360.0 - angle) / (min + 360.0 - max)));
 	}
-	if (max < min)
+	else
 	{
-		if (angle <= max)
-			angle += 360;
-		max += 360;
+		if (min > max)
+		{
+			min = door.rot_side;
+			max = door.rot;
+		}
+		if (max < min)
+		{
+			if (angle <= max)
+				angle += 360;
+			max += 360;
+		}
+		i_x = (int)((sprite.frames[0].width / 4.0) * ((angle - min) / (max - min)));
 	}
-	i_x = (int)((sprite.frames[0].width / 4.0) * ((angle - min) / (max - min)));
 	return (i_x);
 }
 

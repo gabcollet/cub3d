@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/19 15:47:10 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/19 17:01:39 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ void	init_door_sprite(t_sprite *sprite);
 void	init_doors(t_door *doors);
 void	update_door(t_door *door);
 void	open_door(t_door *door);
-void	draw_door(t_mlx *mlx, t_door *door, int x, double height);
+void	draw_door(t_mlx *mlx, t_sprite *sprite, int x, double height);
 void	place_door(t_door *door, int face_rot, int i_x, int i_y);
 void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos);
 void	doors_update(t_door *doors);

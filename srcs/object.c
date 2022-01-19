@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   object.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/18 19:24:18 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/19 17:23:11 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	init_obj_array(t_obj *obj, int size)
 	}
 }
 
-void	draw_object(t_mlx *mlx, t_obj *obj, int x)
+/* void	draw_object(t_mlx *mlx, t_obj *obj, int x)
 {
 	t_obj_draw	d;
 	int			color;
@@ -77,7 +77,7 @@ void	draw_object(t_mlx *mlx, t_obj *obj, int x)
 		d.index_y += d.step;
 		d.y++;
 	}		
-}
+} */
 
 double obj_rot(double enemy_dist, t_pos enemy_pos, t_pos pos)
 {
@@ -110,7 +110,7 @@ void    obj_all_set_visible(t_obj *objs, int array_size, double rot, t_pos base_
 		obj = &objs[id];
 		obj->visible = FALSE;
         obj->dist = sqrt(pow((obj->pos.x - base_pos.x), 2) + pow((obj->pos.y - base_pos.y), 2));
-        obj->rot = obj_rot(obj->dist, obj->pos, base_pos);
+        obj->rot = obj_rot(obj->dist, obj->pos , base_pos);
 		side_pos = move_pos(obj->pos, rotate(obj->rot, 90.0), obj->sprite.frames[0].width / 4.0, 0);
 		obj->dist_side = math_pytha(side_pos.x - base_pos.x, side_pos.y - base_pos.y);
 		obj->rot_side = obj_rot(obj->dist_side, side_pos, base_pos);
