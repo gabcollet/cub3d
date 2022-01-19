@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/19 17:37:46 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/19 18:27:44 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ double	door_get_index(t_door door, t_sprite sprite, double angle)
 		if (angle < 90)
 			i_x = (int)((sprite.frames[0].width / 4.0) * ((min - angle) / (min + 360.0 - max)));
 		else
-			i_x = (int)((sprite.frames[0].width / 4.0) * ((min + 360.0 - angle) / (min + 360.0 - max)));
+			i_x = (int)((sprite.frames[0].width / 4.0) * ((angle - max) / (min + 360.0 - max)));	
 	}
 	else
 	{
