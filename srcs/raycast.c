@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/19 18:27:17 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/19 20:10:46 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,22 @@ int	raycast_draw_doors(t_door *doors, double height, double rot, int win_x)
 		{
 			sprite->i_x = door_get_index(*door, *sprite, rot);
 			if (rot < 90)
-				door_height = door->dist + (((door->dist_side - door->dist)) * ((rot - (door->rot)) / (door->rot_side - (door->rot + 360))));
+				door_height = door->dist + ((door->dist_side - door->dist) * ((rot - (door->rot)) / (door->rot_side - (door->rot + 360))));
 			else
-				door_height = door->dist + (((door->dist_side - door->dist)) * ((rot - (door->rot + 360)) / (door->rot_side - (door->rot + 360))));
+				door_height = door->dist + ((door->dist_side - door->dist) * ((rot - (door->rot + 360)) / (door->rot_side - (door->rot + 360))));
 			if (door_height >= height && sprite->i_x < sprite->frames[0].width / 4)
 				draw_door(get_mlx(), &door->sprite, win_x, door_height);
-				
 		}
 		else if (!(door->rot < 90 && door->rot_side > 270) && ((door->rot <= door->rot_side && angle_is_between(rot, door->rot, door->rot_side))
 					|| ((door->rot >= door->rot_side && angle_is_between(rot, door->rot_side, door->rot)))))
 		{
 			sprite->i_x = door_get_index(*door, *sprite, rot);
-			door_height = door->dist + (((door->dist_side - door->dist)) * ((rot - door->rot) / (door->rot_side - door->rot)));
+			door_height = door->dist + ((door->dist_side - door->dist) * ((rot - door->rot) / (door->rot_side - door->rot)));
 			if (door_height >= height && sprite->i_x < sprite->frames[0].width / 4)
+			{
+				//printf("door height: %f, height: %f, rot %f\n", door_height, height, rot);	
 				draw_door(get_mlx(), &door->sprite, win_x, door_height);
+			}
 		}
 		id++;
 	}

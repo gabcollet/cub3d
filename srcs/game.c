@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/19 12:59:16 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/19 20:15:59 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_game(t_game *game)
 	init_obj_array(game->enemies, MAX_ENEMY);
 	game->enemy_count = 0;
 	game->door_count = 0;
+	game->toggle_map = 1;
 }
 
 void	exit_game(t_game *game, int exit_code)

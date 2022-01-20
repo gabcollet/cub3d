@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/19 16:54:53 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/19 20:16:47 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int game(void *ptr)
 		draw_background(g_game.map.back);
 		raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW_ANGLE);
 		draw_ui(mlx);
-		draw_map2d(mlx, g_game.map);
+		if (g_game.toggle_map == 1)
+			draw_map2d(mlx, g_game.map);
 		//mlx_fill_window(&mlx->img, &g_game.game_img);
 		mlx_put_image_to_window(mlx->mlx, mlx->win, g_game.game_img.img, 0, 0);
 		frame_timer = 1.0 / FPS;

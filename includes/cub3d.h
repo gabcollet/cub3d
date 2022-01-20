@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/19 17:01:39 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/19 20:13:26 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define A_KEY			97
 # define D_KEY			100
 # define E_KEY			101
+# define M_KEY			109
 # define R_KEY	 		114
 # define S_KEY			115
 # define W_KEY			119

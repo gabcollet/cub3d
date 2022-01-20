@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/19 12:59:20 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/19 20:15:10 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ struct s_game
 	int			enemy_count;
 	int			res_w;
 	int			res_h;
+	int			toggle_map;
 };
 
 t_game					g_game;

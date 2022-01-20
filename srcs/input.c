@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/19 15:56:03 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/19 20:15:25 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	key_release(int key)
 		g_game.player.turn_r = 0;
 	if (key == ESC)
 		exit_game(&g_game, 0);
+	if (key == M_KEY)
+		g_game.toggle_map *= -1;
 	return (key);
 }
 
