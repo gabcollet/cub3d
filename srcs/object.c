@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/19 17:23:11 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/20 17:54:38 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,38 +46,34 @@ void	init_obj_array(t_obj *obj, int size)
 	}
 }
 
-/* void	draw_object(t_mlx *mlx, t_obj *obj, int x)
+void	draw_object(t_mlx *mlx, t_sprite *sprite, int x, double height)
 {
 	t_obj_draw	d;
 	int			color;
 	t_img		img;
 	int			y;
 	float		offset;
-	double		height;
 
 	offset = 0;
-	height = obj->dist;
 	if (height > WIN_H)
 	{
 		offset = (height - WIN_H);
 		height = WIN_H;
 	}
 	y = (WIN_H - height) / 2;
-	img = obj->sprite.frames[obj->sprite.active];
-	d.index_y = 0;
-	d.index_x = 0;
-	d.x = x;
+	img = sprite->frames[sprite->active];
+	d.index_y = (TEXTURES_SIZE * offset / 2) / (height + offset);
 	d.y = y;
-	d.step = (double)img.height / height;
+	d.step = (double)img.height / (height + offset);
 	while (d.y >= 0 && d.y < WIN_H - y && x >= 0 && x < WIN_W && d.index_y < img.height)
 	{
-		color = color_get(img, (int)obj->sprite.i_x, (int)d.index_y);
+		color = color_get(img, (int)sprite->i_x, (int)d.index_y);
 		color = color_shift_int(color, BLACK, ((WIN_H - height) / WIN_H) / 2);
-		my_mlx_pixel_put(g_game.game_img, x, d.y + g_game.player.pos.z, color);
+		my_mlx_pixel_put(g_game.game_img, x, d.y, color);
 		d.index_y += d.step;
 		d.y++;
-	}		
-} */
+	}
+}
 
 double obj_rot(double enemy_dist, t_pos enemy_pos, t_pos pos)
 {

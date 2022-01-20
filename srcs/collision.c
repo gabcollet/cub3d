@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:55:56 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/19 15:05:57 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/20 18:05:11 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,24 +31,28 @@ int	check_collision(int x, int y, int size, int map)
 	tiles = g_game.map.tiles;
 	ts = (int)TILE_SIZE;
 	tile_pos = (x - size) / ts + (y - size) / ts * map;
-	if (tiles[tile_pos] == M_WALL || (tiles[tile_pos] == M_DOOR && check_door(tile_pos)))
+	if (tiles[tile_pos] == M_WALL || (tiles[tile_pos] == M_DOOR
+			&& check_door(tile_pos)))
 		return (1);
 	tile_pos = (x - size) / ts + (y + size) / ts * map;
-	if (tiles[tile_pos] == M_WALL || (tiles[tile_pos] == M_DOOR && check_door(tile_pos)))
+	if (tiles[tile_pos] == M_WALL || (tiles[tile_pos] == M_DOOR
+			&& check_door(tile_pos)))
 		return (1);
 	tile_pos = (x + size) / ts + (y - size) / ts * map;
-	if (tiles[tile_pos] == M_WALL || (tiles[tile_pos] == M_DOOR && check_door(tile_pos)))
+	if (tiles[tile_pos] == M_WALL || (tiles[tile_pos] == M_DOOR
+			&& check_door(tile_pos)))
 		return (1);
 	tile_pos = (x + size) / ts + (y + size) / ts * map;
-	if (tiles[tile_pos] == M_WALL || (tiles[tile_pos] == M_DOOR && check_door(tile_pos)))
+	if (tiles[tile_pos] == M_WALL || (tiles[tile_pos] == M_DOOR
+			&& check_door(tile_pos)))
 		return (1);
 	return (0);
 }
 
 int	check_door(int tile_pos)
 {
-	int	id;
-	t_door *door;
+	int		id;
+	t_door	*door;
 
 	door = g_game.doors;
 	id = 0;

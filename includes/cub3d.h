@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/19 20:13:26 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/20 17:59:14 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@
 # define LEFT_KEY		123*/
 
 /* Game parameter */
-# define MAP_MAX_SIZE	20000
+# define MAP_MAX_SIZE	200000
 # define SPEED			8
 # define TURN_SPEED		8
 # define JUMP_FORCE		50
@@ -177,8 +177,7 @@ void	my_mlx_pixel_put(t_img img, int x, int y, int color);
 void	mlx_clear_img(t_img img);
 void	drawMap3D(t_mlx *mlx, t_map map);
 void	draw_background(t_img img);
-void	draw_object(t_mlx *mlx, t_obj *obj, int x);
-void	draw_enemy(t_img *text, t_pos pos, float height, t_pos index);
+void	draw_object(t_mlx *mlx, t_sprite *sprite, int x, double height);
 void	reset_drawings(void);
 
 /* Animations */
@@ -219,7 +218,6 @@ void	init_door_sprite(t_sprite *sprite);
 void	init_doors(t_door *doors);
 void	update_door(t_door *door);
 void	open_door(t_door *door);
-void	draw_door(t_mlx *mlx, t_sprite *sprite, int x, double height);
 void	place_door(t_door *door, int face_rot, int i_x, int i_y);
 void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos);
 void	doors_update(t_door *doors);

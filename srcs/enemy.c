@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/17 16:51:51 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/20 15:47:32 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,18 @@ double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle)
 	double	max;
 	double	i_x;
 
-	min = enemy.rot;
+	//min = enemy.rot;
+	min = enemy.rot - ((enemy.rot_side - enemy.rot) / 2.0);
 	max = enemy.rot_side;
+	if (min < 0)
+		min += 360;
 	if (max < min)
 	{
 		if (angle <= max)
-			angle += 360;
-		max += 360;
+			angle += 360.0;
+		max += 360.0;
 	}
+	//printf("angle: %f min: %f max: %f\n", angle, min, max);
 	i_x = ((sprite.frames[0].width / 4.0) * sprite.x_step)
 		* ((int)(angle - min) / (max - min)
 			/ sprite.x_step) * 1.5;

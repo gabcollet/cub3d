@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/19 18:27:44 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/20 18:05:07 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	init_door_sprite(t_sprite *sprite)
 	load_sprite(&sprite->frames[12], "./sprites/door/door_13.xpm");
 	load_sprite(&sprite->frames[13], "./sprites/door/door_14.xpm");
 	load_sprite(&sprite->frames[14], "./sprites/door/door_15.xpm");
-	//load_sprite(&sprite->frames[15], "./sprites/door/door_16.xpm");
 	sprite->frames_n = 15;
 	sprite->anim_time = 1;
 	sprite->scaling = 3.0;
@@ -126,37 +125,6 @@ void	place_door(t_door *door, int face_rot, int i_x, int i_y)
 	init_door_sprite(&door->sprite);
 }
 
-
-//va devenir le nouveaum draw_object
-void	draw_door(t_mlx *mlx, t_sprite *sprite, int x, double height)
-{
-	t_obj_draw	d;
-	int			color;
-	t_img		img;
-	int			y;
-	float		offset;
-
-	offset = 0;
-	if (height > WIN_H)
-	{
-		offset = (height - WIN_H);
-		height = WIN_H;
-	}
-	y = (WIN_H - height) / 2;
-	img = sprite->frames[sprite->active];
-	d.index_y = (TEXTURES_SIZE * offset / 2) / (height + offset);
-	d.y = y;
-	d.step = (double)img.height / (height + offset);
-	while (d.y >= 0 && d.y < WIN_H - y && x >= 0 && x < WIN_W && d.index_y < img.height)
-	{
-		color = color_get(img, (int)sprite->i_x, (int)d.index_y);
-		color = color_shift_int(color, BLACK, ((WIN_H - height) / WIN_H) / 2);
-		my_mlx_pixel_put(g_game.game_img, x, d.y, color);
-		d.index_y += d.step;
-		d.y++;
-	}
-}
-
 double	door_get_index(t_door door, t_sprite sprite, double angle)
 {
 	double	min;
@@ -203,25 +171,22 @@ void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos)
     while(i < size)
     {
 		door = &doors[i];
-		door->visible = FALSE;
-        door->dist = sqrt(pow((door->pos.x - base_pos.x), 2) + pow((door->pos.y - base_pos.y), 2));
-        door->rot = obj_rot(door->dist, door->pos, base_pos);
-		if (door->face_rot == 0)
-			side_pos = new_pos(door->pos.x + 50, door->pos.y, 0);
-		else
-			side_pos = new_pos(door->pos.x, door->pos.y + 50, 0);
-		door->dist_side = math_pytha(side_pos.x - base_pos.x, side_pos.y - base_pos.y);
-		door->rot_side = obj_rot(door->dist_side, side_pos, base_pos);
-		// if (angle_is_between(rot, door->rot, door->rot_side))
-		// 	door->visible = TRUE;
         if (door->rot >= (rot - view) && door->rot <= (rot + view))
             door->visible = TRUE;
 		else if ((rot + view) >= 360 && door->rot <= (rot + view - 360))
             door->visible = TRUE;
         else if (door->rot_side >= (rot - view) && door->rot_side <= (rot + view))
-            door->visible = TRUE;              
+            door->visible = TRUE;
 		if (door->visible == TRUE)
 		{
+			door->dist = sqrt(pow((door->pos.x - base_pos.x), 2) + pow((door->pos.y - base_pos.y), 2));
+			door->rot = obj_rot(door->dist, door->pos, base_pos);
+			if (door->face_rot == 0)
+				side_pos = new_pos(door->pos.x + 50.0, door->pos.y, 0.0);
+			else
+				side_pos = new_pos(door->pos.x, door->pos.y + 50.0, 0.0);
+			door->dist_side = math_pytha(side_pos.x - base_pos.x, side_pos.y - base_pos.y);
+			door->rot_side = obj_rot(door->dist_side, side_pos, base_pos);
 			door->dist = get_draw_distance(base_pos, g_game.player.rot, door->pos, 0); 
 			door->dist_side = get_draw_distance(base_pos, g_game.player.rot, side_pos, 0); 
 		}
