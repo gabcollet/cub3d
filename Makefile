@@ -6,7 +6,7 @@
 #    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/19 15:54:42 by gcollet          ###   ########.fr        #
+#    Updated: 2022/01/20 19:07:43 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ MK_LFT		= make -C $(DIR_LFT)
 
 # Mains
 MAIN		= $(DIR_MAINS)/main.c
-#MAIN		= $(DIR_MAINS)/main_texture.c
+#
 
 # Headers
 _HEADS	=	cub3d.h cub3d_struct.h
@@ -68,8 +68,8 @@ SRCS	= 	game.c map.c map_utils.c interface.c\
 			animation.c time.c\
 			collision.c intersection.c intersection_utils.c\
 			raycast.c\
-			object.c\
-			door.c animation_door.c\
+			object.c init_object.c\
+			door.c door_utils.c animation_door.c\
 			player.c gun.c enemy.c\
 			input.c
 

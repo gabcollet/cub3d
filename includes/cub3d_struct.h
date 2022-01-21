@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/19 20:15:10 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/20 18:51:08 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_game	t_game;
 typedef struct s_map	t_map;
 
 typedef struct s_obj	t_obj;
+typedef struct s_obj_draw	t_obj_draw;
 typedef struct s_wall	t_wall;
 typedef struct s_door	t_door;
 typedef struct s_player	t_plyr;
@@ -173,6 +174,15 @@ struct s_obj
 	int			visible;
 	int			alive;
 	void		(*update)(t_obj *obj);
+};
+
+struct s_obj_draw
+{
+	double		index_x;
+	double		index_y;
+	double		step;
+	int			x;
+	int			y;
 };
 
 struct s_door

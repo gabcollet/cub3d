@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/17 18:30:48 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/20 19:25:44 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	parse_map(char *line, t_map *map_ptr, int fd)
 	longest = 0;
 	i = 0;
 	valid = 0;
-	rows = (char **)ft_calloc(MAP_MAX_SIZE, sizeof(char *)); // to be changed
+	rows = (char **)ft_calloc(MAP_MAX_SIZE, sizeof(char *));
 	if (!rows)
 		return (valid);
 	while (line && *line)

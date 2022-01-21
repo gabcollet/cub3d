@@ -6,22 +6,11 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/20 18:05:07 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/20 19:19:13 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
-#ifndef S_OBJ_DRAW
-# define S_OBJ_DRAW
-typedef struct s_obj_draw
-{
-	double		index_x;
-	double		index_y;
-	double		step;
-	int			x;
-	int			y;
-}				t_obj_draw;
-#endif
 
 void	init_door_sprite(t_sprite *sprite)
 {	
@@ -51,7 +40,7 @@ void	init_door_sprite(t_sprite *sprite)
 
 void	init_doors(t_door *doors)
 {	
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < MAX_DOOR)
@@ -83,16 +72,18 @@ void	doors_update(t_door *doors)
 
 void	interact_door(void)
 {
-	t_pos	act_pos;
-	int		tile_i;
-	int		p_tile_i;
-	int		i;
+	t_pos		act_pos;
+	int			tile_i;
+	int			p_tile_i;
+	int			i;
+	t_plyr		p;
 
-	act_pos = move_pos(g_game.player.pos, g_game.player.rot, TILE_SIZE / 2.0, 0);
-	p_tile_i = ((int)g_game.player.pos.x / (int)TILE_SIZE) + 
-		((int)g_game.player.pos.y / (int)TILE_SIZE * g_game.map.width);
-	tile_i = ((int)act_pos.x / (int)TILE_SIZE) + 
-		((int)act_pos.y / (int)TILE_SIZE * g_game.map.width);
+	p = g_game.player;
+	act_pos = move_pos(p.pos, p.rot, TILE_SIZE / 2.0, 0);
+	p_tile_i = ((int)p.pos.x / (int)TILE_SIZE)
+		+ ((int)p.pos.y / (int)TILE_SIZE * g_game.map.width);
+	tile_i = ((int)act_pos.x / (int)TILE_SIZE)
+		+((int)act_pos.y / (int)TILE_SIZE * g_game.map.width);
 	if (tile_i >= g_game.map.width * g_game.map.height || tile_i == p_tile_i
 		|| tile_i < 0)
 		return ;
@@ -113,7 +104,7 @@ void	place_door(t_door *door, int face_rot, int i_x, int i_y)
 	door->pos.x = i_x * TILE_SIZE;
 	door->pos.y = i_y * TILE_SIZE;
 	if (face_rot == 0)
-		door->pos.y = i_y * TILE_SIZE + (TILE_SIZE / 2 );
+		door->pos.y = i_y * TILE_SIZE + (TILE_SIZE / 2);
 	else if (face_rot == 270)
 		door->pos.x = i_x * TILE_SIZE + (TILE_SIZE / 2);
 	door->face_rot = face_rot;
@@ -123,73 +114,4 @@ void	place_door(t_door *door, int face_rot, int i_x, int i_y)
 	door->dist_side = 0;
 	door->tile_i = i_x + (i_y * g_game.map.width);
 	init_door_sprite(&door->sprite);
-}
-
-double	door_get_index(t_door door, t_sprite sprite, double angle)
-{
-	double	min;
-	double	max;
-	double	i_x;
-	double	scaled_w;
-
-	min = door.rot;
-	max = door.rot_side;
-	if (min < 90 && max > 270)
-	{
-		if (angle < 90)
-			i_x = (int)((sprite.frames[0].width / 4.0) * ((min - angle) / (min + 360.0 - max)));
-		else
-			i_x = (int)((sprite.frames[0].width / 4.0) * ((angle - max) / (min + 360.0 - max)));	
-	}
-	else
-	{
-		if (min > max)
-		{
-			min = door.rot_side;
-			max = door.rot;
-		}
-		if (max < min)
-		{
-			if (angle <= max)
-				angle += 360;
-			max += 360;
-		}
-		i_x = (int)((sprite.frames[0].width / 4.0) * ((angle - min) / (max - min)));
-	}
-	return (i_x);
-}
-
-void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos)
-{
-    int			i;
-	int			view;
-	t_pos		side_pos;
-	t_door		*door;
-
-	i = 0;
-	view = VIEW_ANGLE;
-    while(i < size)
-    {
-		door = &doors[i];
-        if (door->rot >= (rot - view) && door->rot <= (rot + view))
-            door->visible = TRUE;
-		else if ((rot + view) >= 360 && door->rot <= (rot + view - 360))
-            door->visible = TRUE;
-        else if (door->rot_side >= (rot - view) && door->rot_side <= (rot + view))
-            door->visible = TRUE;
-		if (door->visible == TRUE)
-		{
-			door->dist = sqrt(pow((door->pos.x - base_pos.x), 2) + pow((door->pos.y - base_pos.y), 2));
-			door->rot = obj_rot(door->dist, door->pos, base_pos);
-			if (door->face_rot == 0)
-				side_pos = new_pos(door->pos.x + 50.0, door->pos.y, 0.0);
-			else
-				side_pos = new_pos(door->pos.x, door->pos.y + 50.0, 0.0);
-			door->dist_side = math_pytha(side_pos.x - base_pos.x, side_pos.y - base_pos.y);
-			door->rot_side = obj_rot(door->dist_side, side_pos, base_pos);
-			door->dist = get_draw_distance(base_pos, g_game.player.rot, door->pos, 0); 
-			door->dist_side = get_draw_distance(base_pos, g_game.player.rot, side_pos, 0); 
-		}
-		i++;
-    }
 }

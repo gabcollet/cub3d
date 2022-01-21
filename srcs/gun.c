@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gun.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/15 15:07:35 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/20 19:38:13 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,8 @@
 
 void	gun_update(t_obj *gun)
 {
-	static int		shoot;
-	static t_obj	bullet;
-
 	if (gun->sprite.playing)
 		update_animation(&gun->sprite);
-	if (!shoot && gun->sprite.active == 1)
-	{
-
-	}
 }
 
 // need to be reworked so it works with the parse. this is for testing purpose

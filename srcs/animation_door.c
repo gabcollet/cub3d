@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animation_door.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/18 15:39:29 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/20 19:23:04 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	open_door(t_door *door)
 
 void	end_door_animation(t_door *door)
 {
-	t_sprite *sprite;
+	t_sprite	*sprite;
 
 	sprite = &door->sprite;
 	sprite->anim_countdown = 0;
@@ -47,7 +47,6 @@ void	closing_door(t_door *door)
 	t_sprite	*sprite;
 
 	sprite = &door->sprite;
-	
 	if (sprite->active <= 0 && sprite->anim_countdown == 0)
 		end_door_animation(door);
 	else

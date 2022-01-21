@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   interface.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/17 14:49:01 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/20 18:53:03 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#ifndef S_OBJ_DRAW
-# define S_OBJ_DRAW
-typedef struct s_obj_draw
-{
-	double		index_x;
-	double		index_y;
-	double		step;
-	int			x;
-	int			y;
-}				t_obj_draw;
-#endif
 
 void	init_sprite(t_sprite *sprite)
 {

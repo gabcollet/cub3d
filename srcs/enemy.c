@@ -6,11 +6,25 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/20 15:47:32 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/20 19:41:50 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	enemy_ray_hit(t_obj *e, double rot)
+{
+	if (angle_is_between(rot, e->rot - ((e->rot_side - e->rot) / 2.0),
+			e->rot_side))
+		return (1);
+	else if (e->rot < 90 && e->rot_side > 360 && rot < 90)
+	{
+		if (angle_is_between(rot + 360, e->rot_side, e->rot + 360
+				- ((e->rot - e->rot_side) / 2.0)))
+			return (1);
+	}
+	return (0);
+}
 
 double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle)
 {
@@ -18,7 +32,6 @@ double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle)
 	double	max;
 	double	i_x;
 
-	//min = enemy.rot;
 	min = enemy.rot - ((enemy.rot_side - enemy.rot) / 2.0);
 	max = enemy.rot_side;
 	if (min < 0)
@@ -29,7 +42,6 @@ double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle)
 			angle += 360.0;
 		max += 360.0;
 	}
-	//printf("angle: %f min: %f max: %f\n", angle, min, max);
 	i_x = ((sprite.frames[0].width / 4.0) * sprite.x_step)
 		* ((int)(angle - min) / (max - min)
 			/ sprite.x_step) * 1.5;
@@ -72,5 +84,3 @@ void	init_enemy_sprite(t_sprite *sprite)
 	sprite->playing = TRUE;
 	sprite->loop = TRUE;
 }
-
-// void	enemy_visible()

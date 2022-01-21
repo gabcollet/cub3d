@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   background.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 00:35:07 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/18 15:03:03 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/20 18:26:51 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,32 +74,3 @@ void	draw_background(t_img img)
 		}
 	}
 }
-
-/*void	draw_background(t_img img)
-{
-	int		x;
-	int		y;
-	int		color;
-	double	shift_force;
-
-	x = 0;
-	y = 0;
-	while (x + y * img.width < img.width * img.height)
-	{
-		color = g_game.map.ceiling_c;
-		shift_force = (double)(y % (img.height / 2)) / (double)(img.height / 2);
-		if (y >= img.height / 2)
-		{
-			color = g_game.map.floor_c;
-			shift_force = (double)1 - shift_force;
-		}
-		color = color_shift_int(color, BLACK, shift_force);
-		my_mlx_pixel_put(img, x, y, color);
-		if (++x == img.width)
-		{
-			x = 0;
-			y++;
-		}
-	}
-	return (0);
-}*/

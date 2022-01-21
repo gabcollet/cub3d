@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:01:03 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/19 15:58:06 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/20 18:20:03 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	draw_map2d(t_mlx *mlx, t_map map)
 	int	x;
 	int	y;
 
-	x = 0;
+	x = -1;
 	y = 0;
 	while (y < map.height)
 	{
-		if (x < map.width)
+		if (++x < map.width)
 		{
 			if (map.tiles[y * map.width + x] == M_WALL)
 				draw_tile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, WALL);
@@ -31,11 +31,10 @@ void	draw_map2d(t_mlx *mlx, t_map map)
 				draw_tile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, WALL);
 			else
 				draw_tile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, FLOOR);
-				x++;
 		}
 		else
 		{
-			x = 0;
+			x = -1;
 			y++;
 		}
 	}
@@ -48,11 +47,11 @@ void	draw_tile(t_mlx *mlx, int x, int y, int type)
 	int	index_y;
 	int	color;
 
-	index_x = x;
+	index_x = x - 1;
 	index_y = y;
 	while (index_y < (y + MINI_TILE_S))
 	{
-		if (index_x < (x + MINI_TILE_S))
+		if (++index_x < (x + MINI_TILE_S))
 		{
 			color = color_get(g_game.game_img, index_x, index_y);
 			if (type == WALL)
@@ -62,11 +61,10 @@ void	draw_tile(t_mlx *mlx, int x, int y, int type)
 			else if (type == FLOOR)
 				color = color_shift_int(color, GRAY, 0.5);
 			my_mlx_pixel_put(g_game.game_img, index_x, index_y, color);
-			index_x++;
 		}
 		else
 		{
-			index_x = x;
+			index_x = x - 1;
 			index_y++;
 		}
 	}

@@ -6,45 +6,11 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/20 17:54:38 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/20 19:20:54 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-typedef struct s_obj_draw
-{
-	double		index_x;
-	double		index_y;
-	double		step;
-	int			x;
-	int			y;
-}				t_obj_draw;
-
-t_obj	new_obj(void)
-{
-	t_obj	obj;
-
-	obj.alive = FALSE;
-	obj.pos = new_pos(0,0,0);
-	obj.rot = 0;
-	obj.dist = 0;
-	obj.type = 0;
-	obj.update = NULL;
-	obj.visible = FALSE;
-	return (obj);
-}
-
-void	init_obj_array(t_obj *obj, int size)
-{
-	if (!obj)
-		return ;
-	while (size-- > 0)
-	{
-		*obj = new_obj();
-		obj++;
-	}
-}
 
 void	draw_object(t_mlx *mlx, t_sprite *sprite, int x, double height)
 {
@@ -52,7 +18,7 @@ void	draw_object(t_mlx *mlx, t_sprite *sprite, int x, double height)
 	int			color;
 	t_img		img;
 	int			y;
-	float		offset;
+	double		offset;
 
 	offset = 0;
 	if (height > WIN_H)
@@ -62,10 +28,9 @@ void	draw_object(t_mlx *mlx, t_sprite *sprite, int x, double height)
 	}
 	y = (WIN_H - height) / 2;
 	img = sprite->frames[sprite->active];
-	d.index_y = (TEXTURES_SIZE * offset / 2) / (height + offset);
-	d.y = y;
-	d.step = (double)img.height / (height + offset);
-	while (d.y >= 0 && d.y < WIN_H - y && x >= 0 && x < WIN_W && d.index_y < img.height)
+	d = init_d(img, offset, height, y);
+	while (d.y >= 0 && d.y < WIN_H - y && x >= 0 && x < WIN_W
+		&& d.index_y < img.height)
 	{
 		color = color_get(img, (int)sprite->i_x, (int)d.index_y);
 		color = color_shift_int(color, BLACK, ((WIN_H - height) / WIN_H) / 2);
@@ -75,52 +40,64 @@ void	draw_object(t_mlx *mlx, t_sprite *sprite, int x, double height)
 	}
 }
 
-double obj_rot(double enemy_dist, t_pos enemy_pos, t_pos pos)
+double	obj_rot(double enemy_dist, t_pos enemy_pos, t_pos pos)
 {
-	double rot;
-	double dist_A;
-	double dist_B;
-	double dist_C;
-	
-	dist_A = enemy_dist;
-	dist_B = sqrt(pow((pos.x - pos.x + 5), 2));
-	dist_C = sqrt(pow((enemy_pos.x - (pos.x + 5)), 2) + pow((enemy_pos.y - pos.y), 2));
-	rot = acosf((pow(dist_A, 2) + pow(dist_B, 2) - pow(dist_C, 2)) / (2 * dist_A * dist_B));
+	double	rot;
+	double	dist_a;
+	double	dist_b;
+	double	dist_c;
+
+	dist_a = enemy_dist;
+	dist_b = sqrt(pow((pos.x - pos.x + 5), 2));
+	dist_c = sqrt(pow((enemy_pos.x - (pos.x + 5)), 2)
+			+ pow((enemy_pos.y - pos.y), 2));
+	rot = acosf((pow(dist_a, 2) + pow(dist_b, 2) - pow(dist_c, 2))
+			/ (2 * dist_a * dist_b));
 	rot = rad_to_deg(rot);
 	if (pos.y < enemy_pos.y)
 		rot = 360.0 - rot;
 	return (rot);
 }
 
-void    obj_all_set_visible(t_obj *objs, int array_size, double rot, t_pos base_pos)
+t_obj	*obj_set_visible(t_obj *obj, double rot)
 {
-    int			id;
-	int			view;
-	t_pos		side_pos;
-	t_obj		*obj;
+	int		view;
+
+	view = VIEW_ANGLE / 2;
+	{
+		if (obj->rot >= (rot - view) && obj->rot <= (rot + view))
+			obj->visible = TRUE;
+		else if ((rot + view) >= 360 && obj->rot <= (rot + view - 360))
+			obj->visible = TRUE;
+		else if (obj->rot_side >= (rot - view) && obj->rot_side <= (rot + view))
+			obj->visible = TRUE;
+	}
+	return (obj);
+}
+
+void	obj_all_set_visible(t_obj *objs, int a_size, double rot, t_pos base_pos)
+{
+	int		id;
+	t_pos	side_pos;
+	t_obj	*obj;
 
 	id = 0;
-	view = VIEW_ANGLE / 2;
-    while(id < array_size && objs[id].alive)
-    {
+	while (id < a_size && objs[id].alive)
+	{
 		obj = &objs[id];
 		obj->visible = FALSE;
-        obj->dist = sqrt(pow((obj->pos.x - base_pos.x), 2) + pow((obj->pos.y - base_pos.y), 2));
-        obj->rot = obj_rot(obj->dist, obj->pos , base_pos);
-		side_pos = move_pos(obj->pos, rotate(obj->rot, 90.0), obj->sprite.frames[0].width / 4.0, 0);
-		obj->dist_side = math_pytha(side_pos.x - base_pos.x, side_pos.y - base_pos.y);
+		obj->dist = sqrt(pow((obj->pos.x - base_pos.x), 2)
+				+ pow((obj->pos.y - base_pos.y), 2));
+		obj->rot = obj_rot(obj->dist, obj->pos, base_pos);
+		side_pos = move_pos(obj->pos, rotate(obj->rot, 90.0),
+				obj->sprite.frames[0].width / 4.0, 0);
+		obj->dist_side = math_pytha(side_pos.x - base_pos.x,
+				side_pos.y - base_pos.y);
 		obj->rot_side = obj_rot(obj->dist_side, side_pos, base_pos);
 		if (obj->dist > 10)
-		{
-			if (obj->rot >= (rot - view) && obj->rot <= (rot + view))
-           	 obj->visible = TRUE;
-			else if ((rot + view) >= 360 && obj->rot <= (rot + view - 360))
-				obj->visible = TRUE;
-			else if (obj->rot_side >= (rot - view) && obj->rot_side <= (rot + view))
-				obj->visible = TRUE;  
-		}    
+			obj = obj_set_visible(obj, rot);
 		if (obj->visible == TRUE)
-			obj->dist = get_draw_distance(base_pos, rot, obj->pos, 0); 
+			obj->dist = get_draw_distance(base_pos, rot, obj->pos, 0);
 		id++;
-    }
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/19 20:15:25 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/20 19:24:22 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@ int	mouse_handler(int x, int y)
 	mlx_mouse_get_pos(get_mlx()->mlx, get_mlx()->win, &x, &y);
 	if (mouse_x != x && mouse_x != INT_MIN)
 		rotate_player(&g_game.player, (mouse_x - x) * MOUSE_TURN);
-	/*if (x >= WIN_W)
-	{
-		x = (x % WIN_W);
-		mlx_mouse_move(get_mlx()->mlx, get_mlx()->win, x, mouse_y);
-		
-	}*/
 	mouse_x = x;
 	mouse_y = y;
 	return (0);
@@ -34,6 +28,7 @@ int	mouse_handler(int x, int y)
 int	key_press(int key)
 {
 	double	modifier;
+
 	modifier = ((double)WIN_H * (double)WIN_W) / 1000000.0;
 	if (key == SPACE_KEY)
 		start_animation(&g_game.ui_elems[UI_GUN].sprite);
@@ -58,7 +53,6 @@ int	key_press(int key)
 
 int	key_release(int key)
 {
-	//printf("key %d\n", key);
 	if (key == W_KEY)
 		g_game.player.vel_u = 0;
 	if (key == A_KEY)

@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/20 17:59:14 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/20 19:03:52 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ int		quit_handler(void);
 
 /* Object */
 void	init_obj_array(t_obj *obj_array, int size);
+t_obj_draw	init_d(t_img img, double offset, double height, int y);
 t_obj	new_obj(void);
 void    obj_all_set_visible(t_obj *objs, int array_size, double rot, t_pos base_pos);
 double	obj_rot(double enemy_dist, t_pos enemy_pos, t_pos pos);
@@ -223,6 +224,7 @@ void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos);
 void	doors_update(t_door *doors);
 double	door_get_index(t_door door, t_sprite sprite, double angle);
 void	interact_door(void);
+double	door_get_height(t_door *door, double r);
 
 /* Player */
 t_plyr	get_plyr(void);
@@ -235,6 +237,7 @@ void	init_enemy(t_obj *enemy, t_pos pos);
 void	init_enemy_sprite(t_sprite *sprite);
 void	enemies_update(t_obj *enemies);
 double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle);
+int		enemy_ray_hit(t_obj *e, double rot);
 
 /* Minimap */
 void	draw_map2d(t_mlx *mlx, t_map map);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_wall.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/17 18:38:49 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/20 19:23:39 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ int	parse_map_is_enclosed(t_map map)
 {
 	int	i;
 
-	/*i = 0;
+	i = 0;
 	while (i < map.height)
 	{
 		if (!parse_row_is_enclosed(map, i++))
 			return (0);
-	}*/
+	}
 	i = 0;
 	while (i < map.width)
 	{
