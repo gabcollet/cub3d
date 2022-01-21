@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/20 19:35:04 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/21 13:57:37 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	raycast_draw_enemies(t_obj *enemy, double height, double rot, int win_x)
 	}
 	if (sprite->drawing == TRUE)
 	{
+		if (enemy->dist <= height)
+			printf("index %f   dist %f   height %f\n", sprite->i_x, enemy->dist, height);
 		if (enemy->dist >= height && sprite->i_x < sprite->frames[0].width
 			/ 4)
 			draw_object(get_mlx(), &enemy->sprite, WIN_W - win_x, enemy->dist);

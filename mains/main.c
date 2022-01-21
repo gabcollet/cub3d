@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/19 20:16:47 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/21 10:55:07 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int game(void *ptr)
 	if (frame_timer <= 0)
 	{
 		//frame_timer = MLX_CD / FPS;
-		mouse_handler(0, 0);
+		//mouse_handler(0, 0);
 		//mlx_clear_img(mlx->img);
 		enemies_update(g_game.enemies);
 		doors_update(g_game.doors);

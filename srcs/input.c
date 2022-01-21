@@ -6,13 +6,13 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/20 19:24:22 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/21 10:44:01 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d.h"
 
-int	mouse_handler(int x, int y)
+/* int	mouse_handler(int x, int y)
 {
 	static int	mouse_x = INT_MIN;
 	static int	mouse_y = INT_MIN;
@@ -23,7 +23,7 @@ int	mouse_handler(int x, int y)
 	mouse_x = x;
 	mouse_y = y;
 	return (0);
-}
+} */
 
 int	key_press(int key)
 {

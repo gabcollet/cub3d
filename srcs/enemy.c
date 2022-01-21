@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/20 19:41:50 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/21 13:55:34 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,20 @@
 
 int	enemy_ray_hit(t_obj *e, double rot)
 {
-	if (angle_is_between(rot, e->rot - ((e->rot_side - e->rot) / 2.0),
-			e->rot_side))
+	double	er;
+	double	ers;
+
+	er = e->rot;
+	ers = e->rot_side;
+	if (angle_is_between(rot, er - ((ers - er) / 2.0), ers))
 		return (1);
-	else if (e->rot < 90 && e->rot_side > 360 && rot < 90)
+	else if (ers < 90 && er > 270 && rot > 270)
 	{
-		if (angle_is_between(rot + 360, e->rot_side, e->rot + 360
-				- ((e->rot - e->rot_side) / 2.0)))
+		if (angle_is_between(rot, er, ers + 360))
+		{
+			printf("success\n");
 			return (1);
+		}
 	}
 	return (0);
 }
@@ -32,8 +38,10 @@ double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle)
 	double	max;
 	double	i_x;
 
+	//printf("rot: %f rot_side: %f\n", enemy.rot, enemy.rot_side);
 	min = enemy.rot - ((enemy.rot_side - enemy.rot) / 2.0);
 	max = enemy.rot_side;
+	//printf("min: %f max: %f angle: %f\n", min, max, angle);
 	if (min < 0)
 		min += 360;
 	if (max < min)
@@ -44,7 +52,7 @@ double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle)
 	}
 	i_x = ((sprite.frames[0].width / 4.0) * sprite.x_step)
 		* ((int)(angle - min) / (max - min)
-			/ sprite.x_step) * 1.5;
+			/ sprite.x_step);
 	return (i_x);
 }
 

@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/20 19:22:12 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/21 11:12:12 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,18 @@ double	door_get_height(t_door *door, double r)
 	drs = door->rot_side;
 	dd = door->dist;
 	dh = -1;
-	if ((dr < 90 && drs > 270) && (r <= dr || r >= drs))
+	if ((dr <= 90 && drs >= 270) && (r <= dr || r >= drs))
 	{
-		if (r < 90)
+		if (r <= 90)
 			dh = dd + (door->dist_side - dd) * ((r - dr) / (drs - (dr + 360)));
 		else
 			dh = dd + (door->dist_side - dd) * ((r - (dr + 360))
 					/ (drs - (dr + 360)));
 	}
-	else if (!(dr < 90 && drs > 270) && ((dr <= drs
+	else if (!(dr <= 90 && drs >= 270) && ((dr <= drs
 				&& angle_is_between(r, dr, drs))
 			|| ((dr >= drs && angle_is_between(r, drs, dr)))))
-	{
 		dh = dd + ((door->dist_side - dd) * ((r - dr) / (drs - (dr))));
-	}
 	return (dh);
 }
 
