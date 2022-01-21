@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/21 13:55:34 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/21 16:49:19 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,37 @@ int	enemy_ray_hit(t_obj *e, double rot)
 		return (1);
 	else if (ers < 90 && er > 270 && rot > 270)
 	{
-		if (angle_is_between(rot, er, ers + 360))
+		if (angle_is_between(rot, er, ers))
 		{
-			printf("success\n");
 			return (1);
 		}
 	}
 	return (0);
+}
+
+void	enemy_adjust_index(t_obj *enemy, double *min, double *max, double *angle)
+{
+	if (*min > 270 && *max < 90 && (*angle < *min || *angle > *max))
+	{
+		if (*angle <= *max)
+			*angle = *angle + 360;
+		*max = *max + 360;
+	}
+	else
+	{
+		if (*min > *max)
+		{
+			*min = enemy->rot_side;
+			*max = enemy->rot;
+		}
+		if (*max < *min)
+		{
+			if (*angle <= *max)
+				*angle = *angle + 360;
+			*max = *max + 360;
+		}
+	}
+	
 }
 
 double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle)
@@ -37,22 +61,27 @@ double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle)
 	double	min;
 	double	max;
 	double	i_x;
-
-	//printf("rot: %f rot_side: %f\n", enemy.rot, enemy.rot_side);
-	min = enemy.rot - ((enemy.rot_side - enemy.rot) / 2.0);
-	max = enemy.rot_side;
-	//printf("min: %f max: %f angle: %f\n", min, max, angle);
+			
 	if (min < 0)
 		min += 360;
-	if (max < min)
+	min = enemy.rot;
+ 	max = enemy.rot_side;
+	if (min < 90 && max > 270)
 	{
-		if (angle <= max)
-			angle += 360.0;
-		max += 360.0;
+		max += 360;
+		if (angle < 90)
+			i_x = (int)((sprite.frames[0].width / 4.0)
+					* ((angle + 360 - min) / (max - min))) * 1;
+		else
+			i_x = (int)((sprite.frames[0].width / 4.0)
+					* ((angle - min) / (max - min))) * 1;
 	}
-	i_x = ((sprite.frames[0].width / 4.0) * sprite.x_step)
-		* ((int)(angle - min) / (max - min)
-			/ sprite.x_step);
+	else
+	{
+		enemy_adjust_index(&enemy, &min, &max, &angle);
+		i_x = (int)((sprite.frames[0].width / 4.0)
+				* ((angle - min) / (max - min))) * 1;
+	}
 	return (i_x);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/21 10:55:07 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/21 17:36:03 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ int game(void *ptr)
 	if (frame_timer <= 0)
 	{
 		//frame_timer = MLX_CD / FPS;
-		//mouse_handler(0, 0);
+		mouse_handler(0, 0);
 		//mlx_clear_img(mlx->img);
+		move_player();
 		enemies_update(g_game.enemies);
 		doors_update(g_game.doors);
 		gun_update(&g_game.ui_elems[UI_GUN]);
-		move_player();
 		draw_background(g_game.map.back);
 		raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW_ANGLE);
 		draw_ui(mlx);
@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 	if (!parse_cub(argv[1]))
 		return (0);
 	mlx = get_mlx();
-	g_game.map.back = create_background(WIN_W, WIN_H);
+	g_game.map.back = create_background(WIN_W, WIN_H * 4);
 	mlx_hook(mlx->win, 2, 1L<<0, key_press, mlx);
 	mlx_hook(mlx->win, 3, 1L<<1, key_release, mlx);
 	mlx_hook(mlx->win, 17, 0, quit_handler, NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/21 13:57:37 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/21 16:35:10 by fousse           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,23 @@ int	draw3d(float height, t_coll coll, int x)
 
 int	raycast_draw_enemies(t_obj *enemy, double height, double rot, int win_x)
 {
-	t_sprite	*sprite;
+	t_sprite	*s;
 
-	sprite = &enemy->sprite;
-	if (sprite->drawing == FALSE && enemy->visible == TRUE)
+	s = &enemy->sprite;
+	if (s->drawing == FALSE && enemy->visible == TRUE)
 	{
 		if (enemy_ray_hit(enemy, rot))
 		{
-			sprite->x_step = sprite->frames[0].height / enemy->dist;
-			sprite->i_x = enemy_get_index(*enemy, *sprite, rot);
-			sprite->drawing = TRUE;
+			s->x_step = s->frames[0].height / enemy->dist;
+			s->i_x = enemy_get_index(*enemy, *s, rot);
+			s->drawing = TRUE;
 		}
 	}
-	if (sprite->drawing == TRUE)
-	{
-		if (enemy->dist <= height)
-			printf("index %f   dist %f   height %f\n", sprite->i_x, enemy->dist, height);
-		if (enemy->dist >= height && sprite->i_x < sprite->frames[0].width
-			/ 4)
-			draw_object(get_mlx(), &enemy->sprite, WIN_W - win_x, enemy->dist);
-		sprite->i_x += sprite->x_step;
+	if (s->drawing == TRUE)
+	{	
+		s->i_x = enemy_get_index(*enemy, *s, rot);
+		if (enemy->dist >= height && s->i_x < s->frames[0].width / 4 && s->i_x >= 0)
+			draw_object(get_mlx(), s, WIN_W - win_x, enemy->dist);
 	}
 	return (1);
 }
