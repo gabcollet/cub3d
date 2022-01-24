@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   background.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 00:35:07 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/21 17:36:06 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/24 11:32:33 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ t_img	create_background(double width, double height)
 	my_mlx_new_image(get_mlx()->mlx, &img, width, height);
 	while (x + y * width < width * height)
 	{
-		
 		arrange_color_force(&color, height, y);
 		my_mlx_background(img, x, y, color);
 		if (++x == width)
@@ -86,27 +85,4 @@ void	draw_background(t_img img)
 			back_y++;
 		}
 	}
-	// t_img	*win_img;
-	// int		x;
-	// int		y;
-	// int		back_y;
-	// int		color;
-
-	// x = 0;
-	// y = 0;
-	// back_y = (img.height / 2); //+ (WIN_H / 2) - g_game.player.pos.z;
-	// back_y = 0;
-	// win_img = &g_game.game_img;
-	// while (x + back_y * (img.width / 4) < (img.width / 4) * img.height)
-	// {
-	// 	color = color_get(img, x, back_y);
-	// 	printf("color %d\n", color);
-	// 	my_mlx_pixel_put(*win_img, x, y, color);
-	// 	if (++x == img.width / 4)
-	// 	{
-	// 		x = 0;
-	// 		y++;
-	// 		back_y++;
-	// 	}
-	// }
 }

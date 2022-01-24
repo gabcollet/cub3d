@@ -6,7 +6,7 @@
 #    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/20 19:07:43 by gcollet          ###   ########.fr        #
+#    Updated: 2022/01/24 11:49:38 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,7 +70,7 @@ SRCS	= 	game.c map.c map_utils.c interface.c\
 			raycast.c\
 			object.c init_object.c\
 			door.c door_utils.c animation_door.c\
-			player.c gun.c enemy.c\
+			player.c gun.c enemy.c init_enemy.c\
 			input.c
 
 _OBJS	= $(SRCS:.c=.o)

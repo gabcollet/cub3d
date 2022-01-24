@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/20 19:25:44 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/24 12:40:26 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@ int	parse_valid_map(t_map map)
 	{
 		if (!parse_map_pos(map, x, y, &player_found))
 			return (0);
-		if (++x == map.width)
+		if (x == map.width)
 		{
 			x = 0;
 			y++;
 		}
+		x++;
 	}
 	if (player_found == 0)
 		return (parse_error(ERR_PLAYER));

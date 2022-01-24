@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/21 17:27:58 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/24 12:49:46 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,37 +36,37 @@
 # define MAP_PATH	"./maps/complex.cub"
 
 /* Key for linux */
-# define ESC 			65307
-# define SPACE_KEY 		32
-# define A_KEY			97
-# define D_KEY			100
-# define E_KEY			101
-# define M_KEY			109
-# define R_KEY	 		114
-# define S_KEY			115
-# define W_KEY			119
-# define SHIFT_KEY		65505
-# define RIGHT_KEY		65363
-# define LEFT_KEY		65361  
-# define DOWN_KEY		65362 
-# define UP_KEY			65364 
+// # define ESC 			65307
+// # define SPACE_KEY 		32
+// # define A_KEY			97
+// # define D_KEY			100
+// # define E_KEY			101
+// # define M_KEY			109
+// # define R_KEY	 		114
+// # define S_KEY			115
+// # define W_KEY			119
+// # define SHIFT_KEY		65505
+// # define RIGHT_KEY		65363
+// # define LEFT_KEY		65361  
+// # define DOWN_KEY		65362 
+// # define UP_KEY			65364 
 
 /* Key for mac */
-// # define ESC 			53
-// # define SPACE_KEY 		49
-// # define A_KEY			0
-// # define D_KEY			2
-// # define E_KEY			14
-// # define M_KEY			46
-// # define R_KEY	 		15
-// # define S_KEY			1
-// # define W_KEY			13
-// # define SHIFT_KEY		257
-// # define RIGHT_KEY		124
-// # define LEFT_KEY		123
+# define ESC 			53
+# define SPACE_KEY 		49
+# define A_KEY			0
+# define D_KEY			2
+# define E_KEY			14
+# define M_KEY			46
+# define R_KEY	 		15
+# define S_KEY			1
+# define W_KEY			13
+# define SHIFT_KEY		257
+# define RIGHT_KEY		124
+# define LEFT_KEY		123
 
 /* Game parameter */
-# define MAP_MAX_SIZE	200000
+# define MAP_MAX_SIZE	1000
 # define SPEED			8
 # define TURN_SPEED		8
 # define JUMP_FORCE		50
@@ -182,6 +182,7 @@ void	mlx_clear_img(t_img img);
 void	drawMap3D(t_mlx *mlx, t_map map);
 void	draw_background(t_img img);
 void	draw_object(t_mlx *mlx, t_sprite *sprite, int x, double height);
+void	draw_sprites(double height, double rot, int win_x);
 void	reset_drawings(void);
 
 /* Animations */
@@ -259,6 +260,8 @@ int		change_player_pos(t_plyr *player, double vel, int dir);
 /* Raycasting */
 int		raycast_draw(double rot, double dist, int color, int side);
 int		raycast_draw_all(t_pos pos, double rot, double view);
+int		raycast_draw_enemies(t_obj *enemy, double height, double rot, int win_x);
+int		raycast_draw_doors(t_door *door, double height, double rot, int win_x);
 
 /* Collision and intersection */
 int		check_collision(int x, int y, int size, int map);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 15:53:43 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/11 00:34:43 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/24 12:52:12 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	fill_map(char **rows, t_map *map_ptr, int width, int height)
 			map_ptr->tiles[i++] = M_EMPTY;
 		rows++;
 	}
+	
 	map_ptr->tiles[i] = '\0';
 	map_ptr->width = width;
 	map_ptr->height = height;

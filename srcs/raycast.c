@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/21 16:35:10 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/24 12:01:19 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int	raycast_draw_enemies(t_obj *enemy, double height, double rot, int win_x)
 	if (s->drawing == TRUE)
 	{	
 		s->i_x = enemy_get_index(*enemy, *s, rot);
-		if (enemy->dist >= height && s->i_x < s->frames[0].width / 4 && s->i_x >= 0)
+		if (enemy->dist >= height && s->i_x < s->frames[0].width
+			/ 4 && s->i_x >= 0)
 			draw_object(get_mlx(), s, WIN_W - win_x, enemy->dist);
 	}
 	return (1);
@@ -76,52 +77,6 @@ int	raycast_draw_doors(t_door *door, double height, double rot, int win_x)
 	if (door_height >= height && sprite->i_x < sprite->frames[0].width / 4)
 		draw_object(get_mlx(), &door->sprite, win_x, door_height);
 	return (1);
-}
-
-void	draw_sprites(double height, double rot, int win_x)
-{
-	int		i;
-	double	i_dist;
-	int		draw;
-	int		id;
-	double	smallest;
-
-	i = 0;
-	smallest = 0;
-	while (i < (g_game.enemy_count + g_game.door_count))
-	{
-		id = 0;
-		i_dist = 20000000.0;
-		while (id < g_game.enemy_count)
-		{
-			if (g_game.enemies[id].dist < i_dist
-				&& g_game.enemies[id].dist > smallest)
-			{
-				i_dist = g_game.enemies[id].dist;
-				draw = id;
-			}
-			id++;
-		}
-		id = 0;
-		while (id < g_game.door_count)
-		{
-			if (g_game.doors[id].dist < i_dist
-				&& g_game.doors[id].dist > smallest)
-			{
-				i_dist = g_game.doors[id].dist;
-				draw = id;
-			}
-			id++;
-		}
-		smallest = i_dist;
-		if (draw < g_game.enemy_count
-			&& (double)g_game.enemies[draw].dist == i_dist)
-			raycast_draw_enemies(&g_game.enemies[draw], height, rot, win_x);
-		else if (draw < g_game.door_count
-			&& (double)g_game.doors[draw].dist == i_dist)
-			raycast_draw_doors(&g_game.doors[draw], height, rot, WIN_W - win_x);
-		i++;
-	}
 }
 
 /*

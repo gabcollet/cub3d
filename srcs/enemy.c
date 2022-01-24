@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/21 16:49:19 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/24 12:08:17 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	enemy_ray_hit(t_obj *e, double rot)
 	return (0);
 }
 
-void	enemy_adjust_index(t_obj *enemy, double *min, double *max, double *angle)
+void	enemy_adjust_index(t_obj *e, double *min, double *max, double *angle)
 {
 	if (*min > 270 && *max < 90 && (*angle < *min || *angle > *max))
 	{
@@ -43,8 +43,8 @@ void	enemy_adjust_index(t_obj *enemy, double *min, double *max, double *angle)
 	{
 		if (*min > *max)
 		{
-			*min = enemy->rot_side;
-			*max = enemy->rot;
+			*min = e->rot_side;
+			*max = e->rot;
 		}
 		if (*max < *min)
 		{
@@ -53,7 +53,6 @@ void	enemy_adjust_index(t_obj *enemy, double *min, double *max, double *angle)
 			*max = *max + 360;
 		}
 	}
-	
 }
 
 double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle)
@@ -61,26 +60,24 @@ double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle)
 	double	min;
 	double	max;
 	double	i_x;
-			
-	if (min < 0)
-		min += 360;
+
 	min = enemy.rot;
- 	max = enemy.rot_side;
+	max = enemy.rot_side;
 	if (min < 90 && max > 270)
 	{
 		max += 360;
 		if (angle < 90)
 			i_x = (int)((sprite.frames[0].width / 4.0)
-					* ((angle + 360 - min) / (max - min))) * 1;
+					* ((angle + 360 - min) / (max - min)));
 		else
 			i_x = (int)((sprite.frames[0].width / 4.0)
-					* ((angle - min) / (max - min))) * 1;
+					* ((angle - min) / (max - min)));
 	}
 	else
 	{
 		enemy_adjust_index(&enemy, &min, &max, &angle);
 		i_x = (int)((sprite.frames[0].width / 4.0)
-				* ((angle - min) / (max - min))) * 1;
+				* ((angle - min) / (max - min)));
 	}
 	return (i_x);
 }
@@ -96,28 +93,4 @@ void	enemies_update(t_obj *enemies)
 			update_animation(&enemies[id].sprite);
 		id++;
 	}
-}
-
-void	init_enemy(t_obj *enemy, t_pos pos)
-{	
-	*enemy = new_obj();
-	init_enemy_sprite(&enemy->sprite);
-	enemy->pos = pos;
-	enemy->type = ENEMY;
-	enemy->alive = TRUE;
-	enemy->sprite.playing = TRUE;
-}
-
-void	init_enemy_sprite(t_sprite *sprite)
-{	
-	init_sprite(sprite);
-	load_sprite(&sprite->frames[0], "./sprites/enemy/enemy_01.xpm");
-	load_sprite(&sprite->frames[1], "./sprites/enemy/enemy_02.xpm");
-	load_sprite(&sprite->frames[2], "./sprites/enemy/enemy_03.xpm");
-	load_sprite(&sprite->frames[3], "./sprites/enemy/enemy_04.xpm");
-	sprite->frames_n = 4;
-	sprite->anim_time = ANIM_TIME / 3;
-	sprite->scaling = 6.0;
-	sprite->playing = TRUE;
-	sprite->loop = TRUE;
 }
