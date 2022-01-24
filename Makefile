@@ -6,7 +6,7 @@
 #    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/24 11:49:38 by gcollet          ###   ########.fr        #
+#    Updated: 2022/01/24 15:44:20 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,7 +61,7 @@ SRCS	= 	game.c map.c map_utils.c interface.c\
 			parse_map_id.c parse_cub_id.c\
 			position.c rotation.c size.c\
 			vector3d.c math_utils.c math_angles.c\
-			image.c mlx.c textures.c\
+			image.c mlx.c textures.c sprite.c\
 			color.c color_trgb.c color_utils.c\
 			draw.c minimap.c\
 			background.c\

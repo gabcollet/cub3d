@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fousse <fousse@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/11 00:29:32 by fousse           ###   ########.fr       */
+/*   Updated: 2022/01/24 17:55:22 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ int	parse_line(char *line, int fd)
 	if (*line && g_game.map.tiles != NULL)
 		return (parse_error(ERR_MAP_LAST));
 	else if (ft_isalpha(line[0]))
+	{
 		valid = parse_identifier(line);
+		line = ft_free(line);
+	}		
 	else if (*line == ' ' || ft_isdigit(*line))
 	{
 		valid = parse_map(line, &g_game.map, fd);
-		valid = parse_valid_map(g_game.map);
+		valid = parse_valid_map(&g_game.map);
 	}
 	else if (!*line)
 		return (1);

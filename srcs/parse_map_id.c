@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 13:06:20 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/24 18:01:55 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,7 @@ int	parse_door(t_map map, int x, int y)
 int	parse_floor(t_map map, int x, int y, int compare)
 {
 	char	*tiles;
-	
 	tiles = map.tiles;
-	printf("%c compare: %d\n", tiles[26], x - 1 + y * map.width);
 	if (x != 0 && tiles[x - 1 + y * map.width] == compare)
 		return (0);
 	if (x < map.width - 1 && tiles[x + 1 + y * map.width] == compare)
@@ -89,15 +87,12 @@ int	parse_floor(t_map map, int x, int y, int compare)
 // Check if the code (WALL, FLOOR, etc.) at (x, y) location is valid.
 int	parse_map_pos(t_map map, int x, int y, int *player_found)
 {
-	static int i = 0;
-	printf("%d map.tiles: %c\n",i, map.tiles[x + y * map.width]);
-	i ++;
 	if (map.tiles[x + y * map.width] == M_WALL)
 	{
 		if (parse_wall(map, x, y))
 			map.tiles[x + y * map.width] = M_EMPTY;
 	}
-	else if (map.tiles[x + y * map.width] == M_DOOR)
+	if (map.tiles[x + y * map.width] == M_DOOR)
 	{
 		if (!parse_door(map, x, y))
 			return (0);

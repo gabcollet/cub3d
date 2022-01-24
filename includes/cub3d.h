@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 12:49:46 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/24 17:49:51 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@
 # define SHIFT_KEY		257
 # define RIGHT_KEY		124
 # define LEFT_KEY		123
+# define UP_KEY			126
+# define DOWN_KEY		125
 
 /* Game parameter */
 # define MAP_MAX_SIZE	1000
@@ -162,7 +164,7 @@ void	gun_update(t_obj *gun);
 /* Parsing */
 int		parse_map_is_enclosed(t_map map);
 int		parse_valid_map_line(char *line, int *len);
-int		parse_valid_map(t_map map);
+int		parse_valid_map(t_map *map);
 int		parse_valid_map_c(char c);
 int		parse_map(char *line, t_map *map_ptr, int fd);
 int		parse_cub(char *path);

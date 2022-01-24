@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/24 11:49:36 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/24 12:12:10 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/24 17:23:46 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,43 +34,46 @@ void	reset_drawings(void)
 	}
 }
 
+void	find_smallest(double *i_dist, int *draw, double smallest)
+{
+	int				id;
 
+	id = 0;
+	while (id < g_game.enemy_count)
+	{
+		if (g_game.enemies[id].dist < *i_dist
+			&& g_game.enemies[id].dist > smallest)
+		{
+			*i_dist = g_game.enemies[id].dist;
+			*draw = id;
+		}
+		id++;
+	}
+	id = 0;
+	while (id < g_game.door_count)
+	{
+		if (g_game.doors[id].dist < *i_dist
+			&& g_game.doors[id].dist > smallest)
+		{
+			*i_dist = g_game.doors[id].dist;
+			*draw = id;
+		}
+		id++;
+	}
+}
 
 void	draw_sprites(double height, double rot, int win_x)
 {
 	int		i;
 	double	i_dist;
 	int		draw;
-	int		id;
 	double	smallest;
 
 	i = 0;
-	smallest = 0;
 	while (i < (g_game.enemy_count + g_game.door_count))
 	{
-		id = 0;
 		i_dist = 20000000.0;
-		while (id < g_game.enemy_count)
-		{
-			if (g_game.enemies[id].dist < i_dist
-				&& g_game.enemies[id].dist > smallest)
-			{
-				i_dist = g_game.enemies[id].dist;
-				draw = id;
-			}
-			id++;
-		}
-		id = 0;
-		while (id < g_game.door_count)
-		{
-			if (g_game.doors[id].dist < i_dist
-				&& g_game.doors[id].dist > smallest)
-			{
-				i_dist = g_game.doors[id].dist;
-				draw = id;
-			}
-			id++;
-		}
+		find_smallest(&i_dist, &draw, smallest);
 		smallest = i_dist;
 		if (draw < g_game.enemy_count
 			&& (double)g_game.enemies[draw].dist == i_dist)

@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/20 18:51:08 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/24 17:54:01 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define CUB3D_STRUCT_H
 
 # define UI_ELEMS	2
-# define MAX_ENEMY	30
-# define MAX_DOOR	20
+# define MAX_ENEMY	300
+# define MAX_DOOR	200
 
 /* Typedefs */
 typedef struct s_mlx	t_mlx;

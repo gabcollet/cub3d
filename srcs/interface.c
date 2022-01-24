@@ -6,34 +6,11 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/20 18:53:03 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/24 17:59:53 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void	init_sprite(t_sprite *sprite)
-{
-	sprite->active = 0;
-	sprite->anim_countdown = 0;
-	sprite->anim_time = 0;
-	sprite->frames_n = 0;
-	sprite->playing = FALSE;
-	sprite->scaling = 1;
-	sprite->loop = FALSE;
-	sprite->drawing = FALSE;
-}
-
-void	load_sprite(t_img *img, char *path)
-{
-	t_mlx	*mlx;
-
-	mlx = get_mlx();
-	img->img = mlx_xpm_file_to_image(mlx->mlx, path,
-			&img->width, &img->height);
-	img->addr = mlx_get_data_addr(img->img, &img->bpp,
-			&img->width, &img->endian);
-}
 
 // need to be reworked so it works with the parse. this is for testing purpose
 void	init_interface(t_obj *objs)
@@ -58,18 +35,10 @@ void	draw_ui(t_mlx *mlx)
 	draw_ui_element(mlx, &obj[UI_GUN]);
 }
 
-void	draw_ui_element(t_mlx *mlx, t_obj *obj)
+void	put_ui_pixel(t_obj_draw	d, t_img img, t_obj *obj)
 {
-	t_obj_draw	d;
-	int			color;
-	t_img		img;
+	int	color;
 
-	img = obj->sprite.frames[obj->sprite.active];
-	d.step = 1.0 / obj->sprite.scaling;
-	d.index_y = 0;
-	d.index_x = 0;
-	d.x = obj->pos.x;
-	d.y = obj->pos.y - (double)img.height * obj->sprite.scaling;
 	while (d.index_y < img.height)
 	{
 		if (d.index_x < img.width / 4)
@@ -87,4 +56,19 @@ void	draw_ui_element(t_mlx *mlx, t_obj *obj)
 			d.index_x = 0;
 		}
 	}
+}
+
+void	draw_ui_element(t_mlx *mlx, t_obj *obj)
+{
+	t_obj_draw	d;
+	int			color;
+	t_img		img;
+
+	img = obj->sprite.frames[obj->sprite.active];
+	d.step = 1.0 / obj->sprite.scaling;
+	d.index_y = 0;
+	d.index_x = 0;
+	d.x = obj->pos.x;
+	d.y = obj->pos.y - (double)img.height * obj->sprite.scaling;
+	put_ui_pixel(d, img, obj);
 }

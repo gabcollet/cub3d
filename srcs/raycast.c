@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/24 12:01:19 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/24 17:43:28 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	raycast_draw_enemies(t_obj *enemy, double height, double rot, int win_x)
 	{
 		if (enemy_ray_hit(enemy, rot))
 		{
-			s->x_step = s->frames[0].height / enemy->dist;
+			s->x_step = s->frames[0].height / enemy->dist * 2;
 			s->i_x = enemy_get_index(*enemy, *s, rot);
 			s->drawing = TRUE;
 		}
