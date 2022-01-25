@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/25 16:53:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/25 18:08:12 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	raycast_draw_enemies(t_obj *enemy, double height, double rot, int win_x)
 		s->i_x = enemy_get_index(*enemy, *s, rot);
 		if (enemy->dist >= height && s->i_x < s->frames[0].width
 			/ 4 && s->i_x >= 0)
-			draw_object(get_mlx(), s, WIN_W - win_x, enemy->dist);
+			draw_object(s, WIN_W - win_x, enemy->dist);
 	}
 	return (1);
 }
@@ -75,7 +75,7 @@ int	raycast_draw_doors(t_door *door, double height, double rot, int win_x)
 	door_height = door_get_height(door, rot);
 	sprite->i_x = door_get_index(*door, *sprite, rot);
 	if (door_height >= height && sprite->i_x < sprite->frames[0].width / 4)
-		draw_object(get_mlx(), &door->sprite, win_x, door_height);
+		draw_object(&door->sprite, win_x, door_height);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/25 16:57:32 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:13:41 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ int	game(void *ptr)
 		gun_update(&g_game.ui_elems[UI_GUN]);
 		draw_background(g_game.map.back);
 		raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW_ANGLE);
-		draw_ui(mlx);
+		draw_ui();
 		if (g_game.toggle_map == 1)
-			draw_map2d(mlx, g_game.map);
+			draw_map2d(g_game.map);
 		mlx_put_image_to_window(mlx->mlx, mlx->win, g_game.game_img.img, 0, 0);
 		frame_timer = 1.0 / FPS;
 	}

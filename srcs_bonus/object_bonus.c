@@ -6,13 +6,13 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/25 16:53:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/25 18:08:12 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	draw_object(t_mlx *mlx, t_sprite *sprite, int x, double height)
+void	draw_object(t_sprite *sprite, int x, double height)
 {
 	t_obj_draw	d;
 	int			color;

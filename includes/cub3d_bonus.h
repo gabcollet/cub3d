@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/25 16:53:59 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:33:12 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,6 @@ t_game	g_game;
 
 /* Generic structure creator */
 t_pos	new_pos(double x, double y, double z);
-t_size	new_size(double x, double y, double z);
-t_vect	new_vect(double x, double y, double z);
 t_coll	new_collider(t_pos pos, int type, int dir);
 
 /* MLX */
@@ -154,8 +152,8 @@ int		get_map_index_x(int win_x);
 void	init_interface(t_obj *objs);
 void	init_sprite(t_sprite *sprite);
 void	load_sprite(t_img *img, char *path);
-void	draw_ui(t_mlx *mlx);
-void	draw_ui_element(t_mlx *mlx, t_obj *obj);
+void	draw_ui(void);
+void	draw_ui_element(t_obj *obj);
 
 /* Weapons */
 void	init_handgun(t_sprite *sprite);
@@ -183,7 +181,7 @@ void	my_mlx_pixel_put(t_img img, int x, int y, int color);
 void	mlx_clear_img(t_img img);
 void	drawMap3D(t_mlx *mlx, t_map map);
 void	draw_background(t_img img);
-void	draw_object(t_mlx *mlx, t_sprite *sprite, int x, double height);
+void	draw_object(t_sprite *sprite, int x, double height);
 void	draw_sprites(double height, double rot, int win_x);
 void	reset_drawings(void);
 
@@ -238,7 +236,7 @@ int		check_door(int tile_pos);
 t_plyr	get_plyr(void);
 void	player_set_pos(int x, int y, int z);
 int		player_get_facing(t_plyr player);
-int		player_apply_gravity(t_plyr *player);
+void		player_apply_gravity(t_plyr *player);
 
 /* Enemy */
 void	init_enemy(t_obj *enemy, t_pos pos);
@@ -248,8 +246,8 @@ double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle);
 int		enemy_ray_hit(t_obj *e, double rot);
 
 /* Minimap */
-void	draw_map2d(t_mlx *mlx, t_map map);
-void	draw_tile(t_mlx *mlx, int x, int y, int type);
+void	draw_map2d(t_map map);
+void	draw_tile(int x, int y, int type);
 void	draw_player(void);
 
 /* Position and movement */

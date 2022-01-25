@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/25 16:53:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/25 18:23:19 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ double	door_get_height(t_door *door, double r)
 	double	dd;
 	double	dr;
 	double	drs;
-	double	dds;
 	double	dh;
 
 	dr = door->rot;
 	drs = door->rot_side;
 	dd = door->dist;
-	dh = -1;
+	dh = -1.0;
 	if ((dr <= 90 && drs >= 270) && (r <= dr || r >= drs))
 	{
 		if (r <= 90)
@@ -39,6 +38,7 @@ double	door_get_height(t_door *door, double r)
 				&& angle_is_between(r, dr, drs))
 			|| ((dr >= drs && angle_is_between(r, drs, dr)))))
 		dh = dd + ((door->dist_side - dd) * ((r - dr) / (drs - (dr))));
+	
 	return (dh);
 }
 
@@ -91,32 +91,63 @@ void	door_set_visible(t_door *door, double rot, t_pos pos)
 
 	plyr = g_game.player;
 	view = VIEW_ANGLE;
+	door->dist = math_pytha(door->pos.x - pos.x, door->pos.y - pos.y);
+	door->rot = obj_rot(door->dist, door->pos, pos);
+	if (door->face_rot == 0)
+		side_pos = new_pos(door->pos.x + 50.0, door->pos.y, 0.0);
+	else
+		side_pos = new_pos(door->pos.x, door->pos.y + 50.0, 0.0);
+	door->dist_side = math_pytha(side_pos.x - pos.x, side_pos.y - pos.y);
+	door->rot_side = obj_rot(door->dist_side, side_pos, pos);
+	door->dist = get_draw_distance(pos, plyr.rot, door->pos, 0);
 	if (door->rot >= (rot - view) && door->rot <= (rot + view))
 		door->visible = TRUE;
 	else if ((rot + view) >= 360 && door->rot <= (rot + view - 360))
 		door->visible = TRUE;
 	else if (door->rot_side >= (rot - view) && door->rot_side <= (rot + view))
 		door->visible = TRUE;
+	else if ((rot - view) <= 360 && door->rot_side - 360 >= (rot - view))
+		door->visible = TRUE;
 	if (door->visible == TRUE)
 	{
-		door->dist = math_pytha(door->pos.x - pos.x, door->pos.y - pos.y);
-		door->rot = obj_rot(door->dist, door->pos, pos);
-		if (door->face_rot == 0)
-			side_pos = new_pos(door->pos.x + 50.0, door->pos.y, 0.0);
-		else
-			side_pos = new_pos(door->pos.x, door->pos.y + 50.0, 0.0);
-		door->dist_side = math_pytha(side_pos.x - pos.x, side_pos.y - pos.y);
-		door->rot_side = obj_rot(door->dist_side, side_pos, pos);
-		door->dist = get_draw_distance(pos, plyr.rot, door->pos, 0);
 		door->dist_side = get_draw_distance(pos, plyr.rot, side_pos, 0);
+		door->dist = get_draw_distance(pos, plyr.rot, door->pos, 0);
 	}
+
+	// int			view;
+	// t_pos		side_pos;
+	// t_plyr		plyr;
+
+	// plyr = g_game.player;
+	// view = VIEW_ANGLE;
+	// if (door->rot >= (rot - view) && door->rot <= (rot + view))
+	// 	door->visible = TRUE;
+	// else if ((rot + view) >= 360 && door->rot <= (rot + view - 360))
+	// 	door->visible = TRUE;
+	// else if (door->rot_side >= (rot - view) && door->rot_side <= (rot + view))
+	// 	door->visible = TRUE;
+	// else if ((rot - view) <= 360 && door->rot_side - 360 >= (rot - view))
+	// 	door->visible = TRUE;
+	// if (door->visible == TRUE)
+	// {
+	// 	door->dist = math_pytha(door->pos.x - pos.x, door->pos.y - pos.y);
+	// 	door->rot = obj_rot(door->dist, door->pos, pos);
+	// 	if (door->face_rot == 0)
+	// 		side_pos = new_pos(door->pos.x + 50.0, door->pos.y, 0.0);
+	// 	else
+	// 		side_pos = new_pos(door->pos.x, door->pos.y + 50.0, 0.0);
+	// 	door->dist_side = math_pytha(side_pos.x - pos.x, side_pos.y - pos.y);
+	// 	door->rot_side = obj_rot(door->dist_side, side_pos, pos);
+	// 	door->dist = get_draw_distance(pos, plyr.rot, door->pos, 0);
+	// 	door->dist_side = get_draw_distance(pos, plyr.rot, side_pos, 0);
+	// 	printf("visible\n");
+	// }
 }
 
 void	doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos)
 {
 	int			i;
 	int			view;
-	t_pos		side_pos;
 	t_door		*door;
 
 	i = 0;

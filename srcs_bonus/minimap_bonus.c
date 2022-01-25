@@ -6,13 +6,13 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 14:01:03 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/25 16:53:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:11:43 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 
-void	draw_map2d(t_mlx *mlx, t_map map)
+void	draw_map2d(t_map map)
 {
 	int	x;
 	int	y;
@@ -24,13 +24,13 @@ void	draw_map2d(t_mlx *mlx, t_map map)
 		if (++x < map.width)
 		{
 			if (map.tiles[y * map.width + x] == M_WALL)
-				draw_tile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, WALL);
+				draw_tile(x * MINI_TILE_S, y * MINI_TILE_S, WALL);
 			else if (map.tiles[y * map.width + x] == M_DOOR)
-				draw_tile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, DOOR);
+				draw_tile(x * MINI_TILE_S, y * MINI_TILE_S, DOOR);
 			else if (map.tiles[y * map.width + x] == M_EMPTY)
-				draw_tile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, WALL);
+				draw_tile(x * MINI_TILE_S, y * MINI_TILE_S, WALL);
 			else
-				draw_tile(mlx, x * MINI_TILE_S, y * MINI_TILE_S, FLOOR);
+				draw_tile(x * MINI_TILE_S, y * MINI_TILE_S, FLOOR);
 		}
 		else
 		{
@@ -41,7 +41,7 @@ void	draw_map2d(t_mlx *mlx, t_map map)
 	draw_player();
 }
 
-void	draw_tile(t_mlx *mlx, int x, int y, int type)
+void	draw_tile(int x, int y, int type)
 {
 	int	index_x;
 	int	index_y;
@@ -72,7 +72,6 @@ void	draw_tile(t_mlx *mlx, int x, int y, int type)
 
 void	draw_player(void)
 {
-	t_pos	facing;
 	double	i;
 
 	i = -(VIEW_ANGLE / 2);

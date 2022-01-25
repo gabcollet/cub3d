@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/25 16:53:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:05:28 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ void	init_interface(t_obj *objs)
 	scaling = g_game.enemies[ENEMY].sprite.scaling;
 }
 
-void	draw_ui(t_mlx *mlx)
+void	draw_ui(void)
 {
 	t_obj	*obj;
 
 	obj = g_game.ui_elems;
-	draw_ui_element(mlx, &obj[UI_GUN]);
+	draw_ui_element(&obj[UI_GUN]);
 }
 
 void	put_ui_pixel(t_obj_draw	d, t_img img, t_obj *obj)
@@ -58,10 +58,9 @@ void	put_ui_pixel(t_obj_draw	d, t_img img, t_obj *obj)
 	}
 }
 
-void	draw_ui_element(t_mlx *mlx, t_obj *obj)
+void	draw_ui_element(t_obj *obj)
 {
 	t_obj_draw	d;
-	int			color;
 	t_img		img;
 
 	img = obj->sprite.frames[obj->sprite.active];

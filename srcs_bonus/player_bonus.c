@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 13:15:21 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/25 16:53:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:12:40 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	player_get_facing(t_plyr player)
 	return (NORTH);
 }
 
-int	player_apply_gravity(t_plyr *player)
+void	player_apply_gravity(t_plyr *player)
 {
 	player->pos.z += player->vel_z;
 	if (player->pos.z > 0.0)

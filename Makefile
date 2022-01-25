@@ -6,7 +6,7 @@
 #    By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/25 16:58:06 by sfournie         ###   ########.fr        #
+#    Updated: 2022/01/25 17:16:54 by sfournie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,8 +83,8 @@ BHEADS		= $(patsubst %,$(DIR_INCS)/%,$(_HEADS))
 _BSRCS	= 	game map map_utils interface\
 			parse parse_map parse_utils parse_wall\
 			parse_map_id parse_cub_id\
-			position rotation size\
-			vector3d math_utils math_angles\
+			position rotation\
+			math_utils math_angles\
 			image mlx textures sprite\
 			color color_trgb color_utils\
 			draw minimap\
@@ -112,7 +112,7 @@ vpath %.c $(DIR_BSRCS)
 all		: $(NAME)
 
 $(NAME)	: $(HEADS) $(DIR_INCS) $(LIB_LFT) $(SRCS) $(MAIN) $(DIR_OBJS) $(OBJS)
-		 $(C_MAIN)
+		@ $(C_MAIN)
 		# $(shell echo "Compiling cub3d done!")
 		# $(shell echo "Executable is : $(NAME)")
 
@@ -143,9 +143,11 @@ re		: fclean all
 re_linux : fclean linux
 
 bonus	: $(BHEADS) $(DIR_INCS) $(LIB_LFT) $(BSRCS) $(BMAIN) $(DIR_OBJS) $(BOBJS)
-		 $(C_BMAIN)
+		@ $(C_BMAIN)
 		# $(shell echo "Compiling cub3d bonus done!")
 		# $(shell echo "Executable is : $(NAME)")
+
+re_bonus	: fclean bonus
 
 signature : 
 	@echo "                        								"
