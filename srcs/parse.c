@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 17:55:22 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/24 19:11:16 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	parse_line(char *line, int fd)
 	else if (ft_isalpha(line[0]))
 	{
 		valid = parse_identifier(line);
-		line = ft_free(line);
 	}		
 	else if (*line == ' ' || ft_isdigit(*line))
 	{
@@ -72,8 +71,10 @@ int	parse_cub(char *path)
 		valid = parse_line(line, fd);
 		if (!valid)
 			break ;
+		line = ft_free(line);
 		bytes = get_next_line(&line, fd);
 	}
+	line = ft_free(line);
 	if (valid)
 		valid = parse_is_all_valid(g_game);
 	return (valid);

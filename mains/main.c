@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/24 17:54:57 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/24 18:32:57 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,13 @@
 
 int	game(void *ptr)
 {
-	t_mlx			*mlx;
-	static double	frame_timer = 0;
+	t_mlx	*mlx;
 
 	mlx = (t_mlx *)ptr;
-	if (frame_timer <= 0)
-	{
-		// mouse_handler(0, 0);
-		move_player();
-		enemies_update(g_game.enemies);
-		doors_update(g_game.doors);
-		gun_update(&g_game.ui_elems[UI_GUN]);
-		draw_background(g_game.map.back);
-		raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW_ANGLE);
-		draw_ui(mlx);
-		if (g_game.toggle_map == 1)
-			draw_map2d(mlx, g_game.map);
-		mlx_put_image_to_window(mlx->mlx, mlx->win, g_game.game_img.img, 0, 0);
-		frame_timer = 1.0 / FPS;
-	}
-	else
-		frame_timer -= get_frame_time();
+	move_player();
+	draw_background(g_game.map.back);
+	raycast_draw_all(g_game.player.pos, g_game.player.rot, VIEW_ANGLE);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, g_game.game_img.img, 0, 0);
 	return (0);
 }
 

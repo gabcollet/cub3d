@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_struct.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 17:54:01 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/24 18:32:27 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,9 @@ typedef struct s_img	t_img;
 typedef struct s_game	t_game;
 typedef struct s_map	t_map;
 
-typedef struct s_obj	t_obj;
 typedef struct s_obj_draw	t_obj_draw;
 typedef struct s_wall	t_wall;
-typedef struct s_door	t_door;
 typedef struct s_player	t_plyr;
-typedef struct s_sprite	t_sprite;
-
-typedef struct s_vect	t_vect;
 
 typedef struct s_coll	t_coll;
 
@@ -46,10 +41,7 @@ enum e_obj_type
 	WALL = 0,
 	PLAYER,
 	FLOOR,
-	CEILING,
-	UI,
-	ENEMY,
-	DOOR
+	CEILING
 };
 
 enum e_dir
@@ -70,12 +62,6 @@ enum e_sprite
 	NE,
 	SW,
 	SE
-};
-
-enum e_ui_elem
-{
-	UI_GUN = 0,
-	UI_FACE,
 };
 
 /* Structures definition */
@@ -105,7 +91,6 @@ struct s_coll
 	t_pos	pos;
 	int		type;
 	int		dir;
-	t_obj	*obj;
 };
 
 struct s_img
@@ -116,23 +101,6 @@ struct s_img
 	int		width;
 	int		endian;
 	int		height;
-};
-
-struct s_sprite
-{
-	int		active;
-	t_img	frames[20];
-	int		frames_n;
-	double	anim_countdown;
-	double	anim_time;
-	int		playing;
-	int		loop;
-	double	scaling;
-	double	scaled_width;
-	double	i_x;
-	double	x_step;
-	int		drawing;
-	int		rewind;
 };
 
 struct s_vect
@@ -162,20 +130,6 @@ struct s_map
 	int		ceiling_c;
 };
 
-struct s_obj
-{
-	int			type;
-	t_pos		pos;
-	t_sprite	sprite;
-	float		dist;
-	float		dist_side;
-	double		rot;
-	double		rot_side;
-	int			visible;
-	int			alive;
-	void		(*update)(t_obj *obj);
-};
-
 struct s_obj_draw
 {
 	double		index_x;
@@ -185,31 +139,14 @@ struct s_obj_draw
 	int			y;
 };
 
-struct s_door
-{
-	t_pos		pos;
-	t_sprite	sprite;
-	float		dist;
-	float		dist_side;
-	double		face_rot;
-	double		rot;
-	double		rot_side;
-	int			visible;
-	int			tile_i;
-	int			opened;
-};
-
 struct s_player
 {
 	t_pos	pos;
-	int		hp;
 	double	rot;
 	double	vel_r;
 	double	vel_l;
 	double	vel_u;
 	double	vel_d;
-	double	vel_z;
-	double	gravity;
 	double	turn_l;
 	double	turn_r;
 };
@@ -220,16 +157,10 @@ struct s_game
 	t_plyr		player;
 	t_mlx		*mlx;
 	t_img		game_img;
-	t_door		doors[MAX_DOOR];
-	int			door_count;
 	t_img		minimap;
 	t_img		texture[4];
-	t_obj		ui_elems[UI_ELEMS];
-	t_obj		enemies[MAX_ENEMY];
-	int			enemy_count;
 	int			res_w;
 	int			res_h;
-	int			toggle_map;
 };
 
 t_game					g_game;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
+#    By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/24 15:44:20 by gcollet          ###   ########.fr        #
+#    Updated: 2022/01/24 18:36:17 by sfournie         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,21 +56,16 @@ HEADS		= $(patsubst %,$(DIR_INCS)/%,$(_HEADS))
 #
 
 # Sources and Objects
-SRCS	= 	game.c map.c map_utils.c interface.c\
+SRCS	= 	game.c map.c map_utils.c\
 			parse.c parse_map.c parse_utils.c parse_wall.c\
 			parse_map_id.c parse_cub_id.c\
 			position.c rotation.c size.c\
-			vector3d.c math_utils.c math_angles.c\
-			image.c mlx.c textures.c sprite.c\
+			math_utils.c math_angles.c\
+			image.c mlx.c textures.c\
 			color.c color_trgb.c color_utils.c\
-			draw.c minimap.c\
 			background.c\
-			animation.c time.c\
 			collision.c intersection.c intersection_utils.c\
 			raycast.c\
-			object.c init_object.c\
-			door.c door_utils.c animation_door.c\
-			player.c gun.c enemy.c init_enemy.c\
 			input.c
 
 _OBJS	= $(SRCS:.c=.o)

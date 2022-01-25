@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 15:48:18 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/24 18:34:26 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,6 @@ int	parse_error(int code)
 		ft_putendl_fd(".cub file has invalid floor or ceiling color format", 2);
 	else if (code == ERR_MAP_LAST)
 		ft_putendl_fd(".cub file's map is not the last element", 2);
-	return (0);
-}
-
-int	parse_error_bonus(int code)
-{
-	ft_putendl_fd("Error", 2);
-	if (code == ERR_DOOR)
-		ft_putendl_fd("doors can not be on the edges of a map", 2);
-	else if (code == ERR_DOOR_ENC)
-		ft_putendl_fd("doors need to be surrounded by 2 walls", 2);
 	return (0);
 }
 

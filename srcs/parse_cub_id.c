@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cub_id.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 17:39:28 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/24 18:37:43 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,33 +27,6 @@ int	parse_wall_texture(char *path, int side)
 			&img->width, &img->endian);
 	if (!img->addr)
 		return (parse_error(ERR_TEXTURE));
-	return (1);
-}
-
-int	parse_enemy(char *line)
-{
-	static int	id;
-	t_pos		pos;
-	char		**split;
-	int			error;
-
-	error = 0;
-	while (*line == ' ')
-		line++;
-	split = ft_split(line, ',');
-	if (!split)
-		return (parse_error(-1));
-	if (ft_array_size((void **)split) != 3)
-		error = ERR_ENEMY;
-	else
-	{
-		pos = new_pos(ft_atoi(split[0]), ft_atoi(split[1]), ft_atoi(split[2]));
-		init_enemy(&g_game.enemies[id], pos);
-	}
-	ft_free_array((void **)split, ft_free);
-	if (error)
-		return (parse_error(error));
-	g_game.enemy_count = ++id;
 	return (1);
 }
 
@@ -106,8 +79,6 @@ int	parse_identifier(char *line)
 		valid = parse_f_c(line + 2, 'F');
 	else if (!ft_strncmp("C ", line, 2))
 		valid = parse_f_c(line + 2, 'C');
-	else if (!ft_strncmp("E ", line, 2))
-		valid = parse_enemy(line + 2);
 	else if (!valid)
 		return (parse_error(ERR_ID));
 	return (1);

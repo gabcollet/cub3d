@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 17:49:51 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/24 18:37:02 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 # include	<complex.h>
 # include	<fcntl.h>
 # include	<mlx.h>
-# include	"cub3d_time.h"
 # include	"cub3d_struct.h"
 # include	"../libft/libft.h"
 
@@ -71,15 +70,10 @@
 # define MAP_MAX_SIZE	1000
 # define SPEED			8
 # define TURN_SPEED		8
-# define JUMP_FORCE		50
-# define GRAVITY		8
-# define ANIM_TIME		10
-# define MOUSE_TURN		0.5
 # define VIEW_ANGLE		60
 # define VIEW_DIST		1000
 # define TILE_SIZE		50.0
 # define TEXTURES_SIZE	32.0
-# define MINI_TILE_S	10
 
 /* Sprites */
 # define SPRITE_AMNT	4
@@ -99,7 +93,6 @@
 # define M_FLOOR		'0'
 # define M_WALL			'1'
 # define M_EMPTY		' '
-# define M_DOOR			'D'
 # define M_PLYR_N		'N'
 # define M_PLYR_S		'S'
 # define M_PLYR_E		'E'
@@ -117,16 +110,12 @@
 # define ERR_MISS		9
 # define ERR_COLOR		10
 # define ERR_MAP_LAST	11
-# define ERR_ENEMY		12
-# define ERR_DOOR_ENC	13
-# define ERR_DOOR		14
 
 t_game	g_game;
 
 /* Generic structure creator */
 t_pos	new_pos(double x, double y, double z);
 t_size	new_size(double x, double y, double z);
-t_vect	new_vect(double x, double y, double z);
 t_coll	new_collider(t_pos pos, int type, int dir);
 
 /* MLX */
@@ -143,23 +132,10 @@ void	exit_game(t_game *game, int exit_code);
 /* Map management */
 t_map	new_map(void);
 t_img	create_background(double width, double height);
-int		*copy_map_int(int *src, int size);
-char	*copy_map(char *src, int size);
 void	fill_map(char **rows, t_map *map_ptr, int width, int height);
 int		get_map_index(int win_x, int win_y);
 int		get_map_index_y(int win_y);
 int		get_map_index_x(int win_x);
-
-/* User Interface */
-void	init_interface(t_obj *objs);
-void	init_sprite(t_sprite *sprite);
-void	load_sprite(t_img *img, char *path);
-void	draw_ui(t_mlx *mlx);
-void	draw_ui_element(t_mlx *mlx, t_obj *obj);
-
-/* Weapons */
-void	init_handgun(t_sprite *sprite);
-void	gun_update(t_obj *gun);
 
 /* Parsing */
 int		parse_map_is_enclosed(t_map map);
@@ -172,7 +148,6 @@ int		parse_is_player(char c);
 int		parse_error(int code);
 int		parse_error_bonus(int code);
 int		parse_wall(t_map map, int x, int y);
-int		parse_enemy(char *line);
 int		parse_floor(t_map map, int x, int y, int compare);
 int		parse_f_c(char *colors, char id);
 int		parse_map_pos(t_map map, int x, int y, int *player_found);
@@ -183,14 +158,6 @@ void	my_mlx_pixel_put(t_img img, int x, int y, int color);
 void	mlx_clear_img(t_img img);
 void	drawMap3D(t_mlx *mlx, t_map map);
 void	draw_background(t_img img);
-void	draw_object(t_mlx *mlx, t_sprite *sprite, int x, double height);
-void	draw_sprites(double height, double rot, int win_x);
-void	reset_drawings(void);
-
-/* Animations */
-void	start_animation(t_sprite *sprite);
-void	update_animation(t_sprite *sprite);
-void	end_animation(t_sprite *sprite);
 
 /* Color */
 int		color_valid_rgb(t_rgb rgb);
@@ -210,47 +177,12 @@ t_pos	textures_index(t_pos pos, float offset, float height, int side);
 /* Inputs */
 int		key_press(int keyww);
 int		key_release(int key);
-int		mouse_handler(int x, int y);
-int		mouse_move(int x, int y, t_mlx *mlx);
 int		quit_handler(void);
-
-/* Object */
-void	init_obj_array(t_obj *obj_array, int size);
-t_obj_draw	init_d(t_img img, double offset, double height, int y);
-t_obj	new_obj(void);
-void    obj_all_set_visible(t_obj *objs, int array_size, double rot, t_pos base_pos);
-double	obj_rot(double enemy_dist, t_pos enemy_pos, t_pos pos);
-
-/* Door */
-void	init_door_sprite(t_sprite *sprite);
-void	init_doors(t_door *doors);
-void	update_door(t_door *door);
-void	open_door(t_door *door);
-void	place_door(t_door *door, int face_rot, int i_x, int i_y);
-void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos);
-void	doors_update(t_door *doors);
-double	door_get_index(t_door door, t_sprite sprite, double angle);
-void	interact_door(void);
-double	door_get_height(t_door *door, double r);
-int		check_door(int tile_pos);
 
 /* Player */
 t_plyr	get_plyr(void);
 void	player_set_pos(int x, int y, int z);
 int		player_get_facing(t_plyr player);
-int		player_apply_gravity(t_plyr *player);
-
-/* Enemy */
-void	init_enemy(t_obj *enemy, t_pos pos);
-void	init_enemy_sprite(t_sprite *sprite);
-void	enemies_update(t_obj *enemies);
-double	enemy_get_index(t_obj enemy, t_sprite sprite, double angle);
-int		enemy_ray_hit(t_obj *e, double rot);
-
-/* Minimap */
-void	draw_map2d(t_mlx *mlx, t_map map);
-void	draw_tile(t_mlx *mlx, int x, int y, int type);
-void	draw_player(void);
 
 /* Position and movement */
 void	move_player(void);
@@ -260,10 +192,7 @@ double	rotate(double base_rot, double rot);
 int		change_player_pos(t_plyr *player, double vel, int dir);
 
 /* Raycasting */
-int		raycast_draw(double rot, double dist, int color, int side);
 int		raycast_draw_all(t_pos pos, double rot, double view);
-int		raycast_draw_enemies(t_obj *enemy, double height, double rot, int win_x);
-int		raycast_draw_doors(t_door *door, double height, double rot, int win_x);
 
 /* Collision and intersection */
 int		check_collision(int x, int y, int size, int map);
