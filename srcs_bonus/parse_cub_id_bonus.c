@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/25 16:53:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:19:01 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ int	parse_f_c(char *colors, char id)
 	while (*colors == ' ')
 		colors++;
 	split = ft_split(colors, ',');
-	if (!split)
-		return (parse_error(-1));
 	if (ft_array_size((void **)split) != 3)
 		error = ERR_COLOR;
 	else
@@ -83,9 +81,10 @@ int	parse_f_c(char *colors, char id)
 	ft_free_array((void **)split, ft_free);
 	if (error)
 		return (parse_error(error));
-	g_game.map.ceiling_c = color_rgb_to_int(rgb);
 	if (id == 'F')
 		g_game.map.floor_c = color_rgb_to_int(rgb);
+	else
+		g_game.map.ceiling_c = color_rgb_to_int(rgb);
 	return (1);
 }
 

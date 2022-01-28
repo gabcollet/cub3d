@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 18:32:27 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:46:06 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,22 @@
 # define MAX_DOOR	200
 
 /* Typedefs */
-typedef struct s_mlx	t_mlx;
-typedef struct s_img	t_img;
+typedef struct s_mlx		t_mlx;
+typedef struct s_img		t_img;
 
-typedef struct s_game	t_game;
-typedef struct s_map	t_map;
+typedef struct s_game		t_game;
+typedef struct s_map		t_map;
 
 typedef struct s_obj_draw	t_obj_draw;
-typedef struct s_wall	t_wall;
-typedef struct s_player	t_plyr;
+typedef struct s_wall		t_wall;
+typedef struct s_player		t_plyr;
 
-typedef struct s_coll	t_coll;
+typedef struct s_coll		t_coll;
 
-typedef struct s_pos	t_pos;
-typedef struct s_size	t_size;
+typedef struct s_pos		t_pos;
+typedef struct s_size		t_size;
 
-typedef struct s_rgb	t_rgb;
+typedef struct s_rgb		t_rgb;
 
 /* Enums definition*/
 enum e_obj_type
@@ -162,7 +162,5 @@ struct s_game
 	int			res_w;
 	int			res_h;
 };
-
-t_game					g_game;
 
 #endif

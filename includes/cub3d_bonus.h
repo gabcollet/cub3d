@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/25 17:33:12 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:50:33 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void	my_mlx_new_image(void *mlx, t_img *img, int width, int height);
 /* Game management */
 void	init_game(t_game *game);
 void	init_textures(t_game *game);
-void	exit_game(t_game *game, int exit_code);
+void	exit_game(int exit_code);
 
 /* Map management */
 t_map	new_map(void);
@@ -278,4 +278,3 @@ int		angle_is_between(double angle, double min, double max);
 double	math_pytha(double x, double y);
 
 #endif
-                                                          

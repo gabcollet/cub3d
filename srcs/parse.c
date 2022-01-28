@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 19:11:16 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/28 18:08:05 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	parse_cub(char *path)
 	while (valid > 0 && bytes > 0)
 	{
 		valid = parse_line(line, fd);
-		if (!valid)
+		if (valid <= 0)
 			break ;
 		line = ft_free(line);
 		bytes = get_next_line(&line, fd);

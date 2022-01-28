@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/24 18:23:05 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:36:40 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int	key_release(int key)
 	if (key == RIGHT_KEY)
 		g_game.player.turn_r = 0;
 	if (key == ESC)
-		exit_game(&g_game, 0);
+		exit_game(0);
 	return (key);
 }
 
 int	quit_handler(void)
 {
-	exit_game(&g_game, 0);
+	exit_game(0);
 	return (0);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 18:37:02 by sfournie         ###   ########.fr       */
+/*   Created: 2022/01/28 17:44:58 by sfournie          #+#    #+#             */
+/*   Updated: 2022/01/28 17:50:22 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,22 @@
 # define MAP_PATH	"./maps/complex.cub"
 
 /* Key for linux */
-// # define ESC 			65307
-// # define SPACE_KEY 		32
-// # define A_KEY			97
-// # define D_KEY			100
-// # define E_KEY			101
-// # define M_KEY			109
-// # define R_KEY	 		114
-// # define S_KEY			115
-// # define W_KEY			119
-// # define SHIFT_KEY		65505
-// # define RIGHT_KEY		65363
-// # define LEFT_KEY		65361  
-// # define DOWN_KEY		65362 
-// # define UP_KEY			65364 
+/*
+# define ESC 			65307
+# define SPACE_KEY 		32
+# define A_KEY			97
+# define D_KEY			100
+# define E_KEY			101
+# define M_KEY			109
+# define R_KEY	 		114
+# define S_KEY			115
+# define W_KEY			119
+# define SHIFT_KEY		65505
+# define RIGHT_KEY		65363
+# define LEFT_KEY		65361  
+# define DOWN_KEY		65362 
+# define UP_KEY			65364 
+*/
 
 /* Key for mac */
 # define ESC 			53
@@ -127,7 +129,7 @@ void	my_mlx_new_image(void *mlx, t_img *img, int width, int height);
 /* Game management */
 void	init_game(t_game *game);
 void	init_textures(t_game *game);
-void	exit_game(t_game *game, int exit_code);
+void	exit_game(int exit_code);
 
 /* Map management */
 t_map	new_map(void);
@@ -209,4 +211,3 @@ int		angle_is_between(double angle, double min, double max);
 double	math_pytha(double x, double y);
 
 #endif
-                                                          

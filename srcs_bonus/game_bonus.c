@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/25 16:53:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:38:22 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,24 @@ void	init_game(t_game *game)
 	game->toggle_map = 1;
 }
 
-void	exit_game(t_game *game, int exit_code)
+void	destroy_img(void *mlx, void *img)
 {
-	game = NULL;
+	if (img)
+		destroy_img(mlx, g_game.texture[0].img);
+}
+
+void	exit_game(int exit_code)
+{
+	void	*mlx;
+
+	mlx = g_game.mlx->mlx;
+	mlx_destroy_window(mlx, g_game.mlx->win);
+	destroy_img(mlx, g_game.mlx->img.img);
+	destroy_img(mlx, g_game.texture[0].img);
+	destroy_img(mlx, g_game.texture[1].img);
+	destroy_img(mlx, g_game.texture[2].img);
+	destroy_img(mlx, g_game.texture[3].img);
+	destroy_img(mlx, g_game.game_img.img);
+	destroy_img(mlx, g_game.map.back.img);
 	exit(exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 18:37:43 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/28 18:05:59 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,21 @@ int	parse_f_c(char *colors, char id)
 	while (*colors == ' ')
 		colors++;
 	split = ft_split(colors, ',');
-	if (!split)
-		return (parse_error(-1));
 	if (ft_array_size((void **)split) != 3)
 		error = ERR_COLOR;
 	else
 	{
 		rgb = new_rgb(ft_atoi(split[0]), ft_atoi(split[1]), ft_atoi(split[2]));
 		if (!color_valid_rgb(rgb))
-			error = 0;
+			error = ERR_COLOR;
 	}
 	ft_free_array((void **)split, ft_free);
 	if (error)
 		return (parse_error(error));
-	g_game.map.ceiling_c = color_rgb_to_int(rgb);
 	if (id == 'F')
 		g_game.map.floor_c = color_rgb_to_int(rgb);
+	else
+		g_game.map.ceiling_c = color_rgb_to_int(rgb);
 	return (1);
 }
 
@@ -66,7 +65,7 @@ int	parse_identifier(char *line)
 {
 	int	valid;
 
-	valid = 0;
+	valid = -1;
 	if (!ft_strncmp("NO ", line, 3))
 		valid = parse_wall_texture(line + 3, NO);
 	else if (!ft_strncmp("SO ", line, 3))
@@ -79,7 +78,7 @@ int	parse_identifier(char *line)
 		valid = parse_f_c(line + 2, 'F');
 	else if (!ft_strncmp("C ", line, 2))
 		valid = parse_f_c(line + 2, 'C');
-	else if (!valid)
-		return (parse_error(ERR_ID));
-	return (1);
+	if (valid == -1)
+		return (-1);
+	return (valid);
 }

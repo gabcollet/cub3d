@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 18:37:29 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:40:26 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	parse_wall(t_map map, int x, int y)
 int	parse_floor(t_map map, int x, int y, int compare)
 {
 	char	*tiles;
+
 	tiles = map.tiles;
 	if (x != 0 && tiles[x - 1 + y * map.width] == compare)
 		return (0);

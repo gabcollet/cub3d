@@ -6,13 +6,13 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/24 18:56:20 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:40:13 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int		is_in_bound(double x, double y)
+int	is_in_bound(double x, double y)
 {
 	t_map	map;
 
@@ -21,7 +21,6 @@ int		is_in_bound(double x, double y)
 		return (0);
 	if ((int)y >= map.height * (int)TILE_SIZE || y < 0.0)
 		return (0);
-		
 	return (1);
 }
 

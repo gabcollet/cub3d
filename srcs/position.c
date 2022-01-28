@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/21 09:35:03 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/24 18:39:28 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:39:52 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,6 @@ int	change_player_pos(t_plyr *player, double vel, int dir)
 	pos.x = player->pos.x;
 	pos.y = player->pos.y;
 	new_pos = move_pos(pos, player->rot, vel, dir);
-	/*if (check_collision(new_pos.x, new_pos.y, 5, g_game.map.width))
-	{
-		if (check_collision(new_pos.x, pos.y, 5, g_game.map.width))
-			new_pos.x = player->pos.x;
-	}
-	if (check_collision(new_pos.x, new_pos.y, 5, g_game.map.width))
-		new_pos.y = player->pos.y;*/
 	player->pos.x = new_pos.x;
 	player->pos.y = new_pos.y;
 	return (0);

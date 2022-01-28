@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/25 16:53:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/28 17:36:58 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	key_release(int key)
 	if (key == UP_KEY)
 		g_game.player.vel_z -= 25;
 	if (key == ESC)
-		exit_game(&g_game, 0);
+		exit_game(0);
 	if (key == M_KEY)
 		g_game.toggle_map *= -1;
 	return (key);
@@ -86,6 +86,6 @@ int	key_release(int key)
 
 int	quit_handler(void)
 {
-	exit_game(&g_game, 0);
+	exit_game(0);
 	return (0);
 }
