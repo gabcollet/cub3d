@@ -1,7 +1,3 @@
 WE ./textures/wall_1.xpm
 SO ./textures/wall_2.xpm
-WE ./textures/wall_2.xpm
 EA ./textures/wall_3.xpm
-WE ./textures/wall_3.xpm
-NO ./textures/wall_4.xpm
-WE ./textures/wall_4.xpm

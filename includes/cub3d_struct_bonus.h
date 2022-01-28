@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_struct.h                                     :+:      :+:    :+:   */
+/*   cub3d_struct_bonus.h                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 17:54:01 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/28 18:38:16 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,6 +230,8 @@ struct s_game
 	int			res_w;
 	int			res_h;
 	int			toggle_map;
+	int 		mouse_x;
+	int			mouse_y;
 };
 
 t_game					g_game;

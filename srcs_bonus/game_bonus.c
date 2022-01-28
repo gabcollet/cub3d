@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/31 18:53:35 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/28 17:38:22 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/28 18:39:58 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,14 @@ void	init_game(t_game *game)
 	game->enemy_count = 0;
 	game->door_count = 0;
 	game->toggle_map = 1;
+	game->mouse_x = 0;
+	game->mouse_y = 0;
 }
 
 void	destroy_img(void *mlx, void *img)
 {
 	if (img)
-		destroy_img(mlx, g_game.texture[0].img);
+		mlx_destroy_image(mlx, img);
 }
 
 void	exit_game(int exit_code)
