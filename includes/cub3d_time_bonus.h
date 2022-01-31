@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d_time.h                                       :+:      :+:    :+:   */
+/*   cub3d_time_bonus.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
+/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/14 13:44:05 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/01/30 18:03:03 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_TIME_H
-# define CUB3D_TIME_H
+#ifndef CUB3D_TIME_BONUS_H
+# define CUB3D_TIME_BONUS_H
 # include	<sys/time.h>
 
 typedef struct timeval		t_time;

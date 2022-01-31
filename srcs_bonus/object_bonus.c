@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 12:25:59 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/25 18:08:12 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/30 18:10:41 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	draw_object(t_sprite *sprite, int x, double height)
 {
-	t_obj_draw	d;
-	int			color;
-	t_img		img;
-	int			y;
-	double		offset;
+	t_obj_d	d;
+	int		color;
+	t_img	img;
+	int		y;
+	double	offset;
 
 	offset = 0;
 	if (height > WIN_H)
@@ -76,14 +76,14 @@ t_obj	*obj_set_visible(t_obj *obj, double rot)
 	return (obj);
 }
 
-void	obj_all_set_visible(t_obj *objs, int a_size, double rot, t_pos base_pos)
+void	obj_all_set_visible(t_obj *objs, int size, double rot, t_pos base_pos)
 {
 	int		id;
 	t_pos	side_pos;
 	t_pos	new_pos;
 
 	id = 0;
-	while (id < a_size && objs[id].alive)
+	while (id < size && objs[id].alive)
 	{
 		new_pos = move_pos(objs[id].pos, rotate(objs[id].rot, 270),
 				objs[id].sprite.frames[0].width / 8.0, 0);

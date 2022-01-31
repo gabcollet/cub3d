@@ -5,7 +5,7 @@ EA ./textures/wall_3.xpm
 NO ./textures/wall_2.xpm
 
 F 300,200,200
-C 255,00,0
+C 255,00
 
 111
 1N1

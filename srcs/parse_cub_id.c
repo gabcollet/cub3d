@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/28 18:05:59 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/30 17:50:57 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ int	parse_identifier(char *line)
 	else if (!ft_strncmp("C ", line, 2))
 		valid = parse_f_c(line + 2, 'C');
 	if (valid == -1)
-		return (-1);
+		return (parse_error(ERR_ID));
 	return (valid);
 }

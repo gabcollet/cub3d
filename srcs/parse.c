@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/28 18:08:05 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/30 17:52:46 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	parse_cub(char *path)
 		bytes = get_next_line(&line, fd);
 	}
 	line = ft_free(line);
-	if (valid)
+	if (valid > 0)
 		valid = parse_is_all_valid(g_game);
 	return (valid);
 }

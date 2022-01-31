@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/25 16:53:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/30 17:52:51 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int	parse_line(char *line, int fd)
 	else if (ft_isalpha(line[0]))
 	{
 		valid = parse_identifier(line);
-		line = ft_free(line);
 	}		
 	else if (*line == ' ' || ft_isdigit(*line))
 	{
@@ -70,11 +69,13 @@ int	parse_cub(char *path)
 	while (valid > 0 && bytes > 0)
 	{
 		valid = parse_line(line, fd);
-		if (!valid)
+		if (valid <= 0)
 			break ;
+		line = ft_free(line);
 		bytes = get_next_line(&line, fd);
 	}
-	if (valid)
+	line = ft_free(line);
+	if (valid > 0)
 		valid = parse_is_all_valid(g_game);
 	return (valid);
 }

@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 01:54:41 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/25 17:05:28 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/30 18:14:05 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	draw_ui(void)
 	draw_ui_element(&obj[UI_GUN]);
 }
 
-void	put_ui_pixel(t_obj_draw	d, t_img img, t_obj *obj)
+void	put_ui_pixel(t_obj_d	d, t_img img, t_obj *obj)
 {
 	int	color;
 
@@ -60,8 +60,8 @@ void	put_ui_pixel(t_obj_draw	d, t_img img, t_obj *obj)
 
 void	draw_ui_element(t_obj *obj)
 {
-	t_obj_draw	d;
-	t_img		img;
+	t_obj_d	d;
+	t_img	img;
 
 	img = obj->sprite.frames[obj->sprite.active];
 	d.step = 1.0 / obj->sprite.scaling;

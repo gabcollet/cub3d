@@ -6,20 +6,12 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/28 18:44:00 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/30 20:16:14 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d_bonus.h"
 #include "mlx.h"
-
-int	mouse_hook(int key, int x, int y)
-{
-	printf("%d %d %d\n", key, x, y);
-	g_game.mouse_x = x;
-	g_game.mouse_y = y;
-	return (0);
-}
 
 int	game(void *ptr)
 {
@@ -29,7 +21,7 @@ int	game(void *ptr)
 	mlx = (t_mlx *)ptr;
 	if (frame_timer <= 0)
 	{
-		mouse_handler(g_game.mouse_x, g_game.mouse_y);
+		//mouse_handler(g_game.mouse_x, g_game.mouse_y);
 		move_player();
 		enemies_update(g_game.enemies);
 		doors_update(g_game.doors);
@@ -54,14 +46,14 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (parse_error(ERR_ARGC));
 	init_game(&g_game);
-	if (!parse_cub(argv[1]))
+	if (parse_cub(argv[1]) <= 0)
 		return (0);
 	mlx = get_mlx();
 	g_game.map.back = create_background(WIN_W, WIN_H * 4);
 	mlx_hook(mlx->win, 2, 1L << 0, key_press, mlx);
 	mlx_hook(mlx->win, 3, 1L << 1, key_release, mlx);
 	mlx_hook(mlx->win, 17, 0, quit_handler, NULL);
-	mlx_mouse_hook(mlx->win, mouse_hook, NULL);
+	mlx_hook(mlx->win, 6, 3, mouse_handler, NULL);
 	mlx_loop_hook (mlx->mlx, game, mlx);
 	mlx_loop (mlx->mlx);
 	return (0);

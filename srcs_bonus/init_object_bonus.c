@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 18:59:07 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/25 17:58:17 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/30 18:05:56 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	init_obj_array(t_obj *obj, int size)
 	}
 }
 
-t_obj_draw	init_d(t_img img, double offset, double height, int y)
+t_obj_d	init_d(t_img img, double offset, double height, int y)
 {
-	t_obj_draw	d;
+	t_obj_d	d;
 
 	d.index_y = (TEXTURES_SIZE * offset / 2) / (height + offset);
 	d.y = y;

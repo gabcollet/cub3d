@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/28 18:35:19 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/30 17:50:11 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (parse_error(ERR_ARGC));
 	init_game(&g_game);
-	if (!parse_cub(argv[1]))
+	if (parse_cub(argv[1]) <= 0)
 		return (0);
 	mlx = get_mlx();
 	g_game.map.back = create_background(WIN_W, WIN_H * 4);

@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/25 16:53:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/30 17:41:50 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	parse_error_bonus(int code)
 		ft_putendl_fd("doors can not be on the edges of a map", 2);
 	else if (code == ERR_DOOR_ENC)
 		ft_putendl_fd("doors need to be surrounded by 2 walls", 2);
+	else if (code == ERR_ENEMY)
+		ft_putendl_fd("invalid enemy format", 2);
 	return (0);
 }
 

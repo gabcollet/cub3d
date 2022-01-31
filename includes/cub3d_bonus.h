@@ -6,12 +6,12 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/28 17:50:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/30 19:17:33 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 # include	<stdarg.h>
 # include	<stdio.h>
 # include	<limits.h>
@@ -41,7 +41,7 @@
 // # define A_KEY			97
 // # define D_KEY			100
 // # define E_KEY			101
-// # define M_KEY			109
+// # define M_KEY			109a
 // # define R_KEY	 		114
 // # define S_KEY			115
 // # define W_KEY			119
@@ -74,7 +74,7 @@
 # define JUMP_FORCE		50
 # define GRAVITY		8
 # define ANIM_TIME		10
-# define MOUSE_TURN		0.5
+# define MOUSE_TURN		0.3
 # define VIEW_ANGLE		60
 # define VIEW_DIST		1000
 # define TILE_SIZE		50.0
@@ -214,9 +214,9 @@ int		quit_handler(void);
 
 /* Object */
 void	init_obj_array(t_obj *obj_array, int size);
-t_obj_draw	init_d(t_img img, double offset, double height, int y);
+t_obj_d	init_d(t_img img, double offset, double height, int y);
 t_obj	new_obj(void);
-void    obj_all_set_visible(t_obj *objs, int array_size, double rot, t_pos base_pos);
+void	obj_all_set_visible(t_obj *objs, int size, double rot, t_pos base_pos);
 double	obj_rot(double enemy_dist, t_pos enemy_pos, t_pos pos);
 
 /* Door */
@@ -225,7 +225,7 @@ void	init_doors(t_door *doors);
 void	update_door(t_door *door);
 void	open_door(t_door *door);
 void	place_door(t_door *door, int face_rot, int i_x, int i_y);
-void    doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos);
+void	doors_set_visible(t_door *doors, int size, double rot, t_pos base_pos);
 void	doors_update(t_door *doors);
 double	door_get_index(t_door door, t_sprite sprite, double angle);
 void	interact_door(void);
@@ -236,7 +236,7 @@ int		check_door(int tile_pos);
 t_plyr	get_plyr(void);
 void	player_set_pos(int x, int y, int z);
 int		player_get_facing(t_plyr player);
-void		player_apply_gravity(t_plyr *player);
+void	player_apply_gravity(t_plyr *player);
 
 /* Enemy */
 void	init_enemy(t_obj *enemy, t_pos pos);
@@ -260,8 +260,8 @@ int		change_player_pos(t_plyr *player, double vel, int dir);
 /* Raycasting */
 int		raycast_draw(double rot, double dist, int color, int side);
 int		raycast_draw_all(t_pos pos, double rot, double view);
-int		raycast_draw_enemies(t_obj *enemy, double height, double rot, int win_x);
-int		raycast_draw_doors(t_door *door, double height, double rot, int win_x);
+int		raycast_draw_enemies(t_obj *enemy, double height, double rot, int w_x);
+int		raycast_draw_doors(t_door *door, double height, double rot, int w_x);
 
 /* Collision and intersection */
 int		check_collision(int x, int y, int size, int map);

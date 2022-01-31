@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/28 18:43:51 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/30 19:18:48 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,8 @@ int	mouse_handler(int x, int y)
 
 	if (mouse_x != x)
 		rotate_player(&g_game.player, (mouse_x - x) * MOUSE_TURN);
-	/*if (mouse_y != g_game.mouse_y)
-		g_game.player.pos.z += (double)(mouse_y - y) * 1;*/
 	mouse_x = x;
 	mouse_y = y;
-
-	// static int	mouse_x = INT_MIN;
-	// static int	mouse_y = INT_MIN;
-
-	// mlx_mouse_get_pos(get_mlx()->win, &x, &y);
-	// if (mouse_x != x && mouse_x != INT_MIN)
-	// 	rotate_player(&g_game.player, (mouse_x - x) * MOUSE_TURN);
-	// if (mouse_y != y && mouse_y != INT_MIN)
-	// 	g_game.player.pos.z += (double)(mouse_y - y) * 1;
-	// mouse_x = x;
-	// mouse_y = y;
 	return (0);
 }
 
@@ -56,10 +43,6 @@ int	key_press(int key)
 		g_game.player.vel_l = SPEED * modifier;
 	if (key == D_KEY)
 		g_game.player.vel_r = -SPEED * modifier;
-	if (key == DOWN_KEY)
-		g_game.player.vel_z = -25;
-	if (key == UP_KEY)
-		g_game.player.vel_z = 25;
 	if (key == SHIFT_KEY)
 		g_game.player.vel_z += JUMP_FORCE;
 	if (key == E_KEY)
@@ -70,7 +53,7 @@ int	key_press(int key)
 int	key_release(int key)
 {
 	if (key == SPACE_KEY)
-        start_animation(&g_game.ui_elems[UI_GUN].sprite);
+		start_animation(&g_game.ui_elems[UI_GUN].sprite);
 	if (key == W_KEY)
 		g_game.player.vel_u = 0;
 	if (key == A_KEY)

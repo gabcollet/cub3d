@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/25 16:53:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/30 18:13:53 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,10 @@ int	parse_door(t_map map, int x, int y)
 	error = 0;
 	if (x == 0 || y == 0 || x >= w - 1 || y >= h - 1)
 		error = ERR_DOOR;
-	else if (t[x - 1 + y * w] == M_WALL && t[x + 1 + y * w] == M_WALL)
-	{
-		if (t[x + (y - 1) * w] == M_FLOOR && t[x + (y + 1) * w] == M_FLOOR)
-			place_door(&g_game.doors[count], 0, x, y);
-	}
-	else if (t[x - 1 + y * w] == M_FLOOR && t[x + 1 + y * w] == M_FLOOR)
-	{
-		if (t[x + (y - 1) * w] == M_WALL && t[x + (y + 1) * w] == M_WALL)
-			place_door(&g_game.doors[count], 270, x, y);
-	}
+	if (t[x - 1 + y * w] == M_WALL && t[x + 1 + y * w] == M_WALL)
+		place_door(&g_game.doors[count], 0, x, y);
+	else if (t[x + (y - 1) * w] == M_WALL && t[x + (y + 1) * w] == M_WALL)
+		place_door(&g_game.doors[count], 270, x, y);
 	else
 		error = ERR_DOOR_ENC;
 	if (error)
@@ -72,6 +66,7 @@ int	parse_door(t_map map, int x, int y)
 int	parse_floor(t_map map, int x, int y, int compare)
 {
 	char	*tiles;
+
 	tiles = map.tiles;
 	if (x != 0 && tiles[x - 1 + y * map.width] == compare)
 		return (0);

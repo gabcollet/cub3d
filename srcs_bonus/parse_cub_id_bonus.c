@@ -6,7 +6,7 @@
 /*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/28 17:19:01 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/01/30 17:52:16 by sfournie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	parse_enemy(char *line)
 	}
 	ft_free_array((void **)split, ft_free);
 	if (error)
-		return (parse_error(error));
+		return (parse_error_bonus(error));
 	g_game.enemy_count = ++id;
 	return (1);
 }
@@ -92,7 +92,7 @@ int	parse_identifier(char *line)
 {
 	int	valid;
 
-	valid = 0;
+	valid = -1;
 	if (!ft_strncmp("NO ", line, 3))
 		valid = parse_wall_texture(line + 3, NO);
 	else if (!ft_strncmp("SO ", line, 3))
@@ -107,7 +107,7 @@ int	parse_identifier(char *line)
 		valid = parse_f_c(line + 2, 'C');
 	else if (!ft_strncmp("E ", line, 2))
 		valid = parse_enemy(line + 2);
-	else if (!valid)
+	if (valid == -1)
 		return (parse_error(ERR_ID));
-	return (1);
+	return (valid);
 }
