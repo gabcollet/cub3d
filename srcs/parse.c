@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/02/11 12:27:17 by gcollet          ###   ########.fr       */
+/*   Updated: 2022/02/11 14:09:19 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ int	parse_line(char **line, int fd)
 	if (**line && g_game.map.tiles != NULL)
 		return (parse_error(ERR_MAP_LAST));
 	else if (ft_isalpha(**line))
-		valid = parse_identifier(*line);	
+		valid = parse_identifier(*line);
 	else if (**line == ' ' || ft_isdigit(**line))
 	{
 		valid = parse_map(line, &g_game.map, fd);
-		valid = parse_valid_map(&g_game.map);
+		if (valid > 0)
+			valid = parse_valid_map(&g_game.map);
 	}
 	else if (!**line)
 		return (1);

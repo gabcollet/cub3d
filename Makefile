@@ -6,7 +6,7 @@
 #    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/02/11 11:33:05 by gcollet          ###   ########.fr        #
+#    Updated: 2022/02/11 14:19:24 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CFLAGS			= -Wall -Wextra -Werror
 C_ALL			= $(CC) $(CFLAGS) $(INCS_FLAGS) $(INC_MLX)
 C_OBJS			= $(C_ALL) -g
 C_MAIN			= $(C_ALL) -g $(MAIN) $(OBJS) -lmlx $(C_FWRK) $(LIB_LFT) -o $(NAME)
-C_BMAIN			= $(C_ALL) -g $(BMAIN) $(BOBJS) -lmlx $(C_FWRK) $(LIB_LFT) -o $(NAME)
+C_BMAIN			= $(C_ALL) -g $(BMAIN) $(BOBJS) -lmlx $(C_FWRK) $(LIB_LFT) -o $(B_NAME)
 C_LINUX_OBJS	= $(C_ALL) -O3 -g
 C_LINUX_MAIN	= $(C_ALL) -g $(MAIN) $(OBJS) -Lmlx_linux -lmlx_linux -lXext -lX11 -lm -lz $(LIB_LFT) -o $(NAME)
 C_LINUX_BMAIN	= $(C_ALL) -g $(BMAIN) $(BOBJS) -Lmlx_linux -lmlx_linux -lXext -lX11 -lm -lz $(LIB_LFT) -o $(NAME)
@@ -26,6 +26,7 @@ C_FWRK			= -framework OpenGL -framework AppKit
 
 # Program
 NAME	= cub3D
+B_NAME  = cub3D_bonus
 #
 
 # Directories
@@ -131,6 +132,7 @@ clean	:
 fclean	: clean
 		@ $(MK_LFT) fclean
 		@ rm -rf $(NAME)
+		@ rm -rf $(B_NAME)
 
 linux	: _linux $(NAME)
 
@@ -148,10 +150,12 @@ re		: fclean all
 
 re_linux : fclean linux
 
-bonus	: $(BHEADS) $(DIR_INCS) $(LIB_LFT) $(BSRCS) $(BMAIN) $(DIR_OBJS) $(BOBJS)
+bonus	: $(B_NAME)
+
+$(B_NAME)	: $(BHEADS) $(DIR_INCS) $(LIB_LFT) $(BSRCS) $(BMAIN) $(DIR_OBJS) $(BOBJS)
 		@ $(C_BMAIN)
 		# $(shell echo "Compiling cub3d bonus done!")
-		# $(shell echo "Executable is : $(NAME)")
+		# $(shell echo "Executable is : $(B_NAME)")
 
 re_bonus	: fclean bonus
 
