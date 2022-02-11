@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/30 17:50:11 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/02/11 12:02:08 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (parse_error(ERR_ARGC));
 	init_game(&g_game);
-	if (parse_cub(argv[1]) <= 0)
+	if (argv[1] && parse_cub(argv[1]) <= 0)
 		return (0);
 	mlx = get_mlx();
 	g_game.map.back = create_background(WIN_W, WIN_H * 4);

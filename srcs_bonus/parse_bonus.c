@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/30 17:52:51 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/02/11 12:02:54 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ int	parse_cub(char *path)
 	int		valid;
 	int		bytes;
 
-	if (!path)
-		return (0);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (parse_error(ERR_FILE));
@@ -74,7 +72,8 @@ int	parse_cub(char *path)
 		line = ft_free(line);
 		bytes = get_next_line(&line, fd);
 	}
-	line = ft_free(line);
+	if (valid > 0 && bytes == 0)
+		line = ft_free(line);
 	if (valid > 0)
 		valid = parse_is_all_valid(g_game);
 	return (valid);

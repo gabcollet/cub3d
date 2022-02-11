@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 17:44:58 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/28 17:50:22 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/02/11 12:26:48 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ int		parse_map_is_enclosed(t_map map);
 int		parse_valid_map_line(char *line, int *len);
 int		parse_valid_map(t_map *map);
 int		parse_valid_map_c(char c);
-int		parse_map(char *line, t_map *map_ptr, int fd);
+int		parse_map(char **line, t_map *map_ptr, int fd);
 int		parse_cub(char *path);
 int		parse_is_player(char c);
 int		parse_error(int code);
