@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+         #
+#    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/01/25 17:16:54 by sfournie         ###   ########.fr        #
+#    Updated: 2022/02/11 11:08:24 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -148,6 +148,8 @@ bonus	: $(BHEADS) $(DIR_INCS) $(LIB_LFT) $(BSRCS) $(BMAIN) $(DIR_OBJS) $(BOBJS)
 		# $(shell echo "Executable is : $(NAME)")
 
 re_bonus	: fclean bonus
+
+re_b_linux	: fclean linux bonus
 
 signature : 
 	@echo "                        								"

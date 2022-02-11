@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/30 20:16:14 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/02/11 11:06:52 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	game(void *ptr)
 	mlx = (t_mlx *)ptr;
 	if (frame_timer <= 0)
 	{
-		//mouse_handler(g_game.mouse_x, g_game.mouse_y);
 		move_player();
 		enemies_update(g_game.enemies);
 		doors_update(g_game.doors);
