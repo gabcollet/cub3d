@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/30 20:16:14 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/02/11 12:03:11 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	game(void *ptr)
 	mlx = (t_mlx *)ptr;
 	if (frame_timer <= 0)
 	{
-		//mouse_handler(g_game.mouse_x, g_game.mouse_y);
 		move_player();
 		enemies_update(g_game.enemies);
 		doors_update(g_game.doors);
@@ -46,7 +45,7 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		return (parse_error(ERR_ARGC));
 	init_game(&g_game);
-	if (parse_cub(argv[1]) <= 0)
+	if (argv[1] && parse_cub(argv[1]) <= 0)
 		return (0);
 	mlx = get_mlx();
 	g_game.map.back = create_background(WIN_W, WIN_H * 4);

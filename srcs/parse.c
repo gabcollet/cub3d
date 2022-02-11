@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/30 17:52:46 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/02/11 12:27:17 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,21 @@ int	parse_is_all_valid(t_game game)
 	return (1);
 }
 
-int	parse_line(char *line, int fd)
+int	parse_line(char **line, int fd)
 {
 	int		valid;
 
 	valid = 0;
-	if (!line)
-		return (-1);
-	if (*line && g_game.map.tiles != NULL)
+	if (**line && g_game.map.tiles != NULL)
 		return (parse_error(ERR_MAP_LAST));
-	else if (ft_isalpha(line[0]))
-	{
-		valid = parse_identifier(line);
-	}		
-	else if (*line == ' ' || ft_isdigit(*line))
+	else if (ft_isalpha(**line))
+		valid = parse_identifier(*line);	
+	else if (**line == ' ' || ft_isdigit(**line))
 	{
 		valid = parse_map(line, &g_game.map, fd);
 		valid = parse_valid_map(&g_game.map);
 	}
-	else if (!*line)
+	else if (!**line)
 		return (1);
 	return (valid);
 }
@@ -59,8 +55,6 @@ int	parse_cub(char *path)
 	int		valid;
 	int		bytes;
 
-	if (!path)
-		return (0);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return (parse_error(ERR_FILE));
@@ -68,13 +62,15 @@ int	parse_cub(char *path)
 	bytes = get_next_line(&line, fd);
 	while (valid > 0 && bytes > 0)
 	{
-		valid = parse_line(line, fd);
+		valid = parse_line(&line, fd);
+		if (line)
+			line = ft_free(line);
 		if (valid <= 0)
 			break ;
-		line = ft_free(line);
 		bytes = get_next_line(&line, fd);
 	}
-	line = ft_free(line);
+	if (valid > 0 && bytes == 0)
+		line = ft_free(line);
 	if (valid > 0)
 		valid = parse_is_all_valid(g_game);
 	return (valid);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:57:26 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/30 20:05:17 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/02/11 11:27:27 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,7 @@ int	color_shift_int(int base, int shift, double force)
 
 t_rgb	color_shift_rgb(t_rgb base, t_rgb shift, double force)
 {
+	force = 0;
+	shift.b = shift.b;
 	return (base);
 }

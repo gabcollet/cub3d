@@ -2,3 +2,5 @@
 */.DS_STORE
 .vscode
 color_test
+*.dSYM
+.vscode

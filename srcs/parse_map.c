@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 14:27:00 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/24 18:58:29 by sfournie         ###   ########.fr       */
+/*   Updated: 2022/02/11 12:54:43 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	parse_valid_map_line(char *line, int *len)
 * 
 * It then merge it all into map_ptr->tiles.
 */
-int	parse_map(char *line, t_map *map_ptr, int fd)
+int	parse_map(char **line, t_map *map_ptr, int fd)
 {
 	char	**rows;
 	int		longest;
@@ -88,14 +88,14 @@ int	parse_map(char *line, t_map *map_ptr, int fd)
 	rows = (char **)ft_calloc(MAP_MAX_SIZE, sizeof(char *));
 	if (!rows)
 		return (valid);
-	while (line && *line)
+	while (*line && **line && i < MAP_MAX_SIZE)
 	{
-		valid = parse_valid_map_line(line, &longest);
+		valid = parse_valid_map_line(*line, &longest);
 		if (!valid)
 			break ;
-		rows[i++] = ft_strdup(line);
-		free(line);
-		get_next_line(&line, fd);
+		rows[i++] = ft_strdup(*line);
+		*line = ft_free(*line);
+		get_next_line(line, fd);
 	}
 	if (valid)
 		fill_map(rows, map_ptr, longest, i);
