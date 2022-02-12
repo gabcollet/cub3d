@@ -35,7 +35,7 @@ First clone the git repo:
 ```
 git clone git@github.com:gabcollet/cub3d.git; cd cub3D;
 ```
-Then make and launch using a map file in "./maps/<mapfile>.cub"
+Then make and launch using a map file in "./maps/<mapfile>.cub"<br/>
 Mac mandatory :
 ```
 make; ./cub3D maps/m_complex.cub
@@ -91,4 +91,4 @@ Key must be change between mac or linux in includes/cub3d.h or includes/cub3d_bo
 - <a href="https://www.calculat.org/fr/aire-perimetre/triangle-rectangle.html">Right Triangle calculator</a>
 - <a href="https://www.youtube.com/watch?v=eOCQfxRQ2pY">Wolfenstein 3D's map renderer video</a>
 - <a href="https://www.youtube.com/watch?v=vYgIKn7iDH8">Rendering raycasting video</a>
-- <a href="https://www.youtube.com/watch?v=NbSee-XM7WA&t=1393s">Super Fast Ray Casting in Tiled Worlds using DDA</a>
+- <a href="https://www.youtube.com/watch?v=NbSee-XM7WA&t=1393s">Super Fast Ray Casting in Tiled Worlds using DDA video</a>
