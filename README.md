@@ -142,7 +142,31 @@ double	get_draw_distance(t_pos pos, double rot, t_pos coll, double angle)
     
 <a href="https://ibb.co/pdfQDFp"><img src="https://i.ibb.co/7KnQcmF/7.png" alt="7" border="0"></a><br/>
     
- - Correct the offset so you can now zoom in on the wall and it still look good.
+ - Correct the offset so you can now zoom in on the wall and it still look good. To do so we used the _fill_with_texture_ function that calculate an appropriate step between the wall height and the texture image.
+```C
+void	fill_with_texture(t_img *text, t_pos pos, float height, t_pos index)
+{
+	t_img	*img;
+	double	y_step;
+	int		bytes;
+	int		color;
+
+	img = &g_game.game_img;
+	y_step = ((float)text->height - (index.y * 2))
+		/ (height + (img->height - height) / TILE_SIZE);
+	bytes = (text->bpp / 8);
+	color = 0;
+	while (pos.y < height + (img->height - height) / 2)
+	{
+		color = color_get(*text, (int)index.x, (int)index.y);
+		color = color_shift_int(color, BLACK, ((WIN_H - height) / WIN_H) / 2);
+		if (pos.x >= 0 && pos.x < img->width)
+			my_mlx_pixel_put(*img, pos.x, pos.y + g_game.player.pos.z, color);
+		index.y += y_step;
+		pos.y++;
+	}
+}
+```
  - Added a gun sprite that animate when key is pressed.
  - At this stage we also added the parsing part where the program read a .cub file and determined if all requirement are met to load it properly.
     
