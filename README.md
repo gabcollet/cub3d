@@ -74,13 +74,57 @@ make b_linux; ./cub3D maps/b_complex.cub
 
 # Development process
 
- - MLX windows
- - Raycasting (explication) (add code)
- - Collision with wall
+ - To begin we created the MLX windows.
+ - Added movement using key pressed and released.
+ - Added collision between the player and walls.
+ - Raycasting :
+    - First we've checked every intersection of the grid to see if the collision was with a wall.
+    - Then we calculate for that distance.
     
+<a href="https://imgbb.com/"><img width="200" height="200" src="https://i.ibb.co/9WrgmhX/Screenshot-from-2022-02-13-15-06-42.png" alt="Screenshot-from-2022-02-13-15-06-42" border="0"></a>
+<a href="https://imgbb.com/"><img width="300" height="200" src="https://i.ibb.co/HYqh9Jy/Screenshot-from-2022-02-13-15-07-12.png" alt="Screenshot-from-2022-02-13-15-07-12" border="0"></a>
+<a href="https://imgbb.com/"><img width="200" height="200" src="https://i.ibb.co/RyvqJGD/Screenshot-from-2022-02-13-15-09-43.png" alt="Screenshot-from-2022-02-13-15-09-43" border="0"></a><br/>
+It gave us a function like that where _pos_ is the player position, _rot_ is the angle of the specific ray, _coll_ is the collision point with the wall and _angle_ is the rotation of the player minus the current ray rotation.
+```C
+double	get_draw_distance(t_pos pos, double rot, t_pos coll, double angle)
+{
+	double	d_x;
+	double	d_y;
+	double	sin_result;
+	double	cos_result;
+	double	dist;
+
+	d_x = (int)fabs(pos.x - coll.x);
+	d_y = (int)fabs(pos.y - coll.y);
+	cos_result = fabs(cos(deg_to_rad((int)rot)));
+	sin_result = fabs(sin(deg_to_rad((int)rot)));
+	dist = d_x * cos_result + d_y * sin_result;
+	dist = dist * cos((deg_to_rad((int)angle)));
+	dist = (TILE_SIZE * g_game.res_h) / dist;
+	return (dist);
+}
+```    
 <a href="https://imgbb.com/"><img img width="300" height="300" src="https://i.ibb.co/fSqkSjS/1.png" alt="1" border="0"></a><br/>
     
- - Build the 3D rendering of the wall (add code)
+ - Using the previously found distance we build the 3D rendering of the wall. Here's a part of the final function for a north wall. We can see that the function call for another _fill_with_texture_ function that calculate the step in between each pixel that needed to be put. 
+ ```C
+ int	draw3d(float height, t_coll coll, int x)
+{
+	int		y;
+	float	offset;
+
+	offset = 0;
+	if (height > WIN_H)
+	{
+		offset = (height - WIN_H);
+		height = WIN_H;
+	}
+	y = (WIN_H - height) / 2;
+	if (coll.dir & NORTH)
+		fill_with_texture(&g_game.texture[NO], new_pos(x, y, 0),
+			height, textures_index(coll.pos, offset, height, 1));
+    ...
+ ```   
  - Added shadow
     
 <a href="https://ibb.co/vwW6qcL"><img src="https://i.ibb.co/HFyf4KG/3.png" alt="3" border="0"></a><br/>
@@ -98,20 +142,37 @@ make b_linux; ./cub3D maps/b_complex.cub
     
 <a href="https://ibb.co/pdfQDFp"><img src="https://i.ibb.co/7KnQcmF/7.png" alt="7" border="0"></a><br/>
     
- - Correct the offset so you can now zoom in on the wall and it still look good. (add code)
+ - Correct the offset so you can now zoom in on the wall and it still look good.
  - Added a gun sprite that animate when key is pressed.
  - At this stage we also added the parsing part where the program read a .cub file and determined if all requirement are met to load it properly.
     
 <a href="https://gifyu.com/image/SzuF1"><img width="640" height="300" src="https://s10.gifyu.com/images/9c46c8d48067558f3.gif" alt="9c46c8d48067558f3.gif" border="0" /></a><br/>
  
  - Added a minimap in the top corner.
- - Create a code for custom transparency. (add code)
+ - Since using the mlx transparency was'nt working very well, we create a function for custom transparency that shifted the present color using the pixel right under it.
+ ```C
+int	color_shift_int(int base, int shift, double force)
+{
+	t_rgb	rgb;
+	t_rgb	base_rgb;
+	t_rgb	shift_rgb;
+
+	if (base == TRANS)
+		return (base);
+	base_rgb = color_int_to_rgb(base);
+	shift_rgb = color_int_to_rgb(shift);
+	rgb = color_shift_rgb(base_rgb, shift_rgb, force);
+	return (color_rgb_to_int(rgb));
+}
+ ```
  - Added an animated enemy sprite that can be position in the .cub file.
  - Added doors that position themselves like the enemies but use a new character in the .cub map for their positions. They also can be interact with using a key pressed and the distance between the player and the door.
  - Added a script that calculate which sprite is the closest and draw them in last so they are not superposed.
- - Finally we added the mouse movement using mlx events. 
+ - Finally we added the mouse movement using mlx events.
     
 <a href="https://gifyu.com/image/SzuFO"><img width="640" height="300" src="https://s10.gifyu.com/images/11e9a6cc7adb451779.gif" alt="11e9a6cc7adb451779.gif" border="0" /></a><br/>
+    
+**Thanks for reading!**
 
 # Ressources
 
