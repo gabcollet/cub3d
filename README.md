@@ -198,7 +198,7 @@ int	color_shift_int(int base, int shift, double force)
     
 **Thanks for reading!**
 
-# Ressources
+# Resources
 
 - <a href="http://users.atw.hu/wolf3d/">Original Wolfenstein 3D game</a> 
 - <a href="https://lodev.org/cgtutor/raycasting.html">Raytracing tutorial</a>
