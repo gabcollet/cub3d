@@ -5,7 +5,7 @@
 [How to run it](#how-to-run-it)  
 [Commands](#commands)  
 [Development process](#development-process)  
-[Ressources](#ressources) 
+[Resources](#ressources) 
 
 # Presentation
 
