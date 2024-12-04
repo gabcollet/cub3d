@@ -3,24 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   input_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 19:41:15 by fousse            #+#    #+#             */
-/*   Updated: 2022/01/30 19:18:48 by sfournie         ###   ########.fr       */
+/*   Updated: 2024/12/04 00:07:31 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"cub3d_bonus.h"
 
-int	mouse_handler(int x, int y)
+int	mouse_handler(int x)
 {
 	static int	mouse_x = 0;
-	static int	mouse_y = 0;
 
 	if (mouse_x != x)
 		rotate_player(&g_game.player, (mouse_x - x) * MOUSE_TURN);
 	mouse_x = x;
-	mouse_y = y;
 	return (0);
 }
 

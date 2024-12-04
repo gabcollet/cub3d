@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 12:07:49 by sfournie          #+#    #+#             */
-/*   Updated: 2022/01/30 19:17:33 by sfournie         ###   ########.fr       */
+/*   Updated: 2024/12/04 00:08:04 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,36 +36,36 @@
 # define MAP_PATH	"./maps/complex.cub"
 
 /* Key for linux */
-// # define ESC 			65307
-// # define SPACE_KEY 		32
-// # define A_KEY			97
-// # define D_KEY			100
-// # define E_KEY			101
-// # define M_KEY			109a
-// # define R_KEY	 		114
-// # define S_KEY			115
-// # define W_KEY			119
-// # define SHIFT_KEY		65505
-// # define RIGHT_KEY		65363
-// # define LEFT_KEY		65361  
-// # define DOWN_KEY		65362 
-// # define UP_KEY			65364 
+# define ESC 			65307
+# define SPACE_KEY 		32
+# define A_KEY			97
+# define D_KEY			100
+# define E_KEY			101
+# define M_KEY			109
+# define R_KEY	 		114
+# define S_KEY			115
+# define W_KEY			119
+# define SHIFT_KEY		65505
+# define RIGHT_KEY		65363
+# define LEFT_KEY		65361  
+# define DOWN_KEY		65362 
+# define UP_KEY			65364 
 
 /* Key for mac */
-# define ESC 			53
-# define SPACE_KEY 		49
-# define A_KEY			0
-# define D_KEY			2
-# define E_KEY			14
-# define M_KEY			46
-# define R_KEY	 		15
-# define S_KEY			1
-# define W_KEY			13
-# define SHIFT_KEY		257
-# define RIGHT_KEY		124
-# define LEFT_KEY		123
-# define UP_KEY			126
-# define DOWN_KEY		125
+// # define ESC 			53
+// # define SPACE_KEY 		49
+// # define A_KEY			0
+// # define D_KEY			2
+// # define E_KEY			14
+// # define M_KEY			46
+// # define R_KEY	 		15
+// # define S_KEY			1
+// # define W_KEY			13
+// # define SHIFT_KEY		257
+// # define RIGHT_KEY		124
+// # define LEFT_KEY		123
+// # define UP_KEY			126
+// # define DOWN_KEY		125
 
 /* Game parameter */
 # define MAP_MAX_SIZE	1000
@@ -121,7 +121,7 @@
 # define ERR_DOOR_ENC	13
 # define ERR_DOOR		14
 
-t_game	g_game;
+extern t_game	g_game;
 
 /* Generic structure creator */
 t_pos	new_pos(double x, double y, double z);
@@ -208,7 +208,7 @@ t_pos	textures_index(t_pos pos, float offset, float height, int side);
 /* Inputs */
 int		key_press(int keyww);
 int		key_release(int key);
-int		mouse_handler(int x, int y);
+int		mouse_handler(int x);
 int		mouse_move(int x, int y, t_mlx *mlx);
 int		quit_handler(void);
 

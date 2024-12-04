@@ -6,7 +6,7 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 17:44:58 by sfournie          #+#    #+#             */
-/*   Updated: 2022/02/11 12:26:48 by gcollet          ###   ########.fr       */
+/*   Updated: 2024/12/03 23:58:07 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define MAP_PATH	"./maps/complex.cub"
 
 /* Key for linux */
-/*
+
 # define ESC 			65307
 # define SPACE_KEY 		32
 # define A_KEY			97
@@ -50,23 +50,23 @@
 # define LEFT_KEY		65361  
 # define DOWN_KEY		65362 
 # define UP_KEY			65364 
-*/
+
 
 /* Key for mac */
-# define ESC 			53
-# define SPACE_KEY 		49
-# define A_KEY			0
-# define D_KEY			2
-# define E_KEY			14
-# define M_KEY			46
-# define R_KEY	 		15
-# define S_KEY			1
-# define W_KEY			13
-# define SHIFT_KEY		257
-# define RIGHT_KEY		124
-# define LEFT_KEY		123
-# define UP_KEY			126
-# define DOWN_KEY		125
+// # define ESC 			53
+// # define SPACE_KEY 		49
+// # define A_KEY			0
+// # define D_KEY			2
+// # define E_KEY			14
+// # define M_KEY			46
+// # define R_KEY	 		15
+// # define S_KEY			1
+// # define W_KEY			13
+// # define SHIFT_KEY		257
+// # define RIGHT_KEY		124
+// # define LEFT_KEY		123
+// # define UP_KEY			126
+// # define DOWN_KEY		125
 
 /* Game parameter */
 # define MAP_MAX_SIZE	1000
@@ -113,7 +113,7 @@
 # define ERR_COLOR		10
 # define ERR_MAP_LAST	11
 
-t_game	g_game;
+extern t_game	g_game;
 
 /* Generic structure creator */
 t_pos	new_pos(double x, double y, double z);

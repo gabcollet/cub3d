@@ -6,7 +6,7 @@
 #    By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/09 15:31:26 by sfournie          #+#    #+#              #
-#    Updated: 2022/02/11 14:19:24 by gcollet          ###   ########.fr        #
+#    Updated: 2024/12/03 23:59:35 by gcollet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,9 @@ C_ALL			= $(CC) $(CFLAGS) $(INCS_FLAGS) $(INC_MLX)
 C_OBJS			= $(C_ALL) -g
 C_MAIN			= $(C_ALL) -g $(MAIN) $(OBJS) -lmlx $(C_FWRK) $(LIB_LFT) -o $(NAME)
 C_BMAIN			= $(C_ALL) -g $(BMAIN) $(BOBJS) -lmlx $(C_FWRK) $(LIB_LFT) -o $(B_NAME)
-C_LINUX_OBJS	= $(C_ALL) -O3 -g
-C_LINUX_MAIN	= $(C_ALL) -g $(MAIN) $(OBJS) -Lmlx_linux -lmlx_linux -lXext -lX11 -lm -lz $(LIB_LFT) -o $(NAME)
-C_LINUX_BMAIN	= $(C_ALL) -g $(BMAIN) $(BOBJS) -Lmlx_linux -lmlx_linux -lXext -lX11 -lm -lz $(LIB_LFT) -o $(NAME)
+C_LINUX_OBJS   = $(C_ALL) -O3 -g -c $< -o $@
+C_LINUX_MAIN   = $(C_ALL) $(MAIN) $(OBJS) -L$(DIR_MLX) -lmlx_linux -lXext -lX11 -lm -lz $(LIB_LFT) -o $(NAME)
+C_LINUX_BMAIN  = $(C_ALL) $(BMAIN) $(BOBJS) -L$(DIR_MLX) -lmlx_linux -lXext -lX11 -lm -lz $(LIB_LFT) -o $(B_NAME)
 C_FWRK			= -framework OpenGL -framework AppKit
 #
 
@@ -36,11 +36,12 @@ DIR_OBJS	= objs
 DIR_INCS	= includes
 DIR_MAINS	= mains
 DIR_LFT		= libft
+DIR_MLX		= mlx
 #
 
 # Libraries and Includes
 LIB_LFT		= $(DIR_LFT)/libft.a
-INC_MLX		= -Imlx
+INC_MLX = -I$(DIR_MLX)
 
 INCS_ALL	= $(DIR_LFT) $(DIR_INCS)
 INCS_FLAGS	= $(patsubst %,-I%,$(INCS_ALL))
@@ -78,7 +79,7 @@ OBJS	= $(patsubst %,$(DIR_OBJS)/%,$(_OBJS))
 
 # BONUS Headers
 _BHEADS	=	cub3d_bonus.h cub3d_struct_bonus.h cub3d_time_bonus.h
-BHEADS		= $(patsubst %,$(DIR_INCS)/%,$(_HEADS))
+BHEADS = $(patsubst %,$(DIR_INCS)/%,$(_BHEADS))
 #
 
 # BONUS Sources and Objects
@@ -99,12 +100,12 @@ _BSRCS	= 	game map map_utils interface\
 			player gun enemy init_enemy\
 			input
 			
-BSRCS	= $(patsubst %,%_bonus.c,$(_BSRCS))
+BSRCS = $(patsubst %,%_bonus.c,$(_BSRCS))
 
 _BOBJS	= $(BSRCS:.c=.o)
 BOBJS	= $(patsubst %,$(DIR_OBJS)/%,$(_BOBJS))
 
-$(DIR_OBJS)/%.o :  %.c
+$(DIR_OBJS)/%.o :  %.c $(HEADS)
 		$(C_OBJS) -c $< -o $@
 
 vpath %.c $(DIR_SRCS)
@@ -119,7 +120,7 @@ $(NAME)	: $(HEADS) $(DIR_INCS) $(LIB_LFT) $(SRCS) $(MAIN) $(DIR_OBJS) $(OBJS)
 		# $(shell echo "Executable is : $(NAME)")
 
 $(DIR_OBJS)	: 
-		@ mkdir objs
+		@ mkdir -p $(DIR_OBJS)
 
 $(LIB_LFT)	:
 		@ $(MK_LFT) all

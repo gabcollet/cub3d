@@ -6,12 +6,14 @@
 /*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 09:06:09 by gcollet           #+#    #+#             */
-/*   Updated: 2022/02/11 12:02:08 by gcollet          ###   ########.fr       */
+/*   Updated: 2024/12/03 23:48:13 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include "mlx.h"
+
+t_game  g_game;
 
 int	game(void *ptr)
 {

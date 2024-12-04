@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:38:28 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/28 18:27:10 by sfournie         ###   ########.fr       */
+/*   Updated: 2024/12/04 00:01:54 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ void	fill_with_texture(t_img *text, t_pos pos, float height, t_pos index)
 {
 	t_img	*img;
 	double	y_step;
-	int		bytes;
 	int		color;
 
 	img = &g_game.game_img;
 	y_step = ((float)text->height - (index.y * 2))
 		/ (height + (img->height - height) / TILE_SIZE);
-	bytes = (text->bpp / 8);
 	color = 0;
 	while (pos.y < height + (img->height - height) / 2)
 	{

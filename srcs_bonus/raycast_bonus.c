@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sfournie <sfournie@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gcollet <gcollet@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/22 15:50:06 by gcollet           #+#    #+#             */
-/*   Updated: 2022/01/30 18:09:21 by sfournie         ###   ########.fr       */
+/*   Updated: 2024/12/04 00:04:58 by gcollet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int	raycast_draw(double rot, double dist, int color, int side)
 		trans = TRUE;
 	facing.x = g_game.player.pos.x / (TILE_SIZE / MINI_TILE_S);
 	facing.y = g_game.player.pos.y / (TILE_SIZE / MINI_TILE_S);
+	facing.z = 0;
 	i = 0;
 	r_p = new_pos(facing.x, facing.y, facing.z);
 	while (i++ < dist && i < 800)
